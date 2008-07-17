@@ -1,5 +1,5 @@
 #labels Featured
-#Welcome to Praized Media developer's Wiki
+Welcome to Praized Media developer's Wiki
 
 = Introduction =
 
