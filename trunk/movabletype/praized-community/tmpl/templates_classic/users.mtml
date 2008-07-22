@@ -1,0 +1,104 @@
+<MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="main_index" value="1">
+<MTSetVar name="sidebar" value="1">
+<MtSetVar name="showTopTen" value="0">
+<MTSetVar name="module_recent_entries" value="1">
+<MTSetVar name="module_category_archives" value="1">
+<MTSetVar name="module_author_archives" value="1">
+<MTSetVar name="module_monthly_archives" value="1">
+<MTSetVarBlock name="title"><$MTBlogName encode_html="1"$></MTSetVarBlock>
+
+<$MTInclude module="Header"$>
+
+
+<!-- PRAIZED-SPECIFIC -->
+
+  <$MTInclude module="praized-user-hcard"$>
+  
+  <mtif tag="PraizeduserFriendCount" gt="0">
+    <div id="praized-friends" class="praized-merchant-section">
+      <h3 class="praized-merchant-section-title ">Friends</h3>
+      <ul class="praized-user-friends">
+        <MTPraizedUserFriends per_page="100" page="1">      
+          <li><a href="<$MTPraizedUserPermalink$>"><$MTPraizedUserLogin$></a></li>
+        </MTPraizedUserFriends>
+      </ul>
+    </div>
+  </mtif>
+
+  <mtif tag="praizeduserfavoritecount" gt="0">
+    <div id="praized-favorites" class="praized-praized-merchant-section">
+      <h3 class="praized-merchant-section-title ">Favorites</h3>
+      <ul class="praized-user-favorites">
+        <mtpraizeduserfavorites per_page="10" page="1">
+          <li class="">
+            <span class="praized-inline-merchant">
+              <big>
+                <a rel="bookmark" href="<$MTPraizedMerchantPermalink$>" class="praized-merchant-vote <$MTPraizedMerchantTargetRating$>"><b class="praized-value"><span class="praized-nominator"><$MTPraizedMerchantVotesPosCount$></span><span class="praized-separator">/</span><span class="praized-denominator"><$MTPraizedMerchantVotesCount$></span></b> <$MTPraizedMerchantName$></a>
+              </big>
+              <br />
+              <span class="praized-merchant-address"><$MTPraizedMerchantStreetAddress$>,<$MTPraizedMerchantCity$></span>
+            </span>
+          </li>
+        </mtpraizeduserfavorites>    
+      </ul>
+      <mtif tag="praizeduserfavoritecount" gt="10">  
+        <a class="praized-view-more" href="<$MTPraizedUserPermalink$>favorites">View all of <$MTPraizedUserLogin$>'s favorites</a>
+      </mtif>  
+    </div>
+  </mtif>  
+
+  <mtif tag="praizeduservotecount" gt="0">
+    <div id="praized-votes" class="praized-merchant-section">
+      <h3 class="praized-merchant-section-title ">Votes</h3>
+      <ul class="praized-user-voted">
+        <mtpraizeduservotes per_page="10" page="1">
+          <li class="">
+            <span class="praized-inline-merchant">
+              <big>
+                <a rel="bookmark" href="<$MTPraizedMerchantPermalink$>" class="praized-merchant-vote <$MTPraizedMerchantTargetRating$>"><b class="praized-value"><span class="praized-nominator"><$MTPraizedMerchantVotesPosCount$></span><span class="praized-separator">/</span><span class="praized-denominator"><$MTPraizedMerchantVotesCount$></span></b> <$MTPraizedMerchantName$></a>
+              </big>
+              <br />
+              <span class="praized-merchant-address"><$MTPraizedMerchantStreetAddress$>,<$MTPraizedMerchantCity$></span>
+            </span>
+          </li>
+        </mtpraizeduservotes>    
+      </ul>
+      <mtif tag="praizeduservotecount" gt="10">
+        <a class="praized-view-more" href="<$MTPraizedUserPermalink$>votes">View all of <$MTPraizedUserLogin$>'s votes</a>
+      </mtif>
+    </div>
+  </mtif>
+  
+  <mtif tag="PraizeduserCommentCount" gt="0">
+    <div id="praized-comments" class="praized-merchant-section">
+      <h3 class="praized-merchant-section-title ">Comments</h3>
+        <ul class="praized-user-comments">
+        <MTPraizedUserComments per_page="10" page="1">      
+          <li class="">
+            <span class="praized-inline-merchant">
+              <big>
+                <a rel="bookmark" href="<$MTPraizedMerchantPermalink$>" class="praized-merchant-vote <$MTPraizedMerchantTargetRating$>"><b class="praized-value"><span class="praized-nominator"><$MTPraizedMerchantVotesPosCount$></span><span class="praized-separator">/</span><span class="praized-denominator"><$MTPraizedMerchantVotesCount$></span></b> <$MTPraizedMerchantName$></a>
+              </big>
+			  <br />
+              <span class="praized-merchant-address"><$MTPraizedMerchantStreetAddress$>,<$MTPraizedMerchantCity$></span>
+            </span>
+            <div class="comment">
+              <p class="commenter">by: <a href="<$MTPraizedUserPermalink$>"><$MTPraizedUserLogin$></a> on <abbr title="<$MTPraizedMerchantCommentDate$>"><$MTPraizedMerchantCommentDate format="%a, %B %e %Y at %H:%M:%S"$></abbr></p>
+              <blockquote class="comment_body">
+                <p><$MTPraizedMerchantCommentBody$></p>
+              </blockquote>
+            </div>
+          </li>
+        </MTPraizedUserComments>
+      </ul>
+      <mtif tag="PraizeduserCommentCount" gt="10">
+        <a class="praized-view-more" href="<$MTPraizedUserPermalink$>votes">View all of <$MTPraizedUserLogin$>'s comments</a>
+      </mtif>
+    </div>
+  </mtif>
+
+<!-- PRAIZED-SPECIFIC -->
+  
+<$MTInclude module="Footer"$>

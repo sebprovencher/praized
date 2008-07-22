@@ -1,0 +1,38 @@
+Download and Installation Instructions:
+The zipped file contains two Praized plugins. The first one, “Praized Community”, will help you deploy your blog’s complete local search functionality (search, North American data and social tools). The second one, Praized Publishing Tool, will help you deploy the editorial tools to allow you to blog about places and tie everything back to your local search section. It will also help you create your Praized sidebar widget. (Version requirement: Optimized for MT 4.1+, it will work with MT 3.2+ but will require more steps. Please contact us)
+
+NB: The Praized Community plugin only work with dynamic publishing enabled i.e. you need to be able to use .php files with your install.
+
+   1. Click on link to download the zipped file containing the two plugins
+
+   2. Unzip the files. You should see two main folders called “praized-community” and “praized-tools”
+
+   3. Copy the plugins (via FTP) to your Movable Type installation on your server in /plugins/ (see how to install Movable Type plugins, http://www.sixapart.com/movabletype/docs/3.2/11_advanced_topics/installing_plugins.html)
+
+   4. Copy the mt-static folder (found with the Praized Community plugin) in /mt-static/plugins/praized-community
+
+   5. Once that’s done, activate your plugins by going to Preferences-Plugins and clicking the enable link next to the two Praized plugins. You need to have admin privileges to access that section in the Movable Type back office.
+
+   6. Click on Settings for the Praized Community plugin.
+
+   7. You’re now on the Praized Community plugin settings page. The information in that page needs to be provided by Praized Media. Click on the “Request Keys” link.
+
+   8. Fill-out the form to receive your API Key, Community Slug (will be based on your community name), OAuth Consumer Key and OAuth Consumer secret via e-mail. The API Key is needed to access our service. The Community Slug is the way we identify your community within the praized environment. Both OAuth keys are needed to allow users to sign-up to your community via our centralized sign-up process. OAuth is an open protocol to allow secure API authentication (http://oauth.net/)
+
+   9. Once you’ve received your confirmation e-mail, enter the API Key, Community Slug, OAuth Consumer Key and OAuth Consumer secret in the appropriate fields
+
+  10. Select your Praized trigger. The Praized trigger is the URL directory where you want your Praized community to be installed. For example, if you select /local, your local section’s home page will be yourdomain.com/local
+
+  11. If you want a Google map in your place profile pages, you can generate a Google Maps API Key here (http://code.google.com/apis/maps/signup.html). Insert the resulting key in the appropriate field.
+
+  12. Click on the Save Changes button
+
+  13. Click on Praized Tools – Settings
+
+  14. You’re now on the Praized Tools plugin settings page. You should already have the Community and API key. Enter them in the appropriate boxes.
+
+  15. Click on the Save Changes button. If you’re using Movable Type 4+, the Praized search box and the Praized log-in link should now be installed. You’re now ready to become a place blogger!
+
+  16. Go to your local search home page at http://www.yourdomain.com/places/ to see the vanilla installation. It should be empty at this point but will eventually display the top results from your community. To add places to this page, search for some of your favorite places using the Praized search box and Praized them (you might need to create a Praized user account by clicking on the Praized log-in link). By Praizing places, they automatically bubble up to your Praized community home page.
+
+For more information go to http://praizedmedia.com/

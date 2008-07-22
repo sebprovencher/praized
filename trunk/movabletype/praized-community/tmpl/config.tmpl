@@ -1,0 +1,59 @@
+<div class="setting">
+	<div class="label"><label for="praized_community_slug"><MT_TRANS phrase="Community slug"></label></div>
+    <div class="field">
+    	<p><input type="text" name="praized_community_slug" id="praized_community_slug" value="<TMPL_VAR NAME=PRAIZED_COMMUNITY_SLUG ESCAPE=HTML>" /></p>
+    </div>
+
+
+    <div class="label"><label for="praized_api_key"><MT_TRANS phrase="Api key:"></label></div>
+    <div class="field">
+    	<p><input type="text" name="praized_api_key" id="praized_api_key" value="<TMPL_VAR NAME=PRAIZED_API_KEY ESCAPE=HTML>" /></p>
+    </div>
+
+	<h4><MT_TRANS phrase="OAuth"></h4>
+    <div class="label"><label for="praized_consumer_key"><MT_TRANS phrase="OAuth consumer key"></label></div>
+    <div class="field">
+    	<p><input type="text" name="praized_consumer_key" id="praized_consumer_key" value="<TMPL_VAR NAME=praized_consumer_key ESCAPE=HTML>" /></p>
+    </div>
+
+    <div class="label"><label for="praized_consumer_secret"><MT_TRANS phrase="OAuth consumer secret"></label></div>
+    <div class="field">
+    	<p><input type="text" name="praized_consumer_secret" id="praized_consumer_secret" value="<TMPL_VAR NAME=praized_consumer_secret ESCAPE=HTML>" /></p>
+    </div>
+
+    <div class="label"><label for="praized_trigger"><MT_TRANS phrase="Praized's trigger"></label></div>
+    <div class="field">
+    	<p><input type="text" name="praized_trigger" id="praized_trigger" value="<TMPL_VAR NAME=praized_trigger ESCAPE=HTML>" /></p>
+		<p><MT_TRANS phrase="absolute path to your blog installation"></p>
+    </div>
+
+	<h4><MT_TRANS phrase="Google Maps"></h4>
+    <div class="label">
+    	<label for="praized_google_maps_api_key"><a href="http://code.google.com/apis/maps/signup.html" target="_blank"><MT_TRANS phrase="Maps Api key"></a></label>
+    </div>
+    <div class="field">
+    	<p><input type="text" name="praized_google_maps_api_key" id="praized_google_maps_api_key" value="<TMPL_VAR NAME=praized_google_maps_api_key ESCAPE=HTML>" /></p>
+    </div>
+    <div class="label">
+    	<label for="praized_google_maps_width"><a href="http://code.google.com/apis/maps/documentation/staticmaps/" target="_blank"><MT_TRANS phrase="Map Dimensions"></a></label>
+    </div>
+    <div class="field">
+    	<p>
+    		<MT_TRANS phrase="Width">
+			<input type="text" name="praized_google_maps_width" id="praized_google_maps_width" value="<TMPL_VAR NAME=praized_google_maps_width ESCAPE=HTML>" size="3" maxlength="3" /> px
+			/
+    		<MT_TRANS phrase="Height">
+			<input type="text" name="praized_google_maps_height" id="praized_google_maps_height" value="<TMPL_VAR NAME=praized_google_maps_height ESCAPE=HTML>" size="3" maxlength="3" /> px
+			<MT_TRANS phrase="(max: 512x512)">
+    	</p>
+    </div>
+    <div class="label">
+    	<label for="praized_google_maps_width"><a href="http://code.google.com/apis/maps/documentation/staticmaps/" target="_blank"><MT_TRANS phrase="Map Zoom Level"></a></label>
+    </div>
+    <div class="field">
+    	<p>
+    		<input type="text" name="praized_google_maps_zoom_level" id="praized_google_maps_zoom_level" value="<TMPL_VAR NAME=praized_google_maps_zoom_level ESCAPE=HTML>" size="2" maxlength="2" />
+			<MT_TRANS phrase="(0=far, 19=close)">
+    	</p>
+    </div>
+</div>
