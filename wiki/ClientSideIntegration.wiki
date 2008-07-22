@@ -1,0 +1,2 @@
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+= Here are a few notes for easier (X)HTML integration of the Praized Plugins =
