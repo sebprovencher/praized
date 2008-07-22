@@ -1,0 +1,39 @@
+ <MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="main_index" value="1">
+<MTSetVar name="sidebar" value="1">
+  <MtSetVar name="showTopTen" value="0">
+  
+<MTSetVar name="module_recent_entries" value="1">
+<MTSetVar name="module_category_archives" value="1">
+<MTSetVar name="module_author_archives" value="1">
+<MTSetVar name="module_monthly_archives" value="1">
+<MTSetVarBlock name="title"><$MTBlogName encode_html="1"$></MTSetVarBlock>
+
+<$MTInclude module="Header"$>
+
+<!-- PRAIZED-SPECIFIC -->
+<h1 id="praized-context-title"><$MTPraizedUserLogin$>'s favorites</h1>
+<$MTPraizedPagination type="favorites"$>
+<div id="praized-favorites" class="praized-merchant-section">
+  <h3 class="praized-merchant-section-title">Favorites</h3>
+  <ul class="praized-user-favorites">
+    <mtpraizeduserfavorites  per_page="50">
+      <li>
+        <span class="praized-inline-merchant">
+          <big>
+            <a rel="bookmark" href="<$MTPraizedMerchantPermalink$>" class="praized-merchant-vote <$MTPraizedMerchantTargetRating$>"><b class="praized-value"><span class="praized-nominator"><$MTPraizedMerchantVotesPosCount$></span><span class="praized-separator">/</span><span class="praized-denominator"><$MTPraizedMerchantVotesCount$></span></b> <$MTPraizedMerchantName$></a>
+          </big>
+          <br />
+          <span class="praized-merchant-address"><$MTPraizedMerchantStreetAddress$>,<$MTPraizedMerchantCity$></span>
+          </span>
+        </span>
+        
+      </li>
+    </mtpraizeduserfavorites>    
+  </ul>
+</div>
+<$MTPraizedPagination type="favorites"$>
+<!-- PRAIZED-SPECIFIC -->
+
+<$MTInclude module="Footer"$>
