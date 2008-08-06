@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>

@@ -2,7 +2,7 @@
 /**
  * Praized template: Merchant listing, search and tag results, with paging
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

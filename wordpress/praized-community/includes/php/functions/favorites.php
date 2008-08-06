@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: favorite listing related functions
  * 
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury

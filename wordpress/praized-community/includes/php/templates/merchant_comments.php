@@ -2,7 +2,7 @@
 /**
  * Praized template: Merchant comments listing, with paging
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

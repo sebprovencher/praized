@@ -2,7 +2,7 @@
 /**
  * List template, included in PraizedXHTML::_template()
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury

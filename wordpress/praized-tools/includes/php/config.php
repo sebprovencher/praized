@@ -2,7 +2,7 @@
 /**
  * Plugin configuration screen template, included in PraizedTools::wp_options_page()
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedTools
  * @subpackage ConfigScreen
  * @author Stephane Daury
@@ -43,6 +43,19 @@
     			</td>
     		</tr>
     	</table>
+<?
+    	if ( empty($form['community']) && empty($form['api_key']) ) :	
+		    if ( $pc_conf = get_option('praized-community-config') ) :
+    		    if ( ! empty($pc_conf['community']) && ! empty($pc_conf['api_key']) ) :
+?>
+                	<p class="submit">
+                		<input type="submit" id="get_pc_config" name="get_pc_config" value="<?php $this->_e('Use Existing Praized Community API Credentials'); ?>" />
+                	</p>
+<?php
+    		    endif;
+    		endif;
+    	endif;
+?>
     	<h3><?php $this->_e('Data Caching'); ?></h3>
     	<table class="optiontable form-table">
 <?php

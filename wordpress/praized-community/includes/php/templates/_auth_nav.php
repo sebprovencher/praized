@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Praized authentication and session (also used in Praized Session widget)
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

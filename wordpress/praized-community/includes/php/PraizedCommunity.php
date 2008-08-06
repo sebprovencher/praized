@@ -2,7 +2,7 @@
 /**
  * Praized Community
  * 
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -876,6 +876,7 @@ class PraizedCommunity extends PraizedWP {
             case 'votes':
             case 'votes.json':
                 if ( count($_POST) > 0 ) {
+                    $this->_reset_404();
                     if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHTTPRequest') {
                         // JSON output
                         $errorString = '{ "redirect_url" : null, "code" : 422, "errors" : { %s } }';

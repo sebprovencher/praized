@@ -2,7 +2,7 @@
 /**
  * Praized Tools Content Modifier
  * 
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedTools
  * @author Pier-Hughes Pellerin
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -28,6 +28,7 @@ include_once dirname(realpath(__FILE__)) . "/../extlib/praized-php/PraizedXHTML.
  * @param string $content Post content
  * @param integer $value Pass 1 to activate
  * @return string
+ * @since 0.1
  */
 function smarty_modifier_praized($content, $value) {
 	if(intval($value) == 1) {
