@@ -4,7 +4,7 @@
  * 
  * Simple logging tool to ease debugging in contexts such as the Novable Type Smarty templates, etc.
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package Praized
  * @subpackage Logger
  * @author Pier-Hugures Pellerin

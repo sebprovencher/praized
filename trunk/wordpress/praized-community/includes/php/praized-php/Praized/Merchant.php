@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -323,7 +323,7 @@ if ( ! class_exists('PraizedMerchant') ) {
     	    
     	    foreach ( $merchantData->stat_links as $link ) {
     	        if ( isset($link->url) && preg_match('/^http/', $link->url) )
-    	            $images .= '<img src="' . $link->url . '" class="praized-merchant-stats-img" width="1" height="1" border="0" alt="Statistics Target" />';
+    	            $images .= '<img src="' . $link->url . '" class="praized-merchant-stats-img" width="1" height="1" border="0" alt="Statistics Target" style="margin:0; padding:0; border:none;" />';
     	    }
     	        
     	    return $images;

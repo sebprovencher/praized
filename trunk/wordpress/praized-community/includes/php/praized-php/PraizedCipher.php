@@ -4,7 +4,7 @@
  * 
  * Simple salted cipher library to encrypt and decrypt information as needed (Note: your security mileage may vary).
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package Praized
  * @subpackage Cipher
  * @author Stephane Daury

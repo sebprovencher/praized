@@ -2,7 +2,7 @@
 /**
  * Praized Tools
  * 
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedTools
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -62,21 +62,30 @@ class PraizedTools extends PraizedWP {
 
 		if ( count($_POST) > 0 ) {
 			if ( strstr($_GET['page'], $this->_plugin_name) && isset($_POST['community']) ) {
-                // Plugin config save
-                $missing_val_msg = $this->__('Please submit a value for the "%s" form field.');
-                // error checking
-                if ( empty($_POST['community']) )
-        		    $this->errors[] = sprintf( $missing_val_msg, $this->__('Community') );
-                if ( empty($_POST['api_key']) ) 
-        		    $this->errors[] = sprintf( $missing_val_msg, $this->__('API Key') );
-        		// error reporting
-        		if ( count($this->errors) > 0 ) {
+                
+			    if ( isset($_POST['get_pc_config']) && ( $pc_conf = get_option('praized-community-config') ) ) {
+			        // Try to get community slug and API key from the Praized Community plugin's configs.
+			        if ( empty($pc_conf['community']) || empty($pc_conf['api_key']) ) {
+			            $this->errors[] = $this->__('Sorry, but we were unable to acquire appropriate configurations from the Praized Community plugin. Please enter your community slug and API key manually instead.');
+			        } else{
+			            $_POST['community'] = $pc_conf['community'];
+			            $_POST['api_key']   = $pc_conf['api_key'];
+			        }
+			    } else {
+			        // Or get the configs from the form instead.
+			        $missing_val_msg = $this->__('Please submit a value for the "%s" form field.');
+    			    if ( empty($_POST['community']) )
+            		    $this->errors[] = sprintf( $missing_val_msg, $this->__('Community') );
+                    if ( empty($_POST['api_key']) ) 
+            		    $this->errors[] = sprintf( $missing_val_msg, $this->__('API Key') );
+			    }
+			    
+		        if ( count($this->errors) > 0 ) {
         		    add_action( 'admin_notices', array(&$this, 'wp_action_admin_errors') );
         		} else {
-        		    if ( empty($_POST['trigger']) )
-        		        $_POST['trigger'] = '/praized';
         		    $this->_save_config();
         		}
+			
 			} else {
     			// Merchant widget config save
 			    if( isset($_POST[$this->_wdgt_bbcode_key . '_wdgt_title']) ) {

@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User hcard
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

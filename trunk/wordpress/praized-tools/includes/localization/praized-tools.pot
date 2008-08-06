@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Praized Tools 1.0.2\n"
+"Project-Id-Version: Praized Tools 1.0.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-tools\n"
-"POT-Creation-Date: 2008-07-13 21:29-0400\n"
+"POT-Creation-Date: 2008-07-30 15:27-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,20 +16,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: includes/php/PraizedTools.php:60
+#: includes/php/PraizedTools.php:69
+msgid ""
+"Sorry, but we were unable to acquire appropriate configurations from the "
+"Praized Community plugin. Please enter your community slug and API key "
+"manually instead."
+msgstr ""
+
+#: includes/php/PraizedTools.php:76
 #, php-format
 msgid "Please submit a value for the \"%s\" form field."
 msgstr ""
 
-#: includes/php/PraizedTools.php:63
+#: includes/php/PraizedTools.php:78
 msgid "Community"
 msgstr ""
 
-#: includes/php/PraizedTools.php:65 includes/php/config.php:38
+#: includes/php/PraizedTools.php:80 includes/php/config.php:38
 msgid "API Key"
 msgstr ""
 
-#: includes/php/PraizedTools.php:98
+#: includes/php/PraizedTools.php:113
 #, php-format
 msgid ""
 "Thank you for installing the <strong>Praized Tools</strong> plugin. To "
@@ -37,27 +44,27 @@ msgid ""
 "the last few details</a> and request your <a href=\"%s\">Praized API key</a>."
 msgstr ""
 
-#: includes/php/PraizedTools.php:196
+#: includes/php/PraizedTools.php:211
 msgid "Use the \"Praized Searchlet\" button below to customize your widget."
 msgstr ""
 
-#: includes/php/PraizedTools.php:199
+#: includes/php/PraizedTools.php:214
 msgid "Widget Title"
 msgstr ""
 
-#: includes/php/PraizedTools.php:203
+#: includes/php/PraizedTools.php:218
 msgid "Configurations"
 msgstr ""
 
-#: includes/php/PraizedTools.php:206
+#: includes/php/PraizedTools.php:221
 msgid "Praized Searchlet"
 msgstr ""
 
-#: includes/php/PraizedTools.php:234
+#: includes/php/PraizedTools.php:249
 msgid "Praized Tools"
 msgstr ""
 
-#: includes/php/PraizedTools.php:462
+#: includes/php/PraizedTools.php:477
 msgid "Praized"
 msgstr ""
 
@@ -85,49 +92,53 @@ msgstr ""
 msgid "required"
 msgstr ""
 
-#: includes/php/config.php:46
+#: includes/php/config.php:52
+msgid "Use Existing Praized Community API Credentials"
+msgstr ""
+
+#: includes/php/config.php:59
 msgid "Data Caching"
 msgstr ""
 
-#: includes/php/config.php:55
+#: includes/php/config.php:68
 msgid "Enable Caching"
 msgstr ""
 
-#: includes/php/config.php:58
+#: includes/php/config.php:71
 msgid "Yes"
 msgstr ""
 
-#: includes/php/config.php:63
+#: includes/php/config.php:76
 msgid "Cache for"
 msgstr ""
 
-#: includes/php/config.php:69
+#: includes/php/config.php:82
 msgid "No cache"
 msgstr ""
 
-#: includes/php/config.php:70
+#: includes/php/config.php:83
 msgid "minute"
 msgstr ""
 
-#: includes/php/config.php:71 includes/php/config.php:72
-#: includes/php/config.php:73
+#: includes/php/config.php:84 includes/php/config.php:85
+#: includes/php/config.php:86
 msgid "minutes"
 msgstr ""
 
-#: includes/php/config.php:74
+#: includes/php/config.php:87
 msgid "hour"
 msgstr ""
 
-#: includes/php/config.php:75 includes/php/config.php:76
-#: includes/php/config.php:77
+#: includes/php/config.php:88 includes/php/config.php:89
+#: includes/php/config.php:90
 msgid "hours"
 msgstr ""
 
-#: includes/php/config.php:91
+#: includes/php/config.php:104
 msgid "Caching Notice"
 msgstr ""
 
-#: includes/php/config.php:100
+#: includes/php/config.php:113
 msgid "Save Config"
 msgstr ""
 

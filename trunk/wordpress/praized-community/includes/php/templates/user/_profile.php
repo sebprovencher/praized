@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User profile
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

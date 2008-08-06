@@ -157,9 +157,16 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 == ChangeLog ==
 
+**Version 1.0.3: 2008-08-05**
+
+* Vote button bug fix
+* Updated to praized-php-1.0.3
+* Updated to praized-wp-core-1.0.3
+
+
 **Version 1.0.2: 2008-07-22**
 
-* Updated URL routing handling so WP's is_404() function returns false when sappropriate
+* Updated URL routing handling so WP's is_404() function returns false when appropriate
 * Small template bug fix for comment form when not logged in
 * Updated to praized-php-1.0.2
 * Updated to praized-wp-core-1.0.2

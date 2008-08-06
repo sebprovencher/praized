@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant search form (also used in Praized Search widget)
  *
- * @version 1.0.2
+ * @version 1.0.3
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

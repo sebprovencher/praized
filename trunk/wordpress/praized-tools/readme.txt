@@ -134,6 +134,13 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 == ChangeLog ==
 
+**Version 1.0.3: 2008-08-05**
+
+* New convenience button in admin to reuse the praized-community credentials if available and valid
+* Updated to praized-php-1.0.3
+* Updated to praized-wp-core-1.0.3
+
+
 **Version 1.0.2: 2008-07-22**
 
 * Updated to praized-php-1.0.2
