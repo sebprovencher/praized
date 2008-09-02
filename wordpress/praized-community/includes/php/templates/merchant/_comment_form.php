@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant comment form
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

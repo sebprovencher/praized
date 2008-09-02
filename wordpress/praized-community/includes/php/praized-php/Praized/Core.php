@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @var string
     	 * @since 0.1
     	 */
-        var $version = '1.0.3';
+        var $version = '1.0.4';
         
         /**
          * Library errors
@@ -523,8 +523,10 @@ __________EOS;
     	 * @return string Modified API route (EG: /my-community/merchants.json)
     	 * @since 0.1
     	 */
-    	function _reroute($str) {
-    		if (substr($str, 0, 1) != '/') $str = "/$str";
+        function _reroute($str) {
+    		if ( substr($str, 0, 1) != '.' )
+    		    if ( substr($str, 0, 1) != '/' )
+    		        $str = "/$str";
     		return '/' . $this->_community . $str;
     	}
     	

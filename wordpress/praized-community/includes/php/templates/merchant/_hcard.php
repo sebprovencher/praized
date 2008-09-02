@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant hcard
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -67,22 +67,24 @@
       </div>
       
       <?php pzdc_tpt_fragment('merchant/tags'); ?>
-      
+
+	  <?php if ( pzdc_is_merchant_page() ) : ?>
+        <p class="praized-merchant-share">
+          <input type="text" value="<?php pzdc_merchant_short_url(); ?>" />
+          |
+          <a href="<?php pzdc_merchant_twitter_link(); ?>"><?php pzdc_e('twitter this'); ?></a>
+          |
+          <?php pzdc_merchant_share(); ?>
+        </p>
+      <?php endif; ?>
+            
       <div class="praized-merchant-extra">
 
-        <a href="<?php pzdc_merchant_permalink(); ?>#praized-favorites" title="Clicking here directs you to the favorers section of <?php echo urlencode(pzdc_merchant_name(FALSE)); ?>'s page">
-          <?php pzdc_e('favorers'); ?> (<?php pzdc_merchant_favorite_count(); ?>)
-        </a>
+        <a href="<?php pzdc_merchant_permalink(); ?>#praized-favorites" title="Clicking here directs you to the favorers section of <?php echo urlencode(pzdc_merchant_name(FALSE)); ?>'s page"><?php pzdc_e('favorers'); ?> (<?php pzdc_merchant_favorite_count(); ?>)</a>
         |
-        <a href="<?php pzdc_merchant_permalink(); ?>#praized-votes" title="Clicking here directs you to the praizers section of <?php echo urlencode(pzdc_merchant_name(FALSE)); ?>'s page">
-          <?php pzdc_e('praizers'); ?> (<?php pzdc_merchant_vote_count(); ?>)
-        </a>
+        <a href="<?php pzdc_merchant_permalink(); ?>#praized-votes" title="Clicking here directs you to the praizers section of <?php echo urlencode(pzdc_merchant_name(FALSE)); ?>'s page"><?php pzdc_e('praizers'); ?> (<?php pzdc_merchant_vote_count(); ?>)</a>
         |
-        <a href="<?php pzdc_merchant_permalink(); ?>#praized-comments" title="Clicking here directs you to the praizers section of <?php echo urlencode(pzdc_merchant_name(FALSE)); ?>'s page">
-          <?php pzdc_e('comments'); ?> (<?php pzdc_merchant_comment_count(); ?>)
-        </a>
-        |
-        <?php pzdc_merchant_share(); ?>
+        <a href="<?php pzdc_merchant_permalink(); ?>#praized-comments" title="Clicking here directs you to the praizers section of <?php echo urlencode(pzdc_merchant_name(FALSE)); ?>'s page"><?php pzdc_e('comments'); ?> (<?php pzdc_merchant_comment_count(); ?>)</a>
         
         <?php if ( pzdc_is_authorized() ) :?>
           |
@@ -91,7 +93,7 @@
               <fieldset>
                 <input id="pid" name="pid" type="hidden" value="<?php pzdc_merchant_pid(); ?>" />
                 <?php if ( pzdc_merchant_is_favorited() ) :?>
-                  <!-- button name="_action" value="delete"><?php pzdc_e('Remove from my favorites'); ?></button -->
+                  <button name="_action" value="delete"><?php pzdc_e('Remove from my favorites'); ?></button>
       		    <?php else: ?>
       		      <button name="_action" value="add"><?php pzdc_e('Add to my favorites'); ?></button>
       		    <?php endif; ?>

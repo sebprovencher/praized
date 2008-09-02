@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -244,11 +244,14 @@ if ( ! class_exists('PraizedMerchant') ) {
     	 * @since 0.1
     	 */
     	function favoriteDelete($pid, $post = array(), $query = array(), $rawJson = false) {
-    		$post['favorite'] = ''; // Placeholder because Activeresource doesn't like empty posts.
-    	    if ( $json = $this->_post('/merchants/'.$pid.'/favorites.json', $post, 'delete', $query, true) )
-    		    return $this->_parseApi($json, $rawJson);
-    		else
-    			return false;
+    		if ( $currentUser = $this->currentUserLogin() ) {
+        	    if ( $json = $this->_post('/users/'.$currentUser.'/favorites/'.$pid.'.json', $post, 'delete', $query, true) )
+        		    return $this->_parseApi($json, $rawJson);
+        		else
+        			return false;
+    		} else {
+    		    return false;
+    		}
     	}
     	
     	/**
@@ -348,6 +351,29 @@ if ( ! class_exists('PraizedMerchant') ) {
     	        <script src="{$jsHost}/praized-com/javascripts/widgets/sludge/widget.js?shareurl={$this->praizedLinks['hub']}/{$this->_community}/merchants/{$pid}/shares/new" type="text/javascript" charset="utf-8"></script>
                 <noscript><a href="{$this->praizedLinks['hub']}/{$this->_community}/merchants/{$pid}/shares/new?return_to={$returnTo}" class="share-this action" rel="nofollow">share</a></noscript>
 ____________EOS;
+    	}
+    	
+    	/**
+    	 * Praized.com twitter integration
+    	 *
+    	 * @param object $merchantData
+    	 * @return string Twitter URL with merchant data
+    	 * @since 1.0.4
+    	 */
+    	function twitterLink($merchantData) {
+    	    if ( !is_object($merchantData) || ! isset($merchantData->name) )
+    	        return false;
+    	    $str = $merchantData->name;
+    	    if ( isset($merchantData->location->city->name))
+    	        $str .= ', ' . $merchantData->location->city->name;
+    	    if ( isset($merchantData->location->regions->state))
+    	        $str .= ', ' . $merchantData->location->regions->state;
+    	    if ( isset($merchantData->location->regions->province))
+    	        $str .= ', ' . $merchantData->location->regions->province;
+    	    if ( isset($merchantData->location->country->name))
+    	        $str .= ', ' . $merchantData->location->country->name;
+    	    $str .= ', ' . $merchantData->short_url;
+    	    return 'http://twitter.com/home?status=' . rawurlencode($str);
     	}
     }
 }

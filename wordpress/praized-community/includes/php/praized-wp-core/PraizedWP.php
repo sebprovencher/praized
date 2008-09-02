@@ -4,7 +4,7 @@
  * 
  * Common codebase used by the Praized WordPress plugins.
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedWP
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedWP')) {
          * @var string
          * @since 0.1
          */
-        var $version = '1.0.3';
+        var $version = '1.0.4';
         
         /**
          * Plugin errors

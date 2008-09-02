@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: authentication and session related functions
  * 
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
