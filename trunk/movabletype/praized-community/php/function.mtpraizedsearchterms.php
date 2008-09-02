@@ -5,11 +5,9 @@
 		if(is_array($content)) {
 			$tag = $content["tag"];
 			$q   = $content["q"];
-		
-			if( ! empty($q) ) 
+
+			if( ! empty($q) && empty($tag) ) // clearing search term if in tag search mode
 				return PraizedCore::_tempColinize($q);
-			else if( ! empty($tag) )
-				return PraizedCore::_tempColinize($tag);
 		}
 		
 		return "";

@@ -26,11 +26,9 @@
 
 
 			if($api->user_is_authorized()) {
-				if($action == "add" && !empty($_POST["tag_list"])) {
-			   		if($content = $api->merchant_tag_add($identifier, $_POST)) {	
-						$content->merchant->permalink;
-					}
-					$this->redirect("merchants/" . $identifier);
+				if($action == "add") {
+			   		$api->merchant_tag_add($identifier, $_POST);
+			   		$this->redirect("merchants/" . $identifier);
 				}
 				
 				$content = $api->merchant_get($identifier);

@@ -6,7 +6,7 @@
  * 
  * @note Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -30,13 +30,6 @@ if ( ! class_exists('Praized') ) {
          * @since 0.1
          */
         var $_oAuthInst;
-        
-        /**
-    	 * Community object instance holder
-    	 * @var object
-    	 * @since 0.1
-    	 */
-    	var $_communityInst;
     
     	/**
     	 * Merchants object instance holder
@@ -87,32 +80,16 @@ if ( ! class_exists('Praized') ) {
     	 * @since 0.1
     	 */
     	function test() {
-    	    // $obj = $this->community(); // API not ready
-    	    $tmp = $this->merchant();
-    	    $obj = $tmp->attribute(1, 'pid');
-    	    if ( ! $obj || isset($obj->errors) ) {
-    	        if ( is_object($obj) )
-    	            $this->errors = $obj->errors;
-    	        return false;
-    	    } else {
-    	        return true;
+    	    // .json on community slug directly
+    	    if ( $json = $this->_get('.json') ) {
+    	        if ( $community = $this->_parseApi($json) ) {
+    	            if ( isset($community->errors) )
+    		            $this->errors = $community->errors;
+    		        else
+    		            return true;
+    	        }
     	    }
-    	}
-    	
-    	/**
-    	 * Convenience PraizedCommunity instantiator (for PHP4 compat)
-    	 *
-    	 * @return object PraizedCommunity
-    	 * @since 0.1
-    	 */
-    	function community() {
-    		if (is_object($this->_communityInst))
-    			return $this->_communityInst;
-    		$this->_loadClass('Community');
-    		$this->_communityInst = new PraizedCommunity($this->_community, $this->_apiKey, $this->_oAuthInst);
-    		if ( isset($this->_communityInst->errors) )
-    		    $this->errors = $this->_communityInst->errors;
-    		return $this->_communityInst;
+    	    return false;
     	}
     	
     	/**

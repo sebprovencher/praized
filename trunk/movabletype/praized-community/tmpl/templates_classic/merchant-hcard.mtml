@@ -105,27 +105,30 @@
       </mtifPraizedUserisAuthorized>
     </p>
     
+    <mtifPraizedIsMerchantPage>
+	    <p class="praized-merchant-share">
+	      <input type="text" value="<$MTPraizedMerchantShortUrl$>" />
+	      |
+	      <a href="<$MTPraizedMerchantTwitterLink$>">twitter this</a>
+	      |
+	      <mtPraizedMerchantShare />
+	    </p>
+    </mtifPraizedIsMerchantPage>
+    
     <div class="praized-merchant-extra">
-          <a href="<$MTPraizedMerchantPermalink$>#praized-favorites" title="Clicking here directs you to the favorers section of this place's page">
-            favorites (<mtPraizedMerchantFavoritesCount/>)
-          </a>
+          <a href="<$MTPraizedMerchantPermalink$>#praized-favorites" title="Clicking here directs you to the favorers section of this place's page">favorites (<mtPraizedMerchantFavoritesCount/>)</a>
           |
-          <a href="<$MTPraizedMerchantPermalink$>#praized-votes" title="Clicking here directs you to the praizers section of this place's page">
-            praizers (<mtPraizedMerchantVotesCount/>)
-          </a>
+          <a href="<$MTPraizedMerchantPermalink$>#praized-votes" title="Clicking here directs you to the praizers section of this place's page">praizers (<mtPraizedMerchantVotesCount/>)</a>
           |
-          <a href="<$MTPraizedMerchantPermalink$>#praized-comments" title="Clicking here directs you to the praizers section of this place's page">
-            comments (<mtPraizedMerchantCommentsCount/>)
-          </a>
-          |
-          <mtPraizedMerchantShare />
+          <a href="<$MTPraizedMerchantPermalink$>#praized-comments" title="Clicking here directs you to the praizers section of this place's page">comments (<mtPraizedMerchantCommentsCount/>)</a>
           <mtifPraizedUserisAuthorized>
-             |<ins class="praized-add-to-favorites">
+             |
+             <ins class="praized-add-to-favorites">
                <form action="<mtBlogURL />users/<mtpraizedcurrentuserlogin />/favorites" method="post">
                  <fieldset>
                    <input id="pid" name="pid" type="hidden" value="<mtPraizedMerchantPID />" />
                    <mtifpraizedmerchantfavorited>
-					<!-- remove from my favorites -->
+					<button name="_action" value="delete">Remove from my favorites</button>
                    <mtelse>
                     <button name="_action" value="add">Add to my favorites</button>
                    </mtifpraizedmerchantfavorited>

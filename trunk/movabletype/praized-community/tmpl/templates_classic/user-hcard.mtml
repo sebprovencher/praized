@@ -28,7 +28,14 @@
   </ul>
   <mtifPraizedUserisAuthorized>
     <mtifpraizeduserisfriend>
-      <!-- remove from friends -->
+	  <div class="praized-add-to-friends">
+	    <form action="<$MTPraizedUserPermalink$>/friends" method="post">
+	      <fieldset>
+	        <input id="pid" name="user_login" type="hidden" value="<$MTPraizedUserLogin$>" />
+	        <button name="_action" value="delete">Remove from my friends</button>       
+	      </fieldset>
+	    </form>
+	  </div>
     <mtelse>
       <mtifpraizedcurrentuser>
         <div class="praized-manage-profile">
@@ -36,10 +43,10 @@
         </div>
       <mtelse>
         <div class="praized-add-to-friends">
-          <form action="<$MTPraizedUserPermalink$>friends" method="post">
+          <form action="<$MTPraizedUserPermalink$>/friends" method="post">
             <fieldset>
               <input id="pid" name="user_login" type="hidden" value="<$MTPraizedUserLogin$>" />
-              <button nam="_action" value="add">Add to my friends</button>       
+              <button name="_action" value="add">Add to my friends</button>       
             </fieldset>
           </form>
         </div>

@@ -9,20 +9,19 @@
 			
             $userLogin = $request->getCleanRequest("/(\/users\/|\/friends\/?)/");						
 			
-			// adding friend
 			if(sizeof($_POST) > 0) {
 				$action = ( $_POST["_action"] == 'delete' ) ? $_POST["_action"] : 'add';
 			
 			    if($api->user_is_authorized()) {
 				   	$user = $_POST["user_login"];
-			
-				    if ( $action == 'add' ) {
+				   	
+				   	if ( $action == 'add' ) {
 						$r = $api->user_friend_add($user);
+				    } else if ( $action == 'delete' ) {
+						$r = $api->user_friend_delete($user);
+				    }
 			
-						// TODO add remove friend, not yet
-						// implemented in the api.
-						$this->redirect("users/" . $userLogin);				
-					}
+					$this->redirect("users/" . $userLogin);
 				} else {
 					$api->login($_SERVER["HTTP_REFERER"]);
 				}
