@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -151,7 +151,7 @@ if ( ! class_exists('PraizedUser') ) {
     	/**
     	 * Adds the sent user as a friend of the current authz'ed user
     	 *
-         * @param string $pid Merchant PID
+         * @param string $username Username
     	 * @param array  $post Post vars key/value pairs (equiv of $_POST)
     	 * @param array  $query Associative array matching the query string keys supported by the Praized API.
     	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
@@ -169,19 +169,22 @@ if ( ! class_exists('PraizedUser') ) {
     	/**
     	 * Removes the sent user as a friend of the current authz'ed user
     	 *
-         * @param string $pid Merchant PID
+         * @param string $username Username of the friend to be deleted
     	 * @param array  $post Post vars key/value pairs (equiv of $_POST)
     	 * @param array  $query Associative array matching the query string keys supported by the Praized API.
     	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
          * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
     	 * @since 0.1
     	 */
-    	function friendDelete($pid, $post = array(), $query = array(), $rawJson = false) {
-    		$post['friend'] = ''; // Placeholder because Activeresource doesn't like empty posts.
-    	    if ( $json = $this->_post('/users/'.$username.'/friendships.json', $post, 'delete', $query, true) )
-    		    return $this->_parseApi($json, $rawJson);
-    		else
-    			return false;
+    	function friendDelete($username, $post = array(), $query = array(), $rawJson = false) {
+    	    if ( $currentUser = $this->currentUserLogin() ) {
+        	    if ( $json = $this->_post('/users/'.$currentUser.'/friendships/'.$username.'.json', $post, 'delete', $query, true) )
+        		    return $this->_parseApi($json, $rawJson);
+        		else
+        			return false;
+    		} else {
+    		    return false;
+    		}
     	}
     }
 }
