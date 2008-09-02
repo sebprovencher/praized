@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant sponsored links listing
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -11,7 +11,7 @@
  */
 ?>
 
-<?php if ( pzdc_has_merchant() && pzdc_has_splinks() ) : ?>
+<?php if ( pzdc_is_merchant_page() && pzdc_has_splinks() ) : ?>
   <p class="praized-sponsored-links">
     <span class=""><?php pzdc_e('Sponsored links'); ?></span>
     <ul>

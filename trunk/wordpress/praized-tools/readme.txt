@@ -1,5 +1,5 @@
 === Praized Tools ===
-Contributors: stephdau
+Contributors: stephdau, sylvaincarle
 Tags: location, places, merchants, api, integration, widget, social, geocode, microformat
 Requires at least: 2.2
 Tested up to: 2.6
@@ -133,6 +133,11 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 
 == ChangeLog ==
+
+**Version 1.0.4: 2008-09-02**
+
+* Updated to praized-php-1.0.4
+* Updated to praized-wp-core-1.0.4
 
 **Version 1.0.3: 2008-08-05**
 

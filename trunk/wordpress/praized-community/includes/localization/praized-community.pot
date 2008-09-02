@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Praized Community 1.0.3\n"
+"Project-Id-Version: Praized Community 1.0.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-community\n"
-"POT-Creation-Date: 2008-07-14 01:26-0400\n"
+"POT-Creation-Date: 2008-09-02 12:32-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,32 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: includes/php/PraizedCommunity.php:365
+#: includes/php/PraizedCommunity.php:372
 #, php-format
 msgid "Please submit a value for the \"%s\" form field."
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:368
+#: includes/php/PraizedCommunity.php:375
 msgid "Community"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:370 includes/php/config.php:38
+#: includes/php/PraizedCommunity.php:377 includes/php/config.php:38
 msgid "API Key"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:372 includes/php/config.php:47
+#: includes/php/PraizedCommunity.php:379 includes/php/config.php:47
 msgid "OAuth Consumer Key"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:374 includes/php/config.php:56
+#: includes/php/PraizedCommunity.php:381 includes/php/config.php:56
 msgid "OAuth Consumer Secret"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:376 includes/php/config.php:81
+#: includes/php/PraizedCommunity.php:383 includes/php/config.php:81
 msgid "URL Trigger"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:409
+#: includes/php/PraizedCommunity.php:416
 #, php-format
 msgid ""
 "Thank you for installing the <strong>Praized Community</strong> plugin. To "
@@ -49,7 +49,7 @@ msgid ""
 "the last few details</a> and request your <a href=\"%s\">Praized API key</a>."
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:445
+#: includes/php/PraizedCommunity.php:452
 #, php-format
 msgid ""
 "Please be sure to use mod_rewrite and, by extension, \"nice URLs\" (ie: not "
@@ -57,35 +57,35 @@ msgid ""
 "structure</a> to setup your Praized Community.</p>"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:468 includes/php/PraizedCommunity.php:498
+#: includes/php/PraizedCommunity.php:475 includes/php/PraizedCommunity.php:505
 msgid "Widget Title"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:564
+#: includes/php/PraizedCommunity.php:569
 msgid "Everything"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:565
+#: includes/php/PraizedCommunity.php:570
 msgid "Everywhere"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:576
+#: includes/php/PraizedCommunity.php:581
 msgid "Tag"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1618
+#: includes/php/PraizedCommunity.php:1651
 msgid "Previous"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1621
+#: includes/php/PraizedCommunity.php:1654
 msgid "Next"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1719
+#: includes/php/PraizedCommunity.php:1772
 msgid "Praized: Search"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1747
+#: includes/php/PraizedCommunity.php:1799
 msgid "Praized: Session"
 msgstr ""
 
@@ -200,8 +200,8 @@ msgstr ""
 
 #: includes/php/functions/comment.php:38 includes/php/functions/friend.php:228
 #: includes/php/functions/friend.php:248
-#: includes/php/functions/merchant.php:421
-#: includes/php/functions/merchant.php:439 includes/php/functions/user.php:245
+#: includes/php/functions/merchant.php:444
+#: includes/php/functions/merchant.php:462 includes/php/functions/user.php:245
 #: includes/php/functions/user.php:265
 msgid "%a, %B %e %Y, %H:%M:%S"
 msgstr ""
@@ -373,23 +373,27 @@ msgstr ""
 msgid "No favorer"
 msgstr ""
 
-#: includes/php/templates/merchant/_hcard.php:74
+#: includes/php/templates/merchant/_hcard.php:75
+msgid "twitter this"
+msgstr ""
+
+#: includes/php/templates/merchant/_hcard.php:83
 msgid "favorers"
 msgstr ""
 
-#: includes/php/templates/merchant/_hcard.php:78
+#: includes/php/templates/merchant/_hcard.php:85
 msgid "praizers"
 msgstr ""
 
-#: includes/php/templates/merchant/_hcard.php:82
+#: includes/php/templates/merchant/_hcard.php:87
 msgid "comments"
 msgstr ""
 
-#: includes/php/templates/merchant/_hcard.php:94
+#: includes/php/templates/merchant/_hcard.php:96
 msgid "Remove from my favorites"
 msgstr ""
 
-#: includes/php/templates/merchant/_hcard.php:96
+#: includes/php/templates/merchant/_hcard.php:98
 msgid "Add to my favorites"
 msgstr ""
 

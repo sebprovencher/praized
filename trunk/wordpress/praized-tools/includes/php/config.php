@@ -2,7 +2,7 @@
 /**
  * Plugin configuration screen template, included in PraizedTools::wp_options_page()
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedTools
  * @subpackage ConfigScreen
  * @author Stephane Daury

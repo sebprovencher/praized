@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User hcard
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -40,7 +40,7 @@
       <div class="praized-add-to-friends">
         <form action="<?php pzdc_user_permalink('friends'); ?>" method="post">
           <?php if ( pzdc_user_is_friend() ) :?>
-            <!-- button name="_action" value="delete"><?php pzdc_e('Remove from my friends'); ?></button -->
+            <button name="_action" value="delete"><?php pzdc_e('Remove from my friends'); ?></button>
           <?php else: ?>
             <button name="_action" value="add"><?php pzdc_e('Add to my friends'); ?></button>
           <?php endif; ?>

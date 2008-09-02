@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant favorite listing, with paging
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

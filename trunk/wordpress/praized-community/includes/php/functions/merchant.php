@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual merchant related functions
  * 
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -20,6 +20,17 @@
 function pzdc_has_merchant($identifier = FALSE) {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_has_merchant($identifier);
+}
+
+/**
+ * Template function: Tests if the current page is a single merchant page
+ *
+ * @return boolean
+ * @since 1.0.4
+ */
+function pzdc_is_merchant_page() {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_is_merchant_page();
 }
 
 /**
@@ -78,6 +89,18 @@ function pzdc_merchant_permalink($view = '', $echo = TRUE, $identifier = FALSE) 
     if ( $echo )
         echo $out;
     return $out;
+}
+
+/**
+ * Template function: Current merchant short url (przd.com) (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @return string
+ * @since 0.1
+ */
+function pzdc_merchant_short_url($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('merchant', 'short_url', $echo, $identifier);
 }
 
 /**
@@ -551,5 +574,18 @@ function pzdc_merchant_stats_img($echo = TRUE, $identifier = FALSE) {
 function pzdc_merchant_share($echo = TRUE, $identifier = FALSE) {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_share($echo = TRUE, $identifier = FALSE);
+}
+
+/**
+ * Template function: Twitter link
+ *
+ * @param boolean $echo
+ * @param string $identifier Optional merchant PID, defauts to $this->_tpt_merchant
+ * @return mixed NULL or String
+ * @since 1.0.4
+ */
+function pzdc_merchant_twitter_link($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_twitter_link($echo = TRUE, $identifier = FALSE);
 }
 ?>

@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual friend related functions
  * 
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury

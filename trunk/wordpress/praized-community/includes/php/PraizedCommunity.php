@@ -2,7 +2,7 @@
 /**
  * Praized Community
  * 
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedCommunity
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -21,6 +21,13 @@ require_once(dirname(realpath(__FILE__)).'/praized-wp-core/PraizedWP.php');
  * @since 0.1
  */
 class PraizedCommunity extends PraizedWP {
+    /**
+     * PraizedTools version
+     * @var string
+     * @since 1.0.4
+     */
+    var $version = '1.0.4';
+    
 	/**
      * Valid Praized Community URL routes
      * @var array
@@ -1216,6 +1223,18 @@ class PraizedCommunity extends PraizedWP {
 	}
 	
 	/**
+	 * Template function: Tests if the current page is a single merchant page
+	 *
+	 * @return boolean
+	 * @since 1.0.4
+	 */
+	function tpt_is_merchant_page() {
+	    if ( $this->_route_is_merchant )
+	        return TRUE;
+	    return FALSE;
+	}
+	
+	/**
 	 * Template function: Tests if $this->tpt_tags truly has a tag list
 	 *
 	 * @return boolean
@@ -1708,6 +1727,26 @@ class PraizedCommunity extends PraizedWP {
 	function tpt_share($echo = TRUE, $identifier = FALSE) {
 	    $mObj = $this->Praized->merchant();
 	    $out = $mObj->share($this->tpt_merchant->pid);
+    	
+    	if ( $echo )
+    	    echo $out;
+    	
+    	return $out;
+	}
+	
+	/**
+	 * Praized.com twitter integration
+	 *
+	 * @param object $merchantData
+	 * @return string Twitter URL with merchant data
+	 * @since 1.0.4
+	 */
+	function tpt_twitter_link($echo = TRUE, $identifier = FALSE) {
+	    if ( ! $this->_route_is_merchant || ! $this->tpt_has_merchant($identifier) )
+    	    return;
+    	
+    	$mObj = $this->Praized->merchant();
+    	$out = $mObj->twitterLink($this->tpt_merchant);
     	
     	if ( $echo )
     	    echo $out;
