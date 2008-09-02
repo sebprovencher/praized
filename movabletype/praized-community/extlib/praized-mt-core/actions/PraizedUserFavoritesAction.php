@@ -15,13 +15,13 @@
 			    if($api->user_is_authorized()) {
 				   	$pid = $_POST["pid"];
 			
-				    if ( $action == 'add' ) {
-		                $r = $api->user_favorite_add($pid);
-						
-					    // TODO add remove favorites, not yet
-						// implemented in the api.
-						$this->redirect("users/" . $userLogin);
-					}
+				   	if ( $action == 'add' ) {
+						$r = $api->merchant_favorite_add($pid);
+				    } else if ( $action == 'delete' ) {
+						$r = $api->merchant_favorite_delete($pid);
+				    }
+			
+					$this->redirect("users/" . $userLogin);
 				} else {
 					$api->login($_SERVER["HTTP_REFERER"]);
 				}

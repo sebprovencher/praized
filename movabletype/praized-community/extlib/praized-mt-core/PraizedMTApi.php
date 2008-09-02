@@ -207,12 +207,11 @@ class PraizedMTApi {
 	*
 	* @param string $pid Merchant's pid
 	* @param hash Comment to add.
-	* @param string $callback callback url
 	* @return object Return the JSON object for the current request.
 	* @since 0.1
 	*/
-	function merchant_comment_add($pid, $data, $callback = null) {
-		return $this->Praized->merchant()->commentAdd($pid, $data, $callback);
+	function merchant_comment_add($pid, $data) {
+		return $this->Praized->merchant()->commentAdd($pid, $data);
 	}
 	
 	/**
@@ -220,27 +219,23 @@ class PraizedMTApi {
 	*
 	* @param string $pid Merchant's pid
 	* @param hash Additionnal data
-	* @param string $callback callback url
 	* @return object Return the JSON object for the current request.
 	* @since 0.1
 	*/	
-	function merchant_favorite_add($pid, $data, $callback = null) {
-		return $this->Praized->merchant()->favoriteAdd($pid, $data, $callback);
+	function merchant_favorite_add($pid, $data = array()) {
+		return $this->Praized->merchant()->favoriteAdd($pid, $data);
 	}
 
 	/**
 	* Delete this merchant from the user favorites.
 	*
-	* TODO: Not yet implemented in the api.
-	*
 	* @param string $pid Merchant's pid
-	* @param hash Comment to add.
-	* @param string $callback callback url
+	* @param hash Additionnal data
 	* @return object Return the JSON object for the current request.
 	* @since 0.1
 	*/	
-	function merchant_favorite_delete($pid, $data, $callback = null) {
-		return $this->Praized->merchant()->favoriteDelete($pid, $data, $callback);
+	function merchant_favorite_delete($pid, $data = array()) {
+		return $this->Praized->merchant()->favoriteDelete($pid, $data);
 	}
 	
 	/**
@@ -248,12 +243,11 @@ class PraizedMTApi {
 	*
 	* @param string $pid Merchant's pid
 	* @param hash Comment to add.
-	* @param string $callback callback url
 	* @return object Return the JSON object for the current request.
 	* @since 0.1
 	*/
-	function merchant_vote_add($pid, $data, $callback = null) {
-		return $this->Praized->merchant()->voteAdd($pid, $data, $callback);
+	function merchant_vote_add($pid, $data = array()) {
+		return $this->Praized->merchant()->voteAdd($pid, $data);
 	}
 	
 	
@@ -262,12 +256,11 @@ class PraizedMTApi {
 	*
 	* @param string $pid Merchant's pid
 	* @param hash Comment to add.
-	* @param string $callback callback url
 	* @return object Return the JSON object for the current request.
 	* @since 0.1
 	*/
-	function merchant_tag_add($pid, $data, $callback = null) {
-		$call  = $this->Praized->merchant()->tagAdd($pid, $data, $callback);		
+	function merchant_tag_add($pid, $data = array()) {
+		$call  = $this->Praized->merchant()->tagAdd($pid, $data);		
 		return $call;
 	}
 	
@@ -429,8 +422,8 @@ class PraizedMTApi {
 	* @return object JSON object of the user added.
 	* @since 0.1
 	*/
-	function user_friend_add($user, $data = array(), $callback = null) {
-		return $this->Praized->user()->friendAdd($user, $data, $callback);
+	function user_friend_add($user, $data = array()) {
+		return $this->Praized->user()->friendAdd($user, $data);
 	}
 	
 	
@@ -441,25 +434,11 @@ class PraizedMTApi {
 	*
 	* @param string $user user to delete from the friends list
 	* @param hash $data extra parameters for the call.
-	* @param string $callback url to go after the action
 	* @return object JSON object of the user removed
 	* @since 0.1
 	*/
-	function user_friend_delete($user, $data = array(), $callback = null) {
-		return $this->Praized->user()->friendDelete($user, $data, $callback);
-	}
-	
-	/**
-	* Add a favorite for the current logged user
-	*
-	* @param string $pid Merchant pid
-	* @param hash $data extra parameters for the call
-	* @param string $callback url to go after the action
-	* @return object JSON object of the merchant added.
-	* @since 0.1
-	*/
-	function user_favorite_add($pid, $data = array(), $callback = null) {
-		return $this->Praized->merchant()->favoriteAdd($pid);
+	function user_friend_delete($user, $data = array()) {
+		return $this->Praized->user()->friendDelete($user, $data);
 	}
 	
 	/**

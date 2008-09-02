@@ -15,13 +15,17 @@
 			if(preg_match("/^\/merchants\/tag\/?/", $request->getRequest()))
 				$tag = $request->getCleanRequest("/^\/merchants\/tag\//");
 			
-			// We need to save the querystring parameters
+			if ( isset($tag) ) {
+			    unset($_GET['q']);
+			    $params["q"] = '';
+			    $query_array = array("l" => $params["l"], "tag" => $tag);
+			} else {
+			    $query_array = array("q" => $params["q"], "l" => $params["l"]);
+			}
+			
+		    // We need to save the querystring parameters
 			// to show them in the templates.
-			$ctx->stash("praized_querystring", array(
-														"q" => $params["q"],
-														"l" => $params["l"],
-														"tag" => $tag
-													 ));
+			$ctx->stash("praized_querystring", $query_array);
 
 			$api =& PraizedMTApi::getInstance();
 

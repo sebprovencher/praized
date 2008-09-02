@@ -16,14 +16,14 @@
 
 
 <mtifPraizedMerchantHasSponsorlinks>
-<p class="praized-sponsored-links">
+<div class="praized-sponsored-links">
   <span class="">Sponsored links</span>
   <ul>
 	<MTPraizedMerchantSponsoredLinks>
       <li><a href="<$MTPraizedMerchantSponsoredLinksurl$>"><$mtpraizedmerchantsponsoredlinkslabel$></a></li>
 	</MTPraizedMerchantSponsoredLinks>
   </ul>
-</p>
+</div>
 </mtifPraizedMerchantHasSponsorlinks>
 
 
@@ -41,7 +41,7 @@
 		</mtpraizedmerchantfavorers>
 		</p>
 		<mtif tag="PraizedMerchantFavoritesCount" gt="10">
-		<p><a href="<mtBlogURL />merchant/<mtPraizedMerchantPID />/favorites">See all favorers</a></p>
+		<p><a href="<mtBlogURL />merchants/<mtPraizedMerchantPID />/favorites">See all favorers</a></p>
 		</mtif>	
 	<mtelse>
 		<p>No one bookmarked this merchant yet.</p>
@@ -57,7 +57,7 @@
 	</mtPraizedMerchantPraizers>
 		</p>
 		<mtif tag="PraizedMerchantVotesCount" gt="10">
-			<a href="<mtBlogURL />merchant/<mtPraizedMerchantPID />/favorites">See all praizers</a>	
+			<a href="<mtBlogURL />merchants/<mtPraizedMerchantPID />/favorites">See all praizers</a>	
 		</mtif>
 	<mtelse>
 		<p>No one praized this merchant yet.</p>
@@ -76,7 +76,7 @@
 			</div>
 		</MTPraizedMerchantComments>  
 		<mtif tag="PraizedMerchantCommentsCount" gt="10">
-			<a href="<mtBlogURL />merchant/<mtPraizedMerchantPID />/comments">See all comments</a>
+			<a href="<mtBlogURL />merchants/<mtPraizedMerchantPID />/comments">See all comments</a>
 		</mtif>
 	<mtelse>
 		<p>No comments yet.</p>

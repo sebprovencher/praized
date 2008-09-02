@@ -3,7 +3,7 @@ use strict;
 use MT;
 
 use vars qw( $VERSION );
-$VERSION = '1.0.3';
+$VERSION = '1.0.4';
 
 my $plugin;
 eval {
@@ -205,6 +205,7 @@ eval {
 					"praizedmerchantselffavorite" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantselfrating" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantshare" => \&_hdlr_doesnt_do_anything,
+					"praizedmerchantshorturl" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantspagination" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantsponsoredlinkslabel" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantsponsoredlinksorder" => \&_hdlr_doesnt_do_anything,
@@ -216,12 +217,14 @@ eval {
 					"praizedmerchanttagname" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchanttargetfavorite" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchanttargetrating" => \&_hdlr_doesnt_do_anything,
+					"praizedmerchanttwitterlink" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchanturl" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantvotescount" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantvotesnegcount" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantvotesposcount" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantvotesrating" => \&_hdlr_doesnt_do_anything,
 					"praizedmerchantvotesscore" => \&_hdlr_doesnt_do_anything,
+					"praizednoresults" => \&_hdlr_doesnt_do_anything,
 					"praizedpagination" => \&_hdlr_doesnt_do_anything,
 					"praizedsearchlocation" => \&_hdlr_doesnt_do_anything,
 					"praizedsearchquery" => \&_hdlr_doesnt_do_anything,
@@ -251,13 +254,15 @@ eval {
 
 
 
+
+
 				},
 				block => {
 #<PRAIZED_MT_BLOCKS>
 					"ifpraizedcurrentuser" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedhasnextmerchant" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedhasnextmerchantcomment" => \&_hdlr_doesnt_do_anything,
-					"ifpraizedhasnextmerchantfavorer" => \&_hdlr_doesnt_do_anything,
+					"ifpraizedhasnextmerchantfavoriter" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedhasnextmerchantpraizer" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedhasnextmerchantsponsoredlink" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedhasnextmerchanttag" => \&_hdlr_doesnt_do_anything,
@@ -265,6 +270,7 @@ eval {
 					"ifpraizedhasnextuserfavorite" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedhasnextuserfriend" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedhasnextuservote" => \&_hdlr_doesnt_do_anything,
+					"ifpraizedismerchantpage" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedmerchantfavorited" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedmerchanthassponsorlinks" => \&_hdlr_doesnt_do_anything,
 					"ifpraizedmerchants" => \&_hdlr_doesnt_do_anything,
@@ -284,6 +290,8 @@ eval {
 					"praizeduserfriends" => \&_hdlr_doesnt_do_anything,
 					"praizeduservotes" => \&_hdlr_doesnt_do_anything,
 #</PRAIZED_MT_BLOCKS>
+
+
 
 
 
