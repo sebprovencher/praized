@@ -1,0 +1,44 @@
+<MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="main_index" value="1">
+<MTSetVar name="sidebar" value="1">
+  <MtSetVar name="showTopTen" value="0">
+  
+<MTSetVar name="module_recent_entries" value="1">
+<MTSetVar name="module_category_archives" value="1">
+<MTSetVar name="module_author_archives" value="1">
+<MTSetVar name="module_monthly_archives" value="1">
+<MTSetVarBlock name="title"><$MTBlogName encode_html="1"$></MTSetVarBlock>
+
+<$MTInclude module="Header"$>
+
+<!-- PRAIZED-SPECIFIC -->
+<h1 id="praized-context-title"><MTPraizedUserLogin>'s Comments</h1>
+<div id="praized-comments" class="praized-user-section">
+  <h3 class="praized-user-section-title ">Comments</h3>
+  <ul class="praized-user-comments">
+    <MTPraizedUserComments  per_page="50">      
+      <li>
+        <span class="praized-inline-merchant">
+          <big>
+            <a rel="bookmark" href="<$MTPraizedMerchantPermalink$>" class="praized-merchant-vote <$MTPraizedMerchantTargetRating$>"><b class="praized-value"><span class="praized-nominator"><$MTPraizedMerchantVotesPosCount$></span><span class="praized-separator">/</span><span class="praized-denominator"><$MTPraizedMerchantVotesCount$></span></b> <$MTPraizedMerchantName$></a>
+          </big>
+		  <br />
+          <span class="praized-merchant-address"><$MTPraizedMerchantStreetAddress$>,<$MTPraizedMerchantCity$></span>
+        </span>
+      </span>
+      <div class="praized-comment">
+        <p class="commenter">by: <a href="<$MTPraizedUserPermalink$>"><$MTPraizedUserLogin$></a> on <abbr title="<$MTPraizedMerchantCommentDate$>"><$MTPraizedMerchantCommentDate format="%a, %B %e %Y at %H:%M:%S"$></abbr></p>
+        <blockquote class="praized-comment-body comment_body">
+          <p><$MTPraizedMerchantCommentBody$></p>
+        </blockquote>
+      </div>
+    </li>
+  </MTPraizedUserComments>
+  </ul>
+</div>
+<$MTPraizedPagination type="comments"$>
+<!-- PRAIZED-SPECIFIC -->
+
+
+<$MTInclude module="Footer"$>
