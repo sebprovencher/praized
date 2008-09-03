@@ -2,7 +2,7 @@
 /**
  * Praized Tools Content Modifier
  * 
- * @version 1.0.3
+ * @version 1.0.4
  * @package PraizedTools
  * @author Pier-Hughes Pellerin
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -67,9 +67,17 @@ function smarty_modifier_praized($content, $value) {
 		                    $config['phone']   = ( isset($specs->phone) )   ? $specs->phone   : 'false';
 		            	   
 		            	    $data = $api->merchant()->get($specs->pid);
-							if(FALSE == $data)
-								break;
-
+		            	    break;
+                        default:
+                            $type = 'list';
+                            $specs->limit = ( intval($specs->limit) > 25 )    ? 25 : $specs->limit;
+                            $config['query']    = ( isset($specs->query) )    ? $specs->query    : '';
+                            $config['location'] = ( isset($specs->location) ) ? $specs->location : '';
+                            $config['limit']    = ( isset($specs->limit) )    ? $specs->limit    : 5;
+                            $config['address']  = ( isset($specs->address) )  ? $specs->address : 'false';
+                            
+                            $data = $api->merchants()->search($config['query'], $config['location'], $config['limit']);
+                            break;
 		            }
 
 		            if ( isset($data) && ( is_object($data) || is_array($data) ) ) {

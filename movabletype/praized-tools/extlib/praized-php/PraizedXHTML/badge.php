@@ -2,7 +2,7 @@
 /**
  * Badge template, included in PraizedXHTML::_template()
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury

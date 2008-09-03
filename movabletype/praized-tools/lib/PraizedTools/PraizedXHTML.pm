@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
+use Data::Dumper;
 package PraizedTools::PraizedXHTML;
 
 sub new {
@@ -28,7 +29,7 @@ sub generate_badge {
 	
 	my $merchant 		= $data->{merchant};
 	my $voteCount      = $merchant->{votes}->{count};
-	my $voteCountPos   = $merchant->{votes}->{count_pos};
+	my $voteCountPos   = $merchant->{votes}->{pos_count};
 	my $commentCount   = $merchant->{comment_count};
 	my $favoriteCount  = $merchant->{favorite_count};
 	
@@ -38,14 +39,14 @@ sub generate_badge {
 	eval {
 		if(lc($options{subtype}) eq 'big') {
 			if(defined $options{name} and lc($options{name}) eq 'true') {
-				$contents .= "<a class=\"praized-merchant-inline-name\" href=\"{$link}\"><b>@{[$merchant->{name}]}</b></a>";
+				$contents .= "<a class=\"praized-merchant-inline-name\" href=\"$link\"><b>@{[$merchant->{name}]}</b></a>";
 				$contents .= "<br />";
 			}
 			$contents .= <<EOS;
-				<a style="text-decoration:none" class="praized-badge" id="praized-merchant-@{[$merchant->{pid}]}-badge" href="{$link}">
+				<a style="text-decoration:none" class="praized-badge" id="praized-merchant-@{[$merchant->{pid}]}-badge" href="$link">
 			      <span class="praized-badge-score">
-			        <b class="praized-nominator">{$voteCountPos}</b>
-			        <b class="praized-denominator">{$voteCount}</b>
+			        <b class="praized-nominator">@{[$voteCountPos]}</b>
+			        <b class="praized-denominator">@{[$voteCount]}</b>
 			      </span>
 			      <span class="praized-descriptor">
 			        <span class="praized-brand">
@@ -82,6 +83,42 @@ EOS
 	return $contents;
 }
 
+sub generate_list {
+	my($self, $data, %options) = @_;
+
+	my $contents  = "";
+	eval {
+		$contents .= '<ul class="praized-merchants-listing">';
+		
+		for my $merchant (@{$data->{merchants}}) {
+			my $link = $merchant->{permalink};
+			my $voteCount      = $merchant->{votes}->{count};
+			my $voteCountPos   = $merchant->{votes}->{pos_count};
+			my $commentCount   = $merchant->{comment_count};
+			my $favoriteCount  = $merchant->{favorite_count};
+			
+			$contents .= "<li id=\"praized-merchant-@{[$merchant->{pid}]}\" class=\"praized-merchant\">";
+			$contents .= "<a class=\"praized-inline-merchant-container\" href=\"$link\">@{[$merchant->{name}]} ";
+			$contents .= " <img class=\"praized-inline-merchant-arrow\" src=\"http://static.praized.com/praized-com/images/icons/up-right-green-arrow-9x9.gif\" border=\"0\" height=\"9\" width=\"9\"></span></a>";
+			
+			if(defined $options{address} and lc($options{address}) eq 'true'){
+			    $contents .= "<br /><i class=\"praized-merchant-inline-address\">@{[$merchant->{location}->{street_address}]}, @{[$merchant->{location}->{city}->{name}]}</i>";
+			}
+			
+			$contents .= "</li>";
+
+		}
+		
+		$contents .= '</ul>';
+	};
+	if($@) { # catch all
+		print STDERR $@;
+		$contents = MT->translate("Praized: can't generate the template for the query" . $@);
+	}
+	
+	return $contents;
+}
+
 
 # Create the permalink for the current merchant.
 sub _permalink {
@@ -91,7 +128,7 @@ sub _permalink {
 	
 	my $link = ( $merchant->{permalink} ) ? $merchant->{permalink} : $self->{data}->{community}->{base_url} . "/places/" . $merchant->{pid};	
 	
-	$link =~ s/([^:]{1})\/\//\1\//g;
+	$link =~ s/([^:]{1})\/\//$1\//g;
 	
 	return $link;
 }

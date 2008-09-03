@@ -36,6 +36,8 @@ sub show_places {
 	# extract all the bbcodes
 	my $blog = $ctx->stash('blog');
 	my @data =  extract_bbcode($text);
+	my $r_object = {};
+	
 	
 	# config 
 	my $config = MT::Plugin::PraizedTools->instance->get_config_hash('blog:' . $blog->id);
@@ -47,26 +49,41 @@ sub show_places {
 		# we get an hash value to work with.
 		my %places_meta_data = parse_bbcode($bbcode);
 		
-		if(exists $places_meta_data{id} || exists $places_meta_data{pid}) {
-			my $identifier = $places_meta_data{id} || $places_meta_data{pid};
-			MT->log("Praized: Fetch info for $identifier");
-
+		my $template_name = $places_meta_data{type} || "badge";
+		
+		if((exists $places_meta_data{id} || exists $places_meta_data{pid}) && $template_name eq 'badge') {
 			# If we dont specify the template we select the badge version
-			my $template_name = $places_meta_data{type} || "badge";
+			my $identifier = $places_meta_data{id} || $places_meta_data{pid};
 		
+			MT->log("Praized: Fetch info for $identifier");
 			# add cache support right here
-			my $r_object = $api->get_merchant($identifier);
+			# get a single merchant object
+			$r_object = $api->get_merchant($identifier);
+
+
+		} elsif($template_name eq 'list') {			
+			# this is a static snapshot
+			my $search_params = {
+				limit => $places_meta_data{limit} || 10,
+				q => $places_meta_data{query}, 
+				l => $places_meta_data{location},
+				t => $places_meta_data{tag}
+			};
+				
+			$r_object = $api->get_merchants($search_params);
+		}	
 		
-		
-			# Fetch the right template
-			my $template = PraizedTools::PraizedXHTML->new($r_object);
-			my $replacement = $template->generate_template($template_name, %places_meta_data);
-		
-			# We take the BBcode and make an api call to the praized's platform.
-			# we need to cache the thing before going live
-			$text = str_replace($bbcode, $replacement, $text);
-		}
+		# Fetch the right template
+		my $template = PraizedTools::PraizedXHTML->new($r_object);
+		my $replacement = $template->generate_template($template_name, %places_meta_data);
+
+		# We take the BBcode and make an api call to the praized's platform.
+		# we need to cache the thing before going live
+
+		$text = str_replace($bbcode, $replacement, $text);
 	}
+	
+	
 	return $text;
 }
 

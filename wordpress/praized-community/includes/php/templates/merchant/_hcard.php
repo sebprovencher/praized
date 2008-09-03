@@ -68,15 +68,7 @@
       
       <?php pzdc_tpt_fragment('merchant/tags'); ?>
 
-	  <?php if ( pzdc_is_merchant_page() ) : ?>
-        <p class="praized-merchant-share">
-          <input type="text" value="<?php pzdc_merchant_short_url(); ?>" />
-          |
-          <a href="<?php pzdc_merchant_twitter_link(); ?>"><?php pzdc_e('twitter this'); ?></a>
-          |
-          <?php pzdc_merchant_share(); ?>
-        </p>
-      <?php endif; ?>
+	  <?php pzdc_tpt_fragment('merchant/share'); ?>
             
       <div class="praized-merchant-extra">
 

@@ -15,14 +15,14 @@
 }
 
 
-.praized-add-to-favorites,.praized-add-to-favorites *
+.praized-add-tags, .praized-action, .praized-add-to-favorites, .praized-add-to-favorites *
 {
 	text-decoration:none;
 }
 
-.praized-add-to-favorites button:hover
+.praized-add-tags:hover, .praized-action:hover, .praized-add-to-favorites button:hover
 {
-	text-decoration:underline;
+	text-decoration:none;
 }
 
 .praized-user.vcard h2
@@ -128,7 +128,7 @@
 	padding:0;
 }
 
-.praized-add-tags
+.praized-add-tags, .praized-action
 {
 	padding:0 3px;
 }
