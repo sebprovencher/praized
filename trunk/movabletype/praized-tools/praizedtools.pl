@@ -5,7 +5,7 @@ package MT::Plugin::PraizedTools;
 use lib 'lib';
 use strict;
 use vars qw( $VERSION );
-$VERSION = '1.0.3';
+$VERSION = '1.0.4';
 
 use PraizedTools::Modifiers;
 use MT;

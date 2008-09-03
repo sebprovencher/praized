@@ -54,6 +54,13 @@ sub get_merchant {
 	return $self->make_call("merchants/$permalink", $params);
 }
 
+sub get_merchants {
+	my $self = shift;
+	my $params = shift;
+	
+	return $self->make_call('merchants', $params);
+}
+
 
 sub make_call {
 	my ($self, $action_link, $params) = @_;
@@ -64,12 +71,17 @@ sub make_call {
 	my $resource = URI->new($url);
 		
 	$resource->query_param_append("api_key", $self->{api_key});
+	$resource->query_param_append('q', $params->{q}) if defined $params->{q};
+	$resource->query_param_append('l', $params->{l}) if defined $params->{l};
+	$resource->query_param_append('t', $params->{t}) if defined $params->{t};
+	$resource->query_param_append('limit', $params->{limit}) if defined $params->{limit};
 	
 	#printf ("Query to send. " . $resource->query);
 	my $request = HTTP::Request->new('GET', $resource);
 	$request->authorization_basic($self->{praized_user}, $self->{praized_password});
 
 	my $response = $self->{ua}->request($request);
+	
 	return $self->transform_response($response->{_content});
 }
 
@@ -77,9 +89,11 @@ sub make_call {
 sub transform_response {
 	my($self, $raw) = @_;
 	
+	
 	if($self->{format} eq "json") {
 		require JSON;
 		my $value = JSON::jsonToObj($raw);
+		
 		return $value->{praized};
 	}
 	return $raw;
