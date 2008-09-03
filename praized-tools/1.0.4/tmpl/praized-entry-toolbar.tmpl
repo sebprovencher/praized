@@ -1,0 +1,22 @@
+<style type="text/css">
+/* <![CDATA[ */
+	@import "<TMPL_VAR NAME=STATIC_URI>plugins/praized-tools/stylesheets/commons/praized-tools-admin.css";
+	@import "<TMPL_VAR NAME=STATIC_URI>plugins/praized-tools/stylesheets/mtpraizedtools.css";
+/* ]]> */
+</style>
+
+<div>
+	<a href="#" id="pta_load_searchlet" class="pta_widget_button"><MT_TRANS phrase="Praized Tools"></a>
+</div>
+
+<script type="text/javascript" src="<TMPL_VAR NAME=STATIC_URI>plugins/praized-tools/javascripts/commons/praized-tools-admin.js"></script>
+<script type="text/javascript" src="<TMPL_VAR NAME=STATIC_URI>plugins/praized-tools/javascripts/mtpraizedtools.js"></script>
+
+<script type="text/javascript">
+<!--
+	window.ptasConf = {
+		schltUrl  : "<TMPL_VAR NAME=PRAIZED_SEARCHLET_URL>/<TMPL_VAR NAME=PRAIZED_COMMUNITY_SLUG ESCAPE=HTML>/merchants/?api_key=<TMPL_VAR NAME=PRAIZED_API_KEY ESCAPE=HTML>&callback=" + escape(top.location.href),
+		staticPath : "<TMPL_VAR NAME=STATIC_URI>"
+	};
+-->
+</script>
