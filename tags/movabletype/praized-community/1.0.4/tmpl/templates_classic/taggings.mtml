@@ -1,0 +1,40 @@
+ <MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="main_index" value="1">
+<MTSetVar name="sidebar" value="1">
+<MTSetVar name="w20pIndividual" value="1">
+<MTSetVar name="showTopTen" value="0">  
+<MTSetVar name="module_recent_entries" value="1">
+<MTSetVar name="module_category_archives" value="1">
+<MTSetVar name="module_author_archives" value="1">
+<MTSetVar name="module_monthly_archives" value="1">
+<MTSetVarBlock name="title"><$MTBlogName encode_html="1"$></MTSetVarBlock>
+
+<$MTInclude module="Header"$>
+
+<!-- PRAIZED-SPECIFIC -->
+<h2 id="praized-context-title">Adding tags for "<$MTPraizedMerchantName$>"</h2>
+  <p><b>Currently tagged with:</b></p>
+  <p class="praized-current-tags">
+    <MTPraizedMerchantTags>
+      <$MTPraizedMerchantTagName$>,
+    </MTPraizedMerchantTags>
+  </p>
+  <form action="<$MTBlogURL$>merchants/<$MTPraizedMerchantPID$>/taggings" class="tags" method="post">   
+    
+    <fieldset>
+      <dl>
+        <dt><label for="merchant_name"><b>Tags:</b>&nbsp;(<em>Tag list must be space separated.</em>)</label></dt>
+        <dd>
+	        <input class="text" id="tag_list" name="tag_list" size="80" type="text" value="" />
+	        <input type="hidden" name="_action" value="add" />
+	      </dd>
+      </dl>
+    </fieldset>
+    <fieldset>
+      <input class="submit button" name="commit" type="submit" value="Update tags" />
+    </fieldset>  
+  </form>      
+<!-- PRAIZED-SPECIFIC -->
+	  
+<$MTInclude module="Footer"$>

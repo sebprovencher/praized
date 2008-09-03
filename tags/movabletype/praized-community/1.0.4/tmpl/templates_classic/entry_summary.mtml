@@ -1,0 +1,22 @@
+<div id="entry-<$MTEntryID$>" class="entry-asset asset hentry">
+    <div class="asset-header">
+        <h2 class="asset-name entry-title"><a href="<$MTEntryPermalink$>"><$MTEntryTitle$></a></h2>
+        <$MTInclude module="Entry Metadata"$>
+    </div>
+    <div class="asset-content entry-content">
+<MTIfNonEmpty tag="EntryBody">
+        <div class="asset-body">
+            <$MTEntryBody praized="1"$>
+        </div>
+</MTIfNonEmpty>
+<MTIfTagSearch>
+        <$MTInclude module="Tags"$>
+</MTIfTagSearch>
+<MTIfNonEmpty tag="EntryMore" convert_breaks="0">
+        <div class="asset-more-link">
+            Continue reading <a rel="bookmark" href="<$MTEntryPermalink$>#more"><$MTEntryTitle$></a>.
+        </div>
+</MTIfNonEmpty>
+    </div>
+    <div class="asset-footer"></div>
+</div>
