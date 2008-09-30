@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: community related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -44,7 +44,10 @@ function pzdc_community_name($echo = TRUE) {
  */
 function pzdc_community_base_url($echo = TRUE) {
     global $PraizedCommunity;
-    return $PraizedCommunity->tpt_attribute_helper('community', 'base_url', $echo);
+    $out = rtrim($PraizedCommunity->trigger_url, '/');
+    if ( $echo )
+        echo $out; 
+    return $out;
 }
 
 /**

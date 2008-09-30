@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant comment listing, with paging
  *
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -22,7 +22,7 @@
         <?php $i = 0; while ( pzdc_comments_loop() ) : ?>
           <li class="<?php if( ($i % 2) == 0){ echo "alt"; } ?>" id="comment-<?php echo $i; ?>">
             <cite><a href="<?php pzdc_user_permalink(); ?>" rel="external nofollow"><?php pzdc_user_login(); ?></a></cite> <?php pzdc_e('says'); ?>:<br />
-            <small class="commentmetadata"><abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_comment_created_at(TRUE, pzdc__('%a, %B %e %Y at %H:%M:%S')); ?></abbr></small>
+            <small class="commentmetadata"><abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_time_distance(pzdc_comment_created_at(FALSE)); ?></abbr></small>
             <p><?php pzdc_comment_body(); ?></p>
           </li>
         <?php ++$i; endwhile; ?>

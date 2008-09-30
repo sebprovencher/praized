@@ -2,11 +2,11 @@
 /**
  * Plugin Name:  Praized Community
  * Plugin URI:   http://praizedmedia.com/en/download/wordpress/
- * Version:      1.0.4
+ * Version:      1.5
  * Description:  The Praized Community plugin allows you to deploys a complete local search section including 17M+ North American place listings, social tools and search functionalities through your WordPress blog. You need a <a href="http://praizedmedia.com/en/api/">Praized API key</a> to use it. <strong>This plugin currently requires PHP5</strong>. See also: The <a href="http://praizedmedia.com/en/download/wordpress/">Praized Tools</a> plugin.
  * Author:       <a href="http://www.praizedmedia.com/">Praized Media, Inc.</a>
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage PluginInit
  * @author Stephane Daury

@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: favorite listing related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -43,11 +43,10 @@ function pzdc_favorites_loop($query = FALSE) {
  * 
  * <code><?php if ( pzdc_has_next_favorite() ) : ?>...<?php endif; ?></code>
  *
- * @param array $query Optional query for custom template development (see bundled praized-php lib)
  * @return boolean
  * @since 0.1
  */
-function pzdc_has_next_favorite($query = FALSE) {
+function pzdc_has_next_favorite() {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_has_next_favorite;
 }

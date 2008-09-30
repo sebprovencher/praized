@@ -1,5 +1,4 @@
 @import url("./colors.css");
-@import url("./vote_button.css");
 
 .praized-add-to-favorites *
 {
@@ -175,3 +174,23 @@
 {
 	width:10px;
 }
+.praized-action-item{margin: 1em 0 0 0;}
+
+.praized-action-list,
+.praized-action-item{position:relative;}
+.praized-action-item .buzz-action{
+	position:relative;padding-left:20px;float:left;
+}
+.praized-action-list small{
+	margin-left:18px;
+}
+.praized-action-list blockquote{
+	float:left;width:100%;margin:0.5em 0 0.5em 18px;
+}
+
+.praized-action-item span span:first-child,
+.praized-action-item span.buzz-icon{position:absolute;display:inline-block;float:left;height:16px;width:15px;margin-right:0.5em;padding:0;overflow:hidden;text-indent:-9999px; background:url(./images/arrows-and-heart.png) -1px -80px no-repeat;}
+.praized-action-item span span.voted-for{background-position:-2px -1px;}
+.praized-action-item span span.voted-against{background-position:-2px -31px;}
+.praized-action-item span span.favorited{background-position:-1px -16px;}
+.praized-action-item span span.commented{background-position:-1px -64px;}

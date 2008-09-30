@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant hcard
  *
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -85,9 +85,11 @@
               <fieldset>
                 <input id="pid" name="pid" type="hidden" value="<?php pzdc_merchant_pid(); ?>" />
                 <?php if ( pzdc_merchant_is_favorited() ) :?>
-                  <button name="_action" value="delete"><?php pzdc_e('Remove from my favorites'); ?></button>
+                  <input type="hidden" name="_action" value="delete" />
+                  <button type="submit"><?php pzdc_e('Remove from my favorites'); ?></button>
       		    <?php else: ?>
-      		      <button name="_action" value="add"><?php pzdc_e('Add to my favorites'); ?></button>
+                  <input type="hidden" name="_action" value="add" />
+      		      <button type="submit"><?php pzdc_e('Add to my favorites'); ?></button>
       		    <?php endif; ?>
               </fieldset>
             </form>

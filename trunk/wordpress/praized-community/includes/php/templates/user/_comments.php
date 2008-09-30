@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User comment listing, with paging
  *
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -31,7 +31,7 @@
                 <?php pzdc_merchant_city_name(); ?>
               </span>
             </span>
-            <small class="commentmetadata"><abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_comment_created_at(TRUE, pzdc__('%a, %B %e %Y at %H:%M:%S')); ?></abbr></small>
+            <small class="commentmetadata"><abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_time_distance(pzdc_comment_created_at(FALSE)); ?></abbr></small>
             <p><?php pzdc_comment_body(); ?></p>
           </li>
         <?php ++$i; endwhile; ?>

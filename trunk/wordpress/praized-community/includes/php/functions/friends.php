@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: friend listing related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -43,11 +43,10 @@ function pzdc_friends_loop($query = FALSE) {
  * 
  * <code><?php if ( pzdc_has_next_friend() ) : ?>...<?php endif; ?></code>
  *
- * @param array $query Optional query for custom template development (see bundled praized-php lib)
  * @return boolean
  * @since 0.1
  */
-function pzdc_has_next_friend($query = FALSE) {
+function pzdc_has_next_friend() {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_has_next_friend;
 }

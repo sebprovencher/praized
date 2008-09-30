@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual merchant related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -14,6 +14,7 @@
  * Template function: Tests if a valid merchant object is set.
  * @note: should be used before using merchants related functions.
  *
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return boolean
  * @since 0.1
  */
@@ -36,6 +37,7 @@ function pzdc_is_merchant_page() {
 /**
  * Template function: Current merchant xhtml or object (defaults to echo xhtml)
  *
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return mixed Boolean FALSE or Object Current merchant (see params)
  * @since 0.1
  */
@@ -50,6 +52,7 @@ function pzdc_merchant($identifier = FALSE) {
  * Template function: Current merchant unique identifier (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -62,6 +65,7 @@ function pzdc_merchant_pid($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant name (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -74,6 +78,7 @@ function pzdc_merchant_name($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant permalink (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -92,9 +97,23 @@ function pzdc_merchant_permalink($view = '', $echo = TRUE, $identifier = FALSE) 
 }
 
 /**
+ * Template function: Vote button
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
+ * @return string
+ * @since 1.5
+ */
+function pzdc_merchant_vote_button($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    $PraizedCommunity->tpt_vote_button($echo, $identifier);
+}
+
+/**
  * Template function: Current merchant short url (przd.com) (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -107,6 +126,7 @@ function pzdc_merchant_short_url($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant description (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -119,6 +139,7 @@ function pzdc_merchant_description($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant phone number (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -131,6 +152,7 @@ function pzdc_merchant_phone($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant fax number (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -143,6 +165,7 @@ function pzdc_merchant_fax($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant email address (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -155,6 +178,7 @@ function pzdc_merchant_email($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant web site url (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -167,6 +191,7 @@ function pzdc_merchant_url($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant latitude (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -179,6 +204,7 @@ function pzdc_merchant_latitude($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant longitude (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -192,6 +218,7 @@ function pzdc_merchant_longitude($echo = TRUE, $identifier = FALSE) {
  *
  * @param array $raw_params Optional Google maps parameters (size, zoom, etc)
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  */
 function pzdc_merchant_map($raw_params = array(), $echo = TRUE, $identifier = FALSE) {
@@ -244,6 +271,7 @@ function pzdc_merchant_map($raw_params = array(), $echo = TRUE, $identifier = FA
  * Template function: Current merchant street address (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -256,6 +284,7 @@ function pzdc_merchant_street_address($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant postal code (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -268,6 +297,7 @@ function pzdc_merchant_postal_code($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant city name (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -280,6 +310,7 @@ function pzdc_merchant_city_name($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant city code (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -292,6 +323,7 @@ function pzdc_merchant_city_code($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant state or province name (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -311,6 +343,7 @@ function pzdc_merchant_region_name($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant country name (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -323,6 +356,7 @@ function pzdc_merchant_country_name($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant country code (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -335,6 +369,7 @@ function pzdc_merchant_country_code($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant tag count (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -350,6 +385,7 @@ function pzdc_merchant_tag_count($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant favorite count (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -365,6 +401,7 @@ function pzdc_merchant_favorite_count($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant comment count (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -380,6 +417,7 @@ function pzdc_merchant_comment_count($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant vote score (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -395,6 +433,7 @@ function pzdc_merchant_vote_score($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant vote count (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -410,6 +449,7 @@ function pzdc_merchant_vote_count($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant positive (up) vote count (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -422,6 +462,7 @@ function pzdc_merchant_vote_pos_count($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant negative (down) vote count (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -434,15 +475,16 @@ function pzdc_merchant_vote_neg_count($echo = TRUE, $identifier = FALSE) {
  * Template function: Current merchant creation date (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string $format strftime() conversion specifiers
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
 function pzdc_merchant_created_at($echo = TRUE, $format = NULL, $identifier = FALSE) {
     global $PraizedCommunity;
     $out = $PraizedCommunity->tpt_attribute_helper('merchant', 'created_at', FALSE, $identifier);
-    if ( ! strstr($format, '%'))
-        $format = $PraizedCommunity->__('%a, %B %e %Y, %H:%M:%S');
-    $out = strftime($format, strtotime($out));
+    if ( strstr($format, '%') )
+        $out = pzdc_date($out, $format);
     if ( $echo )
         echo $out;
     return $out;
@@ -452,15 +494,16 @@ function pzdc_merchant_created_at($echo = TRUE, $format = NULL, $identifier = FA
  * Template function: Current merchant last update date (defaults to echo)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string $format strftime() conversion specifiers
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
 function pzdc_merchant_updated_at($echo = TRUE, $format = NULL, $identifier = FALSE) {
     global $PraizedCommunity;
     $out = $PraizedCommunity->tpt_attribute_helper('merchant', 'updated_at', FALSE, $identifier);
-    if ( ! strstr($format, '%'))
-        $format = $PraizedCommunity->__('%a, %B %e %Y, %H:%M:%S');
-    $out = strftime($format, strtotime($out));
+    if ( strstr($format, '%') )
+        $out = pzdc_date($out, $format);
     if ( $echo )
         echo $out;
     return $out;
@@ -470,6 +513,7 @@ function pzdc_merchant_updated_at($echo = TRUE, $format = NULL, $identifier = FA
  * Template function: Returns the value of the current merchant's self-favorite node, related to the current authn'd user.
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -482,6 +526,7 @@ function pzdc_merchant_self_favorite($echo = TRUE, $identifier = FALSE) {
  * Template function: Tests if the merchant has been favorited by the current or displayed user (see param)
  *
  * @param string $node "self" for current user or "target" for displayed user, defaults to "self"
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -496,6 +541,7 @@ function pzdc_merchant_is_favorited($node = 'self', $identifier = FALSE) {
  * Template function: Returns the value of the current merchant's self->rating node, related to the current authn'd user.
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -513,6 +559,7 @@ function pzdc_merchant_self_rating($echo = TRUE, $identifier = FALSE) {
  * Template function: Tests if the merchant has been voted on by the current or displayed user (see param)
  *
  * @param string $node "self" for current user or "target" for displayed user, defaults to "self"
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -528,6 +575,7 @@ function pzdc_merchant_is_voted($node = 'self', $identifier = FALSE) {
  * Template function: Returns the value of the current merchant's target->favorite node, related to the current authn'd user.
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */
@@ -540,6 +588,7 @@ function pzdc_merchant_target_favorite($echo = TRUE, $identifier = FALSE) {
  * Template function: Returns the value of the current merchant's target->rating node, related to the current authn'd user.
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string
  * @since 0.1
  */

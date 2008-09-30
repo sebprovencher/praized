@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Praized Tools 1.0.4\n"
+"Project-Id-Version: Praized Tools 1.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-tools\n"
-"POT-Creation-Date: 2008-09-02 12:32-0400\n"
+"POT-Creation-Date: 2008-09-29 11:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,27 +16,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: includes/php/PraizedTools.php:70
+#: includes/php/PraizedTools.php:82
 msgid ""
 "Sorry, but we were unable to acquire appropriate configurations from the "
 "Praized Community plugin. Please enter your community slug and API key "
 "manually instead."
 msgstr ""
 
-#: includes/php/PraizedTools.php:77
+#: includes/php/PraizedTools.php:89
 #, php-format
 msgid "Please submit a value for the \"%s\" form field."
 msgstr ""
 
-#: includes/php/PraizedTools.php:79
+#: includes/php/PraizedTools.php:91
 msgid "Community"
 msgstr ""
 
-#: includes/php/PraizedTools.php:81 includes/php/config.php:38
+#: includes/php/PraizedTools.php:93 includes/php/config.php:55
 msgid "API Key"
 msgstr ""
 
-#: includes/php/PraizedTools.php:114
+#: includes/php/PraizedTools.php:126
 #, php-format
 msgid ""
 "Thank you for installing the <strong>Praized Tools</strong> plugin. To "
@@ -44,35 +44,47 @@ msgid ""
 "the last few details</a> and request your <a href=\"%s\">Praized API key</a>."
 msgstr ""
 
-#: includes/php/PraizedTools.php:212
+#: includes/php/PraizedTools.php:225
 msgid "Use the \"Praized Searchlet\" button below to customize your widget."
 msgstr ""
 
-#: includes/php/PraizedTools.php:215
+#: includes/php/PraizedTools.php:228
 msgid "Widget Title"
 msgstr ""
 
-#: includes/php/PraizedTools.php:219
+#: includes/php/PraizedTools.php:232
 msgid "Configurations"
 msgstr ""
 
-#: includes/php/PraizedTools.php:222
+#: includes/php/PraizedTools.php:235
 msgid "Praized Searchlet"
 msgstr ""
 
-#: includes/php/PraizedTools.php:250
+#: includes/php/PraizedTools.php:263
 msgid "Praized Tools"
 msgstr ""
 
-#: includes/php/PraizedTools.php:478
+#: includes/php/PraizedTools.php:486
+msgid "page"
+msgstr ""
+
+#: includes/php/PraizedTools.php:486
+msgid "post"
+msgstr ""
+
+#: includes/php/PraizedTools.php:516
 msgid "Praized"
 msgstr ""
 
-#: includes/php/config.php:14
+#: includes/php/config.php:31
 msgid "Praized Tools Options"
 msgstr ""
 
-#: includes/php/config.php:18
+#: includes/php/config.php:33
+msgid "API Connectivity"
+msgstr ""
+
+#: includes/php/config.php:37
 #, php-format
 msgid ""
 "The following information (Community, API key) is provided to you by <a href="
@@ -80,74 +92,115 @@ msgid ""
 "a>."
 msgstr ""
 
-#: includes/php/config.php:25
-msgid "API Connectivity"
-msgstr ""
-
-#: includes/php/config.php:29
+#: includes/php/config.php:46
 msgid "Community Slug"
 msgstr ""
 
-#: includes/php/config.php:33 includes/php/config.php:42
+#: includes/php/config.php:50 includes/php/config.php:59
 msgid "required"
 msgstr ""
 
-#: includes/php/config.php:52
-msgid "Use Existing Praized Community API Credentials"
-msgstr ""
-
-#: includes/php/config.php:59
-msgid "Data Caching"
+#: includes/php/config.php:65
+msgid "Use Praized Community API credentials"
 msgstr ""
 
 #: includes/php/config.php:68
+msgid "Behavior and Interface Customization"
+msgstr ""
+
+#: includes/php/config.php:78
+msgid "Place Aggregation"
+msgstr ""
+
+#: includes/php/config.php:91
+msgid "Show details for the places mentioned in posts/pages"
+msgstr ""
+
+#: includes/php/config.php:94
+msgid "Hide vote button"
+msgstr ""
+
+#: includes/php/config.php:97
+msgid "Hide place tags"
+msgstr ""
+
+#: includes/php/config.php:100
+msgid "Hide place statistics"
+msgstr ""
+
+#: includes/php/config.php:103
+msgid ""
+"\n"
+"                        \tWhen selected, this option will aggregate all of "
+"the places embedded in blog posts or pages\n"
+"                        \tusing the Praized Tools, then list and <a href="
+"\"http://microformats.net/\">microformat</a>\n"
+"                        \tthe locations' details at the end of the content "
+"body (only when viewing individual posts/pages).\n"
+"                        "
+msgstr ""
+
+#: includes/php/config.php:114
+msgid "Button Theme"
+msgstr ""
+
+#: includes/php/config.php:131
+#, php-format
+msgid "Currently using the <a href=\"%s\">Praized Community</a> settings"
+msgstr ""
+
+#: includes/php/config.php:149
+msgid "Data Caching"
+msgstr ""
+
+#: includes/php/config.php:158
 msgid "Enable Caching"
 msgstr ""
 
-#: includes/php/config.php:71
+#: includes/php/config.php:161
 msgid "Yes"
 msgstr ""
 
-#: includes/php/config.php:76
+#: includes/php/config.php:166
 msgid "Cache for"
 msgstr ""
 
-#: includes/php/config.php:82
+#: includes/php/config.php:172
 msgid "No cache"
 msgstr ""
 
-#: includes/php/config.php:83
+#: includes/php/config.php:173
 msgid "minute"
 msgstr ""
 
-#: includes/php/config.php:84 includes/php/config.php:85
-#: includes/php/config.php:86
+#: includes/php/config.php:174 includes/php/config.php:175
+#: includes/php/config.php:176
 msgid "minutes"
 msgstr ""
 
-#: includes/php/config.php:87
+#: includes/php/config.php:177
 msgid "hour"
 msgstr ""
 
-#: includes/php/config.php:88 includes/php/config.php:89
-#: includes/php/config.php:90
+#: includes/php/config.php:178 includes/php/config.php:179
+#: includes/php/config.php:180
 msgid "hours"
 msgstr ""
 
-#: includes/php/config.php:104
+#: includes/php/config.php:196
 msgid "Caching Notice"
 msgstr ""
 
-#: includes/php/config.php:113
+#: includes/php/config.php:207
 msgid "Save Config"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:273
+#: includes/php/praized-wp-core/PraizedWP.php:286
 #, php-format
 msgid "<strong>Praized Plugin:</strong> %s"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:295
+#: includes/php/praized-wp-core/PraizedWP.php:308
 #, php-format
 msgid ""
 "\n"
@@ -158,7 +211,7 @@ msgid ""
 "    \t\t\t"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:312
+#: includes/php/praized-wp-core/PraizedWP.php:325
 #, php-format
 msgid ""
 "\n"
@@ -169,38 +222,38 @@ msgid ""
 "    \t\t\t"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:413
+#: includes/php/praized-wp-core/PraizedWP.php:432
 #, php-format
 msgid "Requested Praized class not found inside %s."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:417
+#: includes/php/praized-wp-core/PraizedWP.php:436
 #, php-format
 msgid "Requested Praized library not found in %s."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:436
+#: includes/php/praized-wp-core/PraizedWP.php:483
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_bank\">Wordpress caching</a> is currently disabled."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:442
+#: includes/php/praized-wp-core/PraizedWP.php:489
 #, php-format
 msgid ""
 "The <a href=\"%s\" target=\"_bank\">caching functions</a> do not seem to be "
 "available in your Wordpress install."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:516
+#: includes/php/praized-wp-core/PraizedWP.php:563
 msgid "Please be sure to fill all the required fields."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:521
+#: includes/php/praized-wp-core/PraizedWP.php:568
 msgid "Your configurations were successfully tested and saved."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:525
+#: includes/php/praized-wp-core/PraizedWP.php:572
 msgid ""
 "Sorry, but we could not activate your access to the Praized API with the "
 "submitted information."

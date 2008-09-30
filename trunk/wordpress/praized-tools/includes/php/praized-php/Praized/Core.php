@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.4
+ * @version 1.5
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @var string
     	 * @since 0.1
     	 */
-        var $version = '1.0.4';
+        var $version = '1.5';
         
         /**
          * Library errors
@@ -483,6 +483,79 @@ __________EOS;
     			return "";
     		}
     	}
+        
+    	/**
+    	 * PHP adaptation of the Ruby/Rails distance_of_time_in_words.
+    	 *
+    	 * @param mixed int|string $from Either a time in seconds, or a strtotime translatable string
+    	 * @param array $translations Translated captions, see source for keys and English captions.
+    	 * @return string
+    	 * @since 1.5
+    	 */
+    	function timeDistance($from, $translations = array()) {
+        	$to = time();
+        	
+        	if ( ! is_int($from) && ! ( $from = strtotime($from) ) ) // NOTE: $from = strtotime is an assignment, not a test
+        		$from = time();
+        	
+        	$from = intval( ( $from < $to) ? $from : time() );
+
+        	$captions = array(
+        		'lt_n_seconds'  => 'less than %d seconds ago',
+        		'lt_a_minute'   => 'less than a minute ago',
+        		'1_minute'      => '1 minute ago',
+        		'n_minutes'     => '%d minutes ago',
+        		'about_1_hour'  => 'about 1 hour ago',
+        		'about_n_hours' => 'about %d hours ago',
+        		'1_day'         => '1 day ago',
+        		'n_days'        => '%d days ago',
+        		'about_1_month' => 'about 1 month ago',
+        		'n_months'      => '%d months ago',
+        		'about_1_year'  => 'about 1 year ago',
+        		'over_1_year'   => 'over 1 year ago',
+        		'over_n_years'  => 'over %d years ago'
+        	);
+        	
+        	if ( ! empty($translations) )
+        		$captions = array_merge($captions, $translations);
+        	
+        	$diff    = abs( $to - $from );
+        	$minutes = round( $diff / 60 );
+        	$seconds = round( $diff );
+        	
+        	if ( $minutes >= 0 && $minutes <= 1 ) {
+        		if ( $seconds >= 0 && $seconds < 5 )
+        			return sprintf($captions['lt_n_seconds'], 5);
+        		elseif ( $seconds >= 5 && $seconds < 10 )
+        			return sprintf($captions['lt_n_seconds'], 10);
+        		elseif ( $seconds >= 10 && $seconds < 30 )
+        			return sprintf($captions['lt_n_seconds'], 30);
+        		elseif ( $seconds >= 30 && $seconds < 60 )
+        			return $captions['lt_a_minute'];
+        		else
+        			return $captions['1_minute'];
+        	}
+        	elseif ( $minutes > 1 && $minutes < 45 )
+				return sprintf($captions['n_minutes'], $minutes);
+        	elseif ( $minutes >= 45 && $minutes < 90 )
+				return $captions['about_1_hour'];
+        	elseif ( $minutes >= 90 && $minutes < 1440 )
+				return sprintf($captions['about_n_hours'], round($minutes / 60));
+        	elseif ( $minutes >= 1440 && $minutes < 2880 )
+				return $captions['1_day'];
+        	elseif ( $minutes >= 2880 && $minutes < 43200 )
+				return sprintf($captions['n_days'], round($minutes / 1440));
+        	elseif ( $minutes >= 43200 && $minutes < 86400 )
+				return $captions['about_1_month'];
+        	elseif ( $minutes >= 86400 && $minutes < 525600 )
+				return sprintf($captions['n_months'], round($minutes / 43200));
+        	elseif ( $minutes >= 525600 && $minutes < 528000 )
+				return $captions['about_1_year'];
+        	elseif ( $minutes >= 528000 && $minutes < 1051200 )
+				return $captions['over_1_year'];
+        	else
+        		return sprintf($captions['over_n_years'], round($minutes / 1051200));
+        }
     	
     	/**
     	 * Praized credits line helper.

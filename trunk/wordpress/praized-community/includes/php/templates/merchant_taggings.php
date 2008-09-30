@@ -2,7 +2,7 @@
 /**
  * Praized template: Merchant tagging form
  *
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

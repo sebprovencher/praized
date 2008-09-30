@@ -6,7 +6,7 @@
  * 
  * @note Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.4
+ * @version 1.5
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -51,6 +51,13 @@ if ( ! class_exists('Praized') ) {
     	 * @since 0.1
     	 */
     	var $_userInst;
+    	
+    	/**
+    	 * Actions object instance holder
+    	 * @var object
+    	 * @since 0.1
+    	 */
+    	var $_actionsInst;
     	
     	/**
     	 * Constructor.
@@ -138,6 +145,22 @@ if ( ! class_exists('Praized') ) {
     		if ( isset($this->_userInst->errors) )
     		    $this->errors = $this->_userInst->errors;
     		return $this->_userInst;
+    	}
+    	
+    	/**
+    	 * Convenience PraizedActions instantiator (for PHP4 compat)
+    	 *
+    	 * @return object PraizedActions
+    	 * @since 0.1
+    	 */
+    	function actions() {
+    		if (is_object($this->_actionsInst))
+    			return $this->_actionsInst;
+    		$this->_loadClass('Actions');
+    		$this->_actionsInst = new PraizedActions($this->_community, $this->_apiKey, $this->_oAuthInst);
+    		if ( isset($this->_actionsInst->errors) )
+    		    $this->errors = $this->_actionsInst->errors;
+    		return $this->_actionsInst;
     	}
     }
 }
