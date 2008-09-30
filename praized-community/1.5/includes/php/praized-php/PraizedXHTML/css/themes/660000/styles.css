@@ -1,0 +1,7 @@
+html body .praized-vote-button, html body .praized-vote-button button.vote-option {
+	background-image:url(./button.gif);
+}
+
+html body .praized-vote-button, html body .praized-vote-button abbr {
+	color:#fff;
+}
