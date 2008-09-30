@@ -2,8 +2,8 @@
 Contributors: stephdau, sylvaincarle
 Tags: location, places, merchants, api, integration, widget, social, geocode, microformat
 Requires at least: 2.2
-Tested up to: 2.6
-Stable tag: trunk
+Tested up to: 2.7
+Stable tag: 1.5
 
 The Praized Tools plugin will enable new editorial tools within your WordPress
 install for you to blog about places and tie everything back to your or a 3rd
@@ -133,6 +133,22 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 
 == ChangeLog ==
+
+**Version 1.5: 2008-09-30**
+
+* Added support for post/page level place aggregation (see admin screen)
+* Added 16 vote button themes and an option in the admin to select your favorite one.
+  Will use the vote button theme from Praized Community if active.
+  You can still overwrite this in CSS by changing the background options on and
+  within .praized-vote-button.
+* Improved the overall appearance and usability of the plugin's admin/settings screen
+* The Praized plugins are now officialy hosted on wordress.org and wp-plugins.org.
+  This means that if you install the plugins from there, you will now be automatically
+  notified whenever we release an upgradedirectly in the WP admin, and other niceties.
+* Updated to praized-php-1.5, whith major improvements supporting some of the new
+  features implemented in this release.
+* Updated to praized-wp-core-1.5, whith major improvements supporting some of the
+  new features implemented in this release.
 
 **Version 1.0.4: 2008-09-02**
 

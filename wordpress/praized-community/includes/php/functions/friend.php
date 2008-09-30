@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual friend related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -224,9 +224,8 @@ function pzdc_friend_friend_count($echo = TRUE, $identifier = FALSE) {
 function pzdc_friend_created_at($echo = TRUE, $format = NULL, $identifier = FALSE) {
     global $PraizedCommunity;
     $out = $PraizedCommunity->tpt_attribute_helper('friend', 'created_at', FALSE, $identifier);
-    if ( ! strstr($format, '%'))
-        $format = $PraizedCommunity->__('%a, %B %e %Y, %H:%M:%S');
-    $out = strftime($format, strtotime($out));
+    if ( strstr($format, '%') )
+        $out = pzdc_date($out, $format);
     if ( $echo )
         echo $out;
     return $out;
@@ -244,9 +243,8 @@ function pzdc_friend_created_at($echo = TRUE, $format = NULL, $identifier = FALS
 function pzdc_friend_updated_at($echo = TRUE, $format = NULL, $identifier = FALSE) {
     global $PraizedCommunity;
     $out = $PraizedCommunity->tpt_attribute_helper('friend', 'updated_at', FALSE, $identifier);
-    if ( ! strstr($format, '%'))
-        $format = $PraizedCommunity->__('%a, %B %e %Y, %H:%M:%S');
-    $out = strftime($format, strtotime($out));
+    if ( strstr($format, '%') )
+        $out = pzdc_date($out, $format);
     if ( $echo )
         echo $out;
     return $out;

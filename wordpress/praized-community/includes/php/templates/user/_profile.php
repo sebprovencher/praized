@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User profile
  *
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -14,6 +14,24 @@
 <?php if ( pzdc_has_user() ) : ?>
  
   <?php pzdc_tpt_fragment('user/hcard'); ?>
+  
+  <div id="praized-activity" class="praized-user-section">
+    <h3 class="praized-user-section-title"><?php pzdc_e('Activity Stream'); ?></h3>
+    <p class="praized-user-activity" style="padding-left: 25px;">
+      <?php if ( pzdc_has_actions(array('per_page' => 5)) ) : ?>
+        <?php while ( pzdc_actions_loop() ) : ?>
+          <div class="praized-action-item" style="border:none;">
+            <span class=""><?php pzdc_action_summary(); ?></span>
+            <br />
+            <small><abbr title="<?php pzdc_action_created_at(); ?>"><?php pzdc_time_distance(pzdc_action_created_at(FALSE)); ?></abbr></small>
+          </div>
+        <?php endwhile; ?>
+        <a href="<?php pzdc_user_permalink('actions'); ?>"><?php pzdc_e('See all activity'); ?></a>
+      <?php else:?>
+        <span><?php pzdc_e('No activity'); ?></span>
+      <?php endif;?>
+    </p>
+  </div>
 
   <div id="praized-friends" class="praized-user-section">
     <h3 class="praized-user-section-title"><?php pzdc_user_friend_count(); ?> <?php pzdc_e('Friends'); ?></h3>
@@ -101,7 +119,7 @@
                 <?php pzdc_merchant_city_name(); ?>
               </span>
             </span>
-            <small class="commentmetadata"><abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_comment_created_at(TRUE, pzdc__('%a, %B %e %Y at %H:%M:%S')); ?></abbr></small>
+            <small class="commentmetadata"><abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_time_distance(pzdc_comment_created_at(FALSE)); ?></abbr></small>
             <p><?php pzdc_comment_body(); ?></p>
           </li>
         <?php ++$i; endwhile; ?>

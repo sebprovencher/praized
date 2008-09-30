@@ -2,7 +2,7 @@
 /**
  * Praized Convenience Parsing Tools
  *
- * @version 1.0.4
+ * @version 1.5
  * @package Praized
  * @subpackage Parser
  * @author Stephane Daury
@@ -67,13 +67,17 @@ if ( ! class_exists('PraizedParser') ) {
                 preg_match_all('/(\S+)="([^"]+)"/', $bbCode, $matches);
                 
                 if ( isset($matches[1]) && is_array($matches[1]) && count($matches) > 0 ) {
-                    $attributes = array();
+                    $attributes = ( $returnAsObject ) ? new stdClass() : array();
                     
                     foreach ($matches[1] as $index => $key) {
-                        $attributes[$key] = $matches[2][$index];
+                        $value = $matches[2][$index];
+                        if ( $returnAsObject )
+                            $attributes->$key = $value;
+                        else    
+                            $attributes[$key] = $value;
                     }
                     
-                    return ( $returnAsObject ) ? new PraizedParserContainer($attributes) : $attributes;
+                    return $attributes;
                 } else {
                     return false;
                 }
@@ -92,6 +96,7 @@ if ( ! class_exists('PraizedParser') ) {
      * @author Stephane Daury
      * @copyright Praized Media, Inc. <http://praizedmedia.com/>
      * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
+     * @deprecated 1.5
      */
     class PraizedParserContainer {
         /**

@@ -4,7 +4,7 @@
  * 
  * Common codebase used by the Praized WordPress plugins.
  *
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedWP
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedWP')) {
          * @var string
          * @since 0.1
          */
-        var $version = '1.0.4';
+        var $version = '1.5';
         
         /**
          * Plugin errors
@@ -48,6 +48,13 @@ if ( ! class_exists('PraizedWP')) {
     	 * @since 0.1
     	 */
     	var $Praized = FALSE;
+    
+    	/**
+    	 * Public instance of the loaded PraizedXHTML Library class
+    	 * @var mixed Boolean FALSE or object
+    	 * @since 0.1
+    	 */
+    	var $PraizedXHTML = FALSE;
     
     	/**
     	 * Safe script uri
@@ -179,6 +186,7 @@ if ( ! class_exists('PraizedWP')) {
     		$this->_admin_url       = $this->_site_url . '/wp-admin';
     		$this->_includes        = ABSPATH . $this->_plugin_dir . '/includes';
     		$this->_praized_inc_dir = $this->_includes . '/php/praized-php';
+    		$this->_praized_inc_url = $this->_plugin_dir_url . '/includes/php/praized-php';
     
     		// Localization if we're using WordPress in a different language
     		// Just drop it in "{this->_includes}/localization/{this->_plugin_name}-{lang code in wp-config}.mo"
@@ -217,8 +225,13 @@ if ( ! class_exists('PraizedWP')) {
         			'community' => '',
         			'api_key'   => '',
         			'caching'   => 0,
-        			'cache_ttl' => 0
+        			'cache_ttl' => 0,
+        		    'theme'     => '009900'
         	    );
+    		} else {
+    		    // Additions since 1.0 time
+    		    if ( ! isset($this->_config['theme']) )
+    		        $this->_config['theme'] = '009900'; 
     		}
     	        
     	    // Ensure we cache for at least 1 minute if caching is enabled
@@ -407,8 +420,14 @@ if ( ! class_exists('PraizedWP')) {
     					
     					if ( $this->_has_praized_errors() )
     						return FALSE;
-    					else
-    						return TRUE;
+    					elseif ( is_object($this->PraizedXHTML) ) {
+                			return TRUE;
+            		    } else {
+            		        if ( ! class_exists('PraizedXHTML') )
+            		            require_once($this->_praized_inc_dir.'/PraizedXHTML.php');
+            		        $this->PraizedXHTML = new PraizedXHTML();
+            		        return TRUE;
+            		    }
     				} else {
     					$this->errors[] = sprintf($this->__('Requested Praized class not found inside %s.'), $p_inc);
     					return FALSE;
@@ -418,6 +437,34 @@ if ( ! class_exists('PraizedWP')) {
     				return FALSE;
     			}
     		}
+    	}
+	
+    	/**
+    	 * Get xhtml output as provided by the PraizedXHTML library
+    	 *
+    	 * @param object $data Appropriate object as returned by the Praized portable php library
+    	 * @param string $template Which template should be loaded (see praized-php/PraizedXHTML/*)
+    	 * @param array $config Optional array storing configurations expected by PraizedXHTML::xhtml 
+    	 * @return string
+    	 */
+    	function _xhtml($data, $template, $config = array()) {
+    	    if ( ! $this->_load_praized() || ! $this->PraizedXHTML )
+    	        return FALSE;
+    	    return $this->PraizedXHTML->xhtml($data, $template, $config);
+    	}
+    	
+    	/**
+    	 * Returns the proper <link rel="stylesheet" /> as provided by PraizedXHTML::css()
+    	 *
+    	 * @return string
+    	 */
+    	function _css() {
+    	    if ( ! $this->_load_praized() || ! $this->PraizedXHTML )
+    	        return FALSE;
+    	    $theme = $this->_config['theme'];
+    	    if ( empty($theme) || ! isset($this->PraizedXHTML->themes[$theme]) )
+    	         $theme = $this->PraizedXHTML->defaultTheme;
+    	    return $this->PraizedXHTML->css($this->_praized_inc_url, $theme, $this->version);
     	}
     	
     	/**

@@ -2,7 +2,7 @@
 /**
  * Praized OAuth handling library
  *
- * @version 1.0.4
+ * @version 1.5
  * @package Praized
  * @subpackage OAuth
  * @author Pier-Hugures Pellerin
@@ -42,7 +42,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 		var $_encoder;
 
 		var $_net;
-		var $_version = '1.0.4';
+		var $_version = '1.5';
 		var $errors = array();
 	
 		var $_expirationTime = 1209600; // (14 * 24 * 3600);

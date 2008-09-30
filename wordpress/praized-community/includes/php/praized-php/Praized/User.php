@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.0.4
+ * @version 1.5
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -185,6 +185,22 @@ if ( ! class_exists('PraizedUser') ) {
     		} else {
     		    return false;
     		}
+    	}
+        
+    	/**
+    	 * Returns an individual user's associated actions list, optionally based on the submitted query
+    	 *
+         * @param string $username Username
+    	 * @param array  $query Associative array matching the query string keys supported by the Praized API.
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 1.5
+    	 */
+        function actions($username, $query = array(), $rawJson = false) {
+    		if ( $json = $this->_get('/users/'.$username.'/actions.json', $query) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
     	}
     }
 }

@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: sponsored links listing related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -48,7 +48,7 @@ function pzdc_splinks_loop() {
  * @return boolean
  * @since 0.1
  */
-function pzdc_has_next_splink($query = FALSE) {
+function pzdc_has_next_splink() {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_has_next_splink;
 }

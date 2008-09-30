@@ -2,7 +2,7 @@
 /**
  * Praized Common XHTML output
  *
- * @version 1.0.4
+ * @version 1.5
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury
@@ -20,10 +20,64 @@ if ( ! class_exists('PraizedXHTML') ) {
      */
     class PraizedXHTML {
     
-        var $_pzdxCommunity;
-        var $_pzdxMerchants;
-        var $_pzdxMerchant;
-        var $_pzdxConfig;
+        /**
+         * Current community data holder
+         * @var object
+         * @since 0.1
+         */
+    	var $_pzdxCommunity;
+        
+    	/**
+         * Current merchant list data holder
+         * @var object
+         * @since 0.1
+         */
+    	var $_pzdxMerchants;
+        
+    	/**
+         * Current merchant data holder
+         * @var object
+         * @since 0.1
+         */
+    	var $_pzdxMerchant;
+        
+    	/**
+         * Current xhtml config holder
+         * @var array
+         * @since 0.1
+         */
+    	var $_pzdxConfig;
+    
+        /**
+         * Themes
+         * @var array
+         * @since 1.5
+         */
+    	var $themes = array(
+    		'009900' => 'Green',
+    		'cc0000' => 'Red',
+    		'660000' => 'Wine',
+    		'ff6633' => 'Orange',
+    		'ff9900' => 'Burnt Orange',
+    		'ffcc00' => 'Yellow',
+    		'666633' => 'Tan Olive',
+    		'0066ff' => 'Light Blue',
+    		'0000cc' => 'Blue',
+    		'336666' => 'Ocean',
+    		'330066' => 'Purple',
+    		'cc33cc' => 'Magenta',
+    		'ff00cc' => 'Pink',
+    		'000000' => 'Black',
+    		'666666' => 'Grey',
+    		'ffffff' => 'White'
+        );
+        
+        /**
+         * Default theme
+         * @var string
+         * @since 1.5
+         */
+    	var $defaultTheme = '009900';
     
 		/**
 		* Constructor: Just so we can use $this
@@ -104,7 +158,7 @@ if ( ! class_exists('PraizedXHTML') ) {
     	 * Returns XHTML as string for the sent data and requested template/fragment.
     	 *
     	 * @param object $data Data object as returned by the Praized PHP lib
-    	 * @param string $template merchants for PraizedXHTML/merchants.php
+    	 * @param string $template Selected template (see ./PraizedXHTML/* and PraizedXHTML::_template())
     	 * @param array $config Display configuration (show address, etc)
     	 * @return string
     	 * @since 0.1
@@ -113,6 +167,40 @@ if ( ! class_exists('PraizedXHTML') ) {
 			if ( ! $this->_env($data, $config) )
     	        return;
     	    return $this->_template($template);
+    	}
+    	
+    	/**
+    	 * Returns the proper <link rel="stylesheet" /> tags to support the XHTML provided by the present library
+    	 *
+    	 * @param string $path Web accessible path to the praized-php library
+    	 * @param string $theme Selected theme, as found in PraizedXHTML::themes
+    	 * @param array $version Optional version info (avoids extra persistant css caching by the browsers when upgrading to a new version of the lib)
+    	 * @return string
+    	 * @since 1.5
+    	 */
+    	function css($path, $theme, $version = null) {
+    	    $path = rtrim($path, '/');
+    	    
+    	    if ( empty($theme) || ! isset($this->themes[$theme]) )
+    	         $theme = $this->defaultTheme;
+    	    
+    	    if ( empty($version) )
+    	        $version = time(); 
+    	    
+    	    $styles = sprintf(
+    	        '<link rel="stylesheet" id="praized-xhtml-css-theme" href="%s/PraizedXHTML/css/themes/%s/styles.css?v=%s" type="text/css" media="screen" />' . "\n",
+    	        $path,
+    	        $theme,
+    	        $version
+    	    );
+    	    
+    	    $styles .= sprintf(
+    	        '<link rel="stylesheet" id="praized-xhtml-css" href="%s/PraizedXHTML/css/styles.css?v=%s" type="text/css" media="screen" />' . "\n",
+    	        $path,
+    	        $version
+    	    );
+    	    
+    	    return $styles;
     	}
     }
 }

@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: miscelaneous search related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -34,7 +34,11 @@ function pzdc_search_link($echo = TRUE) {
  */
 function pzdc_search_query($echo = TRUE) {
     global $PraizedCommunity;
-    $out = pzdc_stripper($_GET['q']);
+    $out = ( ! empty($_GET['q']) )
+         ? pzdc_stripper($_GET['q'])
+         : ( ( ! empty($_GET['l']) )
+             ? ''
+             : $PraizedCommunity->_config['default_query'] );
     if ( $echo )
         echo $out;
     return $out;
@@ -49,7 +53,11 @@ function pzdc_search_query($echo = TRUE) {
  */
 function pzdc_search_location($echo = TRUE) {
     global $PraizedCommunity;
-    $out = pzdc_stripper($_GET['l']);
+    $out = ( ! empty($_GET['l']) )
+         ? pzdc_stripper($_GET['l'])
+         : ( ( ! empty($_GET['q']) )
+             ? ''
+             : $PraizedCommunity->_config['default_location'] );
     if ( $echo )
         echo $out;
     return $out;

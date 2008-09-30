@@ -2,7 +2,7 @@
 /**
  * Praized Tools
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedTools
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ class PraizedTools extends PraizedWP {
      * @var string
      * @since 1.0.2
      */
-    var $version = '1.0.4';
+    var $version = '1.5';
     
 	/**
      * Merchant widget identifier string
@@ -44,7 +44,19 @@ class PraizedTools extends PraizedWP {
 	 */
 	function PraizedTools() {
 		PraizedWP::PraizedWP('praized-tools');
-		
+
+		if ( ! isset($this->_config['aggregate']) )
+		    $this->_config['aggregate'] = FALSE;
+
+		if ( ! isset($this->_config['hide_vote']) )
+		    $this->_config['hide_vote'] = FALSE;
+
+		if ( ! isset($this->_config['hide_tags']) )
+		    $this->_config['hide_tags'] = FALSE;
+
+		if ( ! isset($this->_config['hide_stats']) )
+		    $this->_config['hide_stats'] = FALSE;
+		    
 		$this->_wdgt_bbcode_key = $this->_wdgt_key . '_bbcode';
 		
 		add_action('init', array(&$this, 'wp_action_mce_extras'));
@@ -141,7 +153,8 @@ class PraizedTools extends PraizedWP {
 	 * @since 0.1
 	 */
 	function wp_action_admin_head() {
-	    $this->_load_praized();
+	    if ( ! $this->_load_praized() )
+	        return FALSE;
 	    
 	    echo sprintf(
 	        '<link rel="stylesheet" href="%s/includes/css/commons/praized-tools-admin.css?v=%s" type="text/css" media="screen" />' . "\n",
@@ -336,11 +349,8 @@ ________EOS;
 	 * @since 0.1
 	 */
 	function wp_action_template_head() {
-	    echo sprintf(
-	        '<link rel="stylesheet" href="%s/includes/php/praized-php/PraizedXHTML/styles.css?v=%s" type="text/css" media="screen" />' . "\n",
-	        $this->_plugin_dir_url,
-	        $this->version
-	    );
+	    if ( ! class_exists('PraizedCommunity') && $css = $this->_css() ) // Note: "$css =" is an assignment, not just a test 
+	        echo $css;
 	}
 	
 	/**
@@ -374,12 +384,6 @@ ________EOS;
 	    return ( $val ) ? $val : FALSE;
 	}
 	
-	function _xhtml($data, $template, $config = array()) {
-	    require_once($this->_praized_inc_dir . '/PraizedXHTML.php');
-	    $xObj = new PraizedXHTML();
-	    return $xObj->xhtml($data, $template, $config);
-	}
-	
 	/**
 	 * WP Filter: Applied to the post/page content retrieved from the database, prior to printing on the screen
 	 *
@@ -387,13 +391,18 @@ ________EOS;
 	 * @return string Modified post/page content
 	 * @since 0.1
 	 */
-	function _parse_bbcode($content) {
+	function _parse_bbcode($content, $with_aggregate = FALSE) {
 	    require_once($this->_praized_inc_dir . '/PraizedParser.php');
 	    
 	    $bb_tags = PraizedParser::bbFind($content);
 	    
 	    if ( count($bb_tags) < 1 )
 	        return $content;
+            
+        if ( $with_aggregate && ( is_single() || is_page() ) ) {
+            $aggregate = new stdClass();
+            $aggregate->merchants = array();
+        }
 
         foreach ( $bb_tags as $original => $specs ) {
             $replacement = '';
@@ -425,6 +434,8 @@ ________EOS;
             	    } elseif ( FALSE == ( $data = $this->merchant_get($specs->pid) ) ) {
             	        break;
             	    }
+            	    if ( isset($aggregate) && is_object($data->merchant) )
+            	        $aggregate->merchants[] = $data->merchant;
     	            break;
                 default:
                     $specs->limit = ( intval($specs->limit) > 25 ) ? 25 : $specs->limit;
@@ -443,6 +454,8 @@ ________EOS;
             	    } elseif ( FALSE == ( $data = $this->merchants_search($config['query'], $config['location'], $config['limit']) ) ) {
             	        break;
             	    }
+            	    if ( isset($aggregate) && is_array($data->merchants) )
+            	        $aggregate->merchants = array_merge($aggregate->merchants, $data->merchants);
                     break;
             }
             
@@ -450,6 +463,31 @@ ________EOS;
                 $replacement = ( $xhtml = $this->_xhtml($data, $type, $config) ) ? $xhtml : '';
             
             $content = str_replace($original, $replacement, $content);
+        }
+        
+        if ( isset($aggregate) && count($aggregate->merchants) > 0 ) {
+            $agg_dupe_check = array();
+            foreach ($aggregate->merchants as $agg_key => $agg_val) {
+                if ( in_array($agg_val->pid, $agg_dupe_check) )
+                    unset($aggregate->merchants[$agg_key]);
+                else
+                    $agg_dupe_check[] = $agg_val->pid;
+            }
+            $aggregate->community = $data->community;
+            $display_options = array(
+                'hide_vote'   => $this->_config['hide_vote'],
+                'hide_tags'   => $this->_config['hide_tags'],
+                'hide_stats'  => $this->_config['hide_stats']
+            );
+            if ( $xhtml = $this->_xhtml($aggregate, 'hcard_list', $display_options ) ) {
+                $content .= "\n\n<h3>"
+                         .  $this->__(sprintf(
+                         		'Places mentioned in this %s',
+                                ( is_page() ) ? $this->__('page') : $this->__('post')
+                            ))
+                         . "</h3>\n";
+                $content .= $xhtml;
+            }
         }
 	    
 	    return $content;
@@ -469,7 +507,7 @@ ________EOS;
 	    
 	    if ( ! is_array($config) || ! isset($config['content']) || empty($config['content']) )
 	        return;
-	    elseif ( ! ($xhtml = $this->_parse_bbcode(stripslashes($config['content']))) )
+	    elseif ( ! ($xhtml = $this->_parse_bbcode(stripslashes($config['content']), FALSE)) )
 	        return;
 	    
 	    echo $before_widget; // WP STANDARD	    
@@ -495,7 +533,7 @@ ________EOS;
 	 * @since 0.1
 	 */
 	function wp_filter_the_content($content) {
-	    return $this->_parse_bbcode($content);
+	    return $this->_parse_bbcode($content, $this->_config['aggregate']);
 	}
 }
 ?>

@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: miscelaneous helpers related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -97,6 +97,53 @@ function pzdc_page_header($separator = '&raquo;', $echo = TRUE) {
     if ( $echo )
         echo $header;
     return $header;
+}
+
+/**
+ * Template function: Common date formatting, from standard api output (ISO 8601: 2008-06-18T15:42:28Z)
+ *
+ * @param string $date_str Date string as received from API (ISO 8601: 2008-06-18T15:42:28Z)
+ * @param string $format strftime() conversion specifiers
+ * @return string Formatted date
+ * @since 1.5
+ */
+function pzdc_date($date_str, $format = NULL) {
+    global $PraizedCommunity;
+    if ( ! strstr($format, '%') )
+        $format = $PraizedCommunity->__('%a, %B %e %Y, %H:%M:%S');
+    return strftime($format, strtotime($date_str));
+}
+
+/**
+ * Template function: Time distance helper
+ * 
+ * <code><?php pzdc_map(45.50493, -73.568163); ?></code>
+ *
+ * @param mixed int|string $from Either a time in seconds, or a strtotime translatable string
+ * @param boolean $echo
+ * @return string How long ago was the $from from right now.
+ * @since 1.5
+ */
+function pzdc_time_distance($from, $echo = TRUE) {
+    global $PraizedCommunity;
+    
+    $translations = array(
+		'lt_n_seconds'  => $PraizedCommunity->__('less than %d seconds ago'),
+		'lt_a_minute'   => $PraizedCommunity->__('less than a minute ago'),
+		'1_minute'      => $PraizedCommunity->__('1 minute ago'),
+		'n_minutes'     => $PraizedCommunity->__('%d minutes ago'),
+		'about_1_hour'  => $PraizedCommunity->__('about 1 hour ago'),
+		'about_n_hours' => $PraizedCommunity->__('about %d hours ago'),
+		'1_day'         => $PraizedCommunity->__('1 day ago'),
+		'n_days'        => $PraizedCommunity->__('%d days ago'),
+		'about_1_month' => $PraizedCommunity->__('about 1 month ago'),
+		'n_months'      => $PraizedCommunity->__('%d months ago'),
+		'about_1_year'  => $PraizedCommunity->__('about 1 year ago'),
+		'over_1_year'   => $PraizedCommunity->__('over 1 year ago'),
+		'over_n_years'  => $PraizedCommunity->__('over %d years ago')
+	);
+    
+    return $PraizedCommunity->tpt_time_distance($from, $translations, $echo);
 }
 
 /**

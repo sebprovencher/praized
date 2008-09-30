@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: merchants listing/search related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -14,6 +14,7 @@
  * Template function: Tests if a valid merchants list is set.
  * @note: should be used before using merchants related functions.
  *
+ * @param array $query Optional query for custom template development (see bundled praized-php lib)
  * @return boolean
  * @since 0.1
  */
@@ -25,6 +26,7 @@ function pzdc_has_merchants($query = FALSE) {
 /**
  * Template function: Praized equivalent of the WP "the_loop" for the current merchant list, usually used in while loop
  *
+ * @param array $query Optional query for custom template development (see bundled praized-php lib)
  * @return boolean
  * @since 0.1
  */
@@ -39,7 +41,7 @@ function pzdc_merchants_loop($query = FALSE) {
  * @return boolean
  * @since 0.1
  */
-function pzdc_has_next_merchant($query = FALSE) {
+function pzdc_has_next_merchant() {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_has_next_merchant;
 }

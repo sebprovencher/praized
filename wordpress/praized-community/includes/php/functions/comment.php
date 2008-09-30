@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual comment related functions
  * 
- * @version 1.0.4
+ * @version 1.5
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -34,9 +34,8 @@ function pzdc_comment_body($echo = TRUE) {
 function pzdc_comment_created_at($echo = TRUE, $format = NULL) {
     global $PraizedCommunity;
     $out = $PraizedCommunity->tpt_attribute_helper('comment', 'created_at', FALSE);
-    if ( ! strstr($format, '%'))
-        $format = $PraizedCommunity->__('%a, %B %e %Y, %H:%M:%S');
-    $out = strftime($format, strtotime($out));
+    if ( strstr($format, '%') )
+        $out = pzdc_date($out, $format);
     if ( $echo )
         echo $out;
     return $out;

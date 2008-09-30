@@ -1,18 +1,19 @@
 
 
 /* Vote Button */
+
 html body .praized-vote-button
 {
 	display:block;
 	width:88px;
 	height:55px;
 	font-size:100%;
-	background:url(./images/vote_buttons.gif) 0 -54px no-repeat;
+	background-repeat:no-repeat;
+	background-position: 0 -54px ;
 	position:relative;
 	overflow:hidden;
 	outline:0;
 	font-family:Helvetica, Verdana, sans-serif;
-	color:#fff;
 	line-height:10px;
 	margin:inherit;
 	z-index:99999;
@@ -79,15 +80,9 @@ html body .praized-vote-button fieldset.stats span
 	display:inline;
 }
 
-html body .praized-vote-button abbr
-{
-	color:#fff;
-}
-
 html body .praized-vote-button button.vote-option
 {
 	display:block;
-	background:url(./images/vote_buttons.gif);
 	border:0;
 	margin:0;
 	padding:0;
