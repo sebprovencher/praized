@@ -3,7 +3,7 @@ use strict;
 use MT;
 
 use vars qw( $VERSION );
-$VERSION = '1.0.4';
+$VERSION = '1.0.4.1';
 
 my $plugin;
 eval {
