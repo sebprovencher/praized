@@ -1,0 +1,56 @@
+.praized-user .praized-add-to-friends button, .praized-action
+{
+	background:#FFFEB2;
+	color:#0E9500;
+}
+
+.praized-merchants-list .praized-merchant-item
+{
+	border-bottom: 1px solid #f9f9f9;;
+}
+
+.praized-user-section li
+{
+	border-top: 1px solid #f9f9f9;
+}
+
+.praized-inline-merchant b.praized-value
+{
+	background:#090 url(./images/arrows-and-heart.png) 43px -48px no-repeat;
+	color:#fff;
+	font-size:100%;
+}
+
+.praized-inline-merchant .pos b.praized-value
+{
+	background-position: 43px 0px;
+}
+
+.praized-inline-merchant .neg b.praized-value
+{
+	background-position: 43px -32px;
+}
+
+.praized-pagination a:hover
+{
+	color:#f06304;
+}
+
+.praized-pagination .current
+{
+	border:1px solid #090;
+	background:#090;
+	color:#fff;
+}
+
+.praized-pagination .disabled,.praized-pagination .separator
+{
+	background:none;
+	color:#999;
+}
+
+.praized-pagination a
+{
+	border:1px solid #ccd;
+}	
+
