@@ -1,0 +1,52 @@
+<MTSetVar name="body_class" value="mt-main-index">
+<MTSetVar name="main_template" value="1">
+<MTSetVar name="main_index" value="1">
+<MTSetVar name="sidebar" value="1">
+<MtSetVar name="showTopTen" value="0">
+<MTSetVar name="module_recent_entries" value="1">
+<MTSetVar name="module_category_archives" value="1">
+<MTSetVar name="module_author_archives" value="1">
+<MTSetVar name="module_monthly_archives" value="1">
+<MTSetVarBlock name="title"><$MTBlogName encode_html="1"$></MTSetVarBlock>
+
+<$MTInclude module="Header"$>
+
+<!-- PRAIZED-SPECIFIC -->
+<mtif tag="PraizedSearchTerms" eq="">
+    <mtif tag="PraizedSearchLocation" eq="">
+      <h1 id="praized-title page-title" class="archive-title">
+        Everything | Everywhere
+      </h1>  
+    <mtelse>
+      <h1 id="praized-title page-title" class="archive-title">
+        Everything | <mtPraizedSearchLocation />
+      </h1>  
+    </mtif>
+<mtelse>
+  <mtif tag="PraizedSearchLocation" eq="">
+    <h1 id="praized-title page-title" class="archive-title">
+      <mtPraizedSearchTerms /> | Everywhere
+    </h1>  
+  <mtelse>
+    <h1 id="praized-title page-title" class="archive-title">
+      <mtPraizedSearchTerms /> | <mtPraizedSearchLocation />
+    </h1>  
+  </mtif>
+</mtif>
+
+   <div id="praized-merchants-list">
+      <MTPraizedSearchResults>
+		  <MTPraizedMerchants>
+	         <mtInclude module="praized-merchant-hcard" />
+	      </MTPraizedMerchants>
+	  </MTPraizedSearchResults>
+
+	<MTPraizedNoSearchResults>
+		<mtpraizednoresults />
+		<$MTInclude module="searchbox"$>
+	</MTPraizedNoSearchResults>
+   </div>
+<mtPraizedMerchantsPagination />
+<!-- PRAIZED-SPECIFIC -->
+
+<$MTInclude module="Footer"$>
