@@ -3,7 +3,7 @@ Contributors: stephdau, sylvaincarle
 Tags: location, places, merchants, api, integration, widget, social, geocode, microformat
 Requires at least: 2.2
 Tested up to: 2.7
-Stable tag: 1.5
+Stable tag: trunk
 
 The Praized Community plugin allows you to deploys a complete local search
 section including 17M+ North American place listings, social tools and search
