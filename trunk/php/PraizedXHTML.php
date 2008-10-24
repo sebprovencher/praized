@@ -2,7 +2,7 @@
 /**
  * Praized Common XHTML output
  *
- * @version 1.5
+ * @version 1.5.1
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury

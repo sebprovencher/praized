@@ -157,6 +157,11 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 == ChangeLog ==
 
+**Version 1.5.1: 2008-10-24**
+
+* Updated to praized-php-1.5.1 to implement a security in the 3rd-party Snoopy library
+
+
 **Version 1.5: 2008-09-30**
 
 * Added community-level, place-level and user-level activity stream support (Atom output
@@ -179,6 +184,7 @@ our source in future releases. http://new.praizedmedia.com/en/contact
   implemented in this release.
 * Updated to praized-wp-core-1.5, whith major improvements supporting some of the new
   features implemented in this release.
+
 
 **Version 1.0.4: 2008-09-02**
 

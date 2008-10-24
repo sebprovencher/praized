@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.5
+ * @version 1.5.1
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @var string
     	 * @since 0.1
     	 */
-        var $version = '1.5';
+        var $version = '1.5.1';
         
         /**
          * Library errors

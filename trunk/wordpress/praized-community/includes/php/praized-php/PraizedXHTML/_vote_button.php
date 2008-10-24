@@ -2,7 +2,7 @@
 /**
  * Fake vote button fragment, included through PraizedXHTML::_fragment()
  *
- * @version 1.5
+ * @version 1.5.1
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury

@@ -134,6 +134,11 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 == ChangeLog ==
 
+**Version 1.5.1: 2008-10-24**
+
+* Updated to praized-php-1.5.1 to implement a security in the 3rd-party Snoopy library
+
+
 **Version 1.5: 2008-09-30**
 
 * Added support for post/page level place aggregation (see admin screen)
@@ -150,10 +155,12 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 * Updated to praized-wp-core-1.5, whith major improvements supporting some of the
   new features implemented in this release.
 
+
 **Version 1.0.4: 2008-09-02**
 
 * Updated to praized-php-1.0.4
 * Updated to praized-wp-core-1.0.4
+
 
 **Version 1.0.3: 2008-08-05**
 
