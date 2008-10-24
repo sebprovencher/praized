@@ -2,7 +2,7 @@
 /**
  * Praized Community
  * 
- * @version 1.5
+ * @version 1.5.1
  * @package PraizedCommunity
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ class PraizedCommunity extends PraizedWP {
      * @var string
      * @since 1.0.4
      */
-    var $version = '1.5';
+    var $version = '1.5.1';
     
 	/**
      * Valid Praized Community URL routes

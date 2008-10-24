@@ -2,7 +2,7 @@
 /**
  * Praized Tools
  * 
- * @version 1.5
+ * @version 1.5.1
  * @package PraizedTools
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ class PraizedTools extends PraizedWP {
      * @var string
      * @since 1.0.2
      */
-    var $version = '1.5';
+    var $version = '1.5.1';
     
 	/**
      * Merchant widget identifier string
