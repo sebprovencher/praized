@@ -1,0 +1,56 @@
+<div class="praized-user vcard">
+  <h3 class="fn">
+    <span class="nickname"><MTPraizedUserLogin>&nbsp;</span><br />
+    <mtif tag="PraizedUserFirstName" ne="">
+      <span class="given-name"><MTPraizedUserFirstName></span>
+    </mtif>
+    <mtif tag="PraizedUserLastName" ne="">
+      <span class="last-name"><MTPraizedUserLastName></span>
+    </mtif>
+  </h3>
+  <ul>
+    <li>
+      <strong>User Since:</strong>
+      <abbr title="<$MTPraizedUserCreatedAt$>"><$MTPraizedUserCreatedAt format="%a, %B %e %Y at %H:%M:%S"$></abbr>
+    </li>
+    <mtIf tag="PraizedUserAbout">
+      <li>
+        <strong>About:</strong> 
+        <MTPraizedUserAbout>
+      </li>
+    </mtif>
+    <mtIf tag="PraizedUserClaimToFame">
+      <li>
+        <strong>Claim to fame:</strong> 
+        <MTPraizedUserClaimToFame>
+      </li>
+    </mtif>
+  </ul>
+  <mtifPraizedUserisAuthorized>
+    <mtifpraizeduserisfriend>
+	  <div class="praized-add-to-friends">
+	    <form action="<$MTPraizedUserPermalink$>/friends" method="post">
+	      <fieldset>
+	        <input id="pid" name="user_login" type="hidden" value="<$MTPraizedUserLogin$>" />
+	        <button name="_action" value="delete">Remove from my friends</button>       
+	      </fieldset>
+	    </form>
+	  </div>
+    <mtelse>
+      <mtifpraizedcurrentuser>
+        <div class="praized-manage-profile">
+          <span><a href="<$MTPraizedHubUserProfileLink$>">Manage your Praized profile</a></span>  
+        </div>
+      <mtelse>
+        <div class="praized-add-to-friends">
+          <form action="<$MTPraizedUserPermalink$>/friends" method="post">
+            <fieldset>
+              <input id="pid" name="user_login" type="hidden" value="<$MTPraizedUserLogin$>" />
+              <button name="_action" value="add">Add to my friends</button>       
+            </fieldset>
+          </form>
+        </div>
+      </mtifpraizedcurrentuser>
+    </mtifpraizeduserisfriend>
+  </mtifPraizedUserisAuthorized>
+</div>
