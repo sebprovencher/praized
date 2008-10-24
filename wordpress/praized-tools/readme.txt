@@ -3,7 +3,7 @@ Contributors: stephdau, sylvaincarle
 Tags: location, places, merchants, api, integration, widget, social, geocode, microformat
 Requires at least: 2.2
 Tested up to: 2.7
-Stable tag: 1.5
+Stable tag: trunk
 
 The Praized Tools plugin will enable new editorial tools within your WordPress
 install for you to blog about places and tie everything back to your or a 3rd
