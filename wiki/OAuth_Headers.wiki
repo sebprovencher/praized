@@ -1,0 +1,55 @@
+= OAuth HTTP Headers =
+
+To authorize a user, OAuth HTTP headers must be sent with the request. Authorization is not necessery for read requests, but in some cases, if they are sent with the read request, more information specific to the currently logged user will be available. All HTTP verbs require authorization excep GET. OAuth authentication is explained in here (TODO link to relevant section).
+
+Here is an exemple of correctly sent HTTP Headers for a POST request : 
+{{{
+OAuth realm="",
+oauth_version="1.0",
+oauth_nonce="ae8704c739e3bf6121e40b170583733c",
+oauth_timestamp="1220655178",
+oauth_consumer_key="DwDSfr1fGfAxfxodqajVA",
+oauth_token="9LkIvyTFgm8HtBIWvztNg",
+oauth_signature_method="HMAC-SHA1",
+oauth_signature="efwVM%2FYAQemNEZyVbfLFFqlnWPE%3D"
+}}}
+== OAuth Realm ==
+
+Not used in this version of the API. Send an empty string
+
+== oauth_version ==
+
+"1.0"
+
+== oauth_nonce ==
+
+The nonce is a random string that must be unique to the timestamp sent with this request
+
+== oauth_timestamp ==
+
+The number of seconds since January 1, 1970 00:00:00 GMT at the time of the request
+
+== oauth_consumer_key ==
+
+The consumer key is provided by Praized with the API key
+
+== oauth_token ==
+
+The access token for this request 
+
+== oauth_signature_method ==
+
+The name of the algorithm used to sign the request
+
+== oauth_signature ==
+
+The signature itself
+
+
+------
+
+Continue to [OAuth_EndPoints OAuth Endpoints]
+
+Back to [Common_Parameters Common parameters and endpoint url parts]
+
+Up to [API Our Index]

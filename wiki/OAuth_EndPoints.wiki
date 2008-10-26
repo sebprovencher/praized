@@ -1,0 +1,14 @@
+= Using OAuth with Praized API =
+
+ * Request Token URL: http://praized.com/oauth/request_token
+ * Access Token URL: http://praized.com/oauth/access_token
+ * Authorize URL: http://praized.com/oauth/authorize
+
+
+------
+
+Continue to [Error_Messages Error Messages]
+
+Back to [OAuth_Headers OAuth HTTP Headers]
+
+Up to [API Our Index]

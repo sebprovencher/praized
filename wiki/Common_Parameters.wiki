@@ -1,0 +1,31 @@
+= Common parameters and endpoint url parts =
+
+(url parts are surrounded by {})
+
+== {community_slug} ==
+
+The community slug is part of a request URL and is the community identifier for the Praized Platform
+
+ * format : string
+
+== {format} ==
+
+The format is part of a request URL it is preceded by a dot and is just after the name of the resources worked on.
+
+ * format : string (.xml | .json)
+
+== api_key ==
+
+Each of the endpoint takes the api_key parameter. The api_key is given to the administrator of a community and must
+conform to the community slug.
+
+ * format : string
+
+
+------
+
+Continue to [OAuth_Headers OAuth HTTP Headers]
+
+Back to [JSON_Documentation JSON Format : Details]
+
+Up to [API Our Index]

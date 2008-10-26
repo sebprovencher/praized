@@ -1,0 +1,31 @@
+= Error Messages =
+
+== JSON Format ==
+
+{{{
+TODO
+}}}
+
+== XML Format ==
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<praized>
+<errors>
+ <error>
+   <code>422</code>
+   <message>Friend already in user's friends list</message>
+ </error>
+</errors>
+</praized>
+
+}}}
+
+
+------
+
+Continue to [GET_Top_Merchants Getting the top merchants for a community]
+
+Back to [OAuth_EndPoints OAuth Endpoints]
+
+Up to [API Our Index]
