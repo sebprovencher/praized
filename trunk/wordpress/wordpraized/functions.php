@@ -1,5 +1,13 @@
 <?php
 
+function legacy_comments($file) {
+    if(!function_exists('wp_list_comments')) // WP 2.7-only check
+		$file = TEMPLATEPATH . '/comments.legacy.php';
+	return $file;
+}
+
+add_filter('comments_template', 'legacy_comments');
+
 function praized_load_theme_textdomain($domain, $abs_rel_path = false) {
 	$locale = get_locale();
 
