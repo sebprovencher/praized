@@ -2,7 +2,7 @@
 Theme Name: WordPraized
 Theme URI: http://code.google.com/p/praized/
 Description: A <a href="http://binarybonsai.com/kubrick/">Kubrick</a>-based WordPress theme matching the <a href="http://praized.com/">Praized.com</a> interface, to complement our <a href="http://praizedmedia.com/en/download/wordpress">local search plugins</a> (not mandatory). Comes bundled with 10 color schemes, support for iPhone and french localization is included.
-Version: 1.0
+Version: 1.1
 Author: Praized Media
 Author URI: http://www.praizedmedia.com
 Tags: green, custom header, fixed width, two columns, widgets, colors, color schemes, rounded corners, iphone optimized, Praized, media, social, local
@@ -675,6 +675,7 @@ div.aligncenter {
 	padding-bottom: 10px;
 }
 
+.praized-action-item blockquote { width:90%; }
 
 /* merchant */
 #center .praized-merchants-list .praized-merchant-item {
