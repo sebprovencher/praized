@@ -1,0 +1,261 @@
+# praized-tools WordPress plugin localization template
+# Copyright (C) 2008 <a href="http://www.praizedmedia.com/">Praized Media, Inc.</a>
+# This file is distributed under the same license as the PraizedTools package.
+# Stephane Daury, Praized Media, Inc. 2008
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Praized Tools 1.6\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-tools\n"
+"POT-Creation-Date: 2008-12-04 13:54-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/php/PraizedTools.php:96
+msgid ""
+"Sorry, but we were unable to acquire appropriate configurations from the "
+"Praized Community plugin. Please enter your community slug and API key "
+"manually instead."
+msgstr ""
+
+#: includes/php/PraizedTools.php:103
+#, php-format
+msgid "Please submit a value for the \"%s\" form field."
+msgstr ""
+
+#: includes/php/PraizedTools.php:105
+msgid "Community"
+msgstr ""
+
+#: includes/php/PraizedTools.php:107 includes/php/config.php:55
+msgid "API Key"
+msgstr ""
+
+#: includes/php/PraizedTools.php:140
+#, php-format
+msgid ""
+"Thank you for installing the <strong>Praized Tools</strong> plugin. To "
+"finalize the installation, please take the time to <a href=\"%s\">configure "
+"the last few details</a>."
+msgstr ""
+
+#: includes/php/PraizedTools.php:239
+msgid "Use the \"Praized Searchlet\" button below to customize your widget."
+msgstr ""
+
+#: includes/php/PraizedTools.php:242
+msgid "Widget Title"
+msgstr ""
+
+#: includes/php/PraizedTools.php:246
+msgid "Configurations"
+msgstr ""
+
+#: includes/php/PraizedTools.php:249
+msgid "Praized Searchlet"
+msgstr ""
+
+#: includes/php/PraizedTools.php:277
+msgid "Praized Tools"
+msgstr ""
+
+#: includes/php/PraizedTools.php:580
+msgid "page"
+msgstr ""
+
+#: includes/php/PraizedTools.php:580
+msgid "post"
+msgstr ""
+
+#: includes/php/PraizedTools.php:613
+msgid "Praized"
+msgstr ""
+
+#: includes/php/config.php:31
+msgid "Praized Tools Options"
+msgstr ""
+
+#: includes/php/config.php:33
+msgid "API Connectivity"
+msgstr ""
+
+#: includes/php/config.php:37
+#, php-format
+msgid ""
+"The following information (Community, API key) is provided to you by <a href="
+"\"%s\">Praized Media</a> when you <a href=\"%s\">request access to our API</"
+"a>."
+msgstr ""
+
+#: includes/php/config.php:46
+msgid "Community Slug"
+msgstr ""
+
+#: includes/php/config.php:50 includes/php/config.php:59
+msgid "required"
+msgstr ""
+
+#: includes/php/config.php:64 includes/php/config.php:151
+#: includes/php/config.php:211
+msgid "Save Config"
+msgstr ""
+
+#: includes/php/config.php:66
+msgid "Use Praized Community API credentials"
+msgstr ""
+
+#: includes/php/config.php:69
+msgid "Behavior and Interface Customization"
+msgstr ""
+
+#: includes/php/config.php:79
+msgid "Place Aggregation"
+msgstr ""
+
+#: includes/php/config.php:92
+msgid "Show details for the places mentioned in posts/pages"
+msgstr ""
+
+#: includes/php/config.php:95
+msgid "Hide vote button"
+msgstr ""
+
+#: includes/php/config.php:98
+msgid "Hide place tags"
+msgstr ""
+
+#: includes/php/config.php:101
+msgid "Hide place statistics"
+msgstr ""
+
+#: includes/php/config.php:104
+msgid ""
+"\n"
+"                        \tWhen selected, this option will aggregate all of "
+"the places embedded in blog posts or pages\n"
+"                        \tusing the Praized Tools, then list and <a href="
+"\"http://microformats.net/\">microformat</a>\n"
+"                        \tthe locations' details at the end of the content "
+"body (only when viewing individual posts/pages).\n"
+"                        "
+msgstr ""
+
+#: includes/php/config.php:115
+msgid "Button Theme"
+msgstr ""
+
+#: includes/php/config.php:132
+#, php-format
+msgid "Currently using the <a href=\"%s\">Praized Community</a> settings"
+msgstr ""
+
+#: includes/php/config.php:153
+msgid "Data Caching"
+msgstr ""
+
+#: includes/php/config.php:162
+msgid "Enable Caching"
+msgstr ""
+
+#: includes/php/config.php:165
+msgid "Yes"
+msgstr ""
+
+#: includes/php/config.php:170
+msgid "Cache for"
+msgstr ""
+
+#: includes/php/config.php:176
+msgid "No cache"
+msgstr ""
+
+#: includes/php/config.php:177
+msgid "minute"
+msgstr ""
+
+#: includes/php/config.php:178 includes/php/config.php:179
+#: includes/php/config.php:180
+msgid "minutes"
+msgstr ""
+
+#: includes/php/config.php:181
+msgid "hour"
+msgstr ""
+
+#: includes/php/config.php:182 includes/php/config.php:183
+#: includes/php/config.php:184
+msgid "hours"
+msgstr ""
+
+#: includes/php/config.php:200
+msgid "Caching Notice"
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:296
+#, php-format
+msgid "<strong>Praized Plugin:</strong> %s"
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:318
+#, php-format
+msgid ""
+"\n"
+"    \t\t\t\t<strong>WordPress Version Too Old:</strong>\n"
+"    \t\t\t\tThe Praized Plugins are only compatible with WordPress 2.1+ and "
+"are designed for use with the latest version of WordPress.\n"
+"    \t\t\t\tPlease <a href=\"%s\">upgrade to the latest version</a>.\n"
+"    \t\t\t"
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:335
+#, php-format
+msgid ""
+"\n"
+"    \t\t\t\t<strong>Praized Plugin Incorrectly Installed:</strong>\n"
+"    \t\t\t\tThe Praized Plugins plugin must be installed to <code>%s</code> "
+"and it's directory structure intact.\n"
+"    \t\t\t\tYou will not be able to use the plugin until this is fixed.\n"
+"    \t\t\t"
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:442
+#, php-format
+msgid "Requested Praized class not found inside %s."
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:446
+#, php-format
+msgid "Requested Praized library not found in %s."
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:493
+#, php-format
+msgid ""
+"<a href=\"%s\" target=\"_bank\">Wordpress caching</a> is currently disabled."
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:499
+#, php-format
+msgid ""
+"The <a href=\"%s\" target=\"_bank\">caching functions</a> do not seem to be "
+"available in your Wordpress install."
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:573
+msgid "Please be sure to fill all the required fields."
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:578
+msgid "Your configurations were successfully tested and saved."
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:582
+msgid ""
+"Sorry, but we could not activate your access to the Praized API with the "
+"submitted information."
+msgstr ""
