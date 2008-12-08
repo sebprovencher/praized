@@ -189,8 +189,16 @@
 }
 
 .praized-action-item span span:first-child,
-.praized-action-item span.buzz-icon{position:absolute;display:inline-block;float:left;height:16px;width:15px;margin-right:0.5em;padding:0;overflow:hidden;text-indent:-9999px; background:url(./images/arrows-and-heart.png) -1px -80px no-repeat;}
+.praized-action-item span.buzz-icon{position:absolute;display:inline-block;float:left;height:16px;width:15px;margin-right:0.5em;padding:0;overflow:hidden;text-indent:-9999px; background:url(./images/arrows-and-heart.png) -1px -80px no-repeat; top:0; left:0;}
 .praized-action-item span span.voted-for{background-position:-2px -1px;}
 .praized-action-item span span.voted-against{background-position:-2px -31px;}
 .praized-action-item span span.favorited{background-position:-1px -16px;}
 .praized-action-item span span.commented{background-position:-1px -64px;}
+.praized-action-item span span.asked{background-position:-1px -96px;}
+.praized-action-item span span.answered{background-position:-1px -112px;}
+
+/* Answers */
+
+#praized-answer-form-submit-button{float:right;}
+#praized-answers-results-picks-labels{color:#999;width:100%;font-size:0.85em;}
+#praized-answers-results-picks-labels b{width:50%;display:block;float:left;}

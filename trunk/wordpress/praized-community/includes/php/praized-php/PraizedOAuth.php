@@ -2,7 +2,7 @@
 /**
  * Praized OAuth handling library
  *
- * @version 1.5.1
+ * @version 1.6
  * @package Praized
  * @subpackage OAuth
  * @author Pier-Hugures Pellerin
@@ -42,7 +42,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 		var $_encoder;
 
 		var $_net;
-		var $_version = '1.5.1';
+		var $_version = '1.6';
 		var $errors = array();
 	
 		var $_expirationTime = 1209600; // (14 * 24 * 3600);
@@ -80,7 +80,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 		
 			// initialize the Snoop Agent.
 			$this->_net = new Snoopy();
-			$this->agent = "Praized OAuth Request v." . $this->_version;
+			$this->_net->agent = "Praized PHP OAuth Request v." . $this->_version;
 			
 			$this->_oAuthToken = ( ! empty($_GET["oauth_token"]) ) ? $_GET["oauth_token"] : false;
 
@@ -131,7 +131,7 @@ if ( ! class_exists('PraizedOAuth') ) {
         	            ( isset($_SERVER['HTTPS']) ) ? 'https' : 'http',
         	            ( isset($_SERVER['PHP_AUTH_USER']) ) ? $_SERVER['PHP_AUTH_USER'].':'.$_SERVER['PHP_AUTH_PQ'].'@' : '',
         	            $_SERVER['HTTP_HOST'],
-        	            $path
+        	            ( isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : $_SERVER['REQUEST_URI'])
         	        );
         	    } else {
         	        $scriptUri = $_SERVER['SCRIPT_URI'];
@@ -140,7 +140,6 @@ if ( ! class_exists('PraizedOAuth') ) {
 			}
 			    
   		    $requestToken = $this->getRequestToken();
-			
 
 			$requestToken->callback = $callbackURL;
 

@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: miscelaneous helpers related functions
  * 
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -157,10 +157,30 @@ function pzdc_time_distance($from, $echo = TRUE) {
  * @param string $caption Optional caption to be displayed in Google Map bubble when appropriate
  * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
  * @return string
+ * @since 0.1
  */
 function pzdc_map($latitude, $longitude, $raw_params = array(), $caption = '', $echo = TRUE) {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_map($latitude, $longitude, $raw_params, $caption, $echo);
+}
+
+/**
+ * Template function: Place picker searchlet script tag
+ * 
+ * <code><?php pzdc_place_picker_script(); ?></code>
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string html script tag
+ * @since 1.6
+ */
+function pzdc_place_picker_script($echo = TRUE) {
+    global $PraizedCommunity;
+    if ( ! $PraizedCommunity->Praized )
+    	return;
+    $out = $PraizedCommunity->Praized->placePickerScript();
+    if ( $echo )
+    	echo $out;
+    return $out;
 }
 
 

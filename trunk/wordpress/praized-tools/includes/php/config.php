@@ -30,7 +30,7 @@ $current_image = $this->_praized_inc_url . '/PraizedXHTML/css/themes/' . $curren
 <div class="wrap">
     <h2><?php $this->_e('Praized Tools Options'); ?></h2>
     <form id="praized-tools" name="praized-tools" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-    	<h3 style="margin:30px auto 0 auto;"><?php $this->_e('API Connectivity'); ?></h3>
+    	<h3 style="margin:20px auto 0 auto;"><?php $this->_e('API Connectivity'); ?></h3>
         <p style="margin:5px auto 0 auto;">
         <?php
             printf(
@@ -60,12 +60,13 @@ $current_image = $this->_praized_inc_url . '/PraizedXHTML/css/themes/' . $curren
     			</td>
     		</tr>
     	</table>
-        <? if ( isset($pc_conf) && ! empty($pc_conf['community']) && ! empty($pc_conf['api_key']) ) : ?>
-        	<p class="submit">
-        		<input type="submit" id="get_pc_config" name="get_pc_config" value="<?php $this->_e('Use Praized Community API credentials'); ?>" />
-        	</p>
-        <?php endif; ?>
-    	<h3 style="margin:30px auto 0 auto;"><?php $this->_e('Behavior and Interface Customization'); ?></h3>
+    	<p class="submit">
+    		<input type="submit" name="save_config" class="button-primary" value="<?php $this->_e('Save Config'); ?>" />
+    		<? if ( isset($pc_conf) && ! empty($pc_conf['community']) && ! empty($pc_conf['api_key']) ) : ?>
+    			<input type="submit" id="get_pc_config" name="get_pc_config" class="button-primary" value="<?php $this->_e('Use Praized Community API credentials'); ?>" />
+    		<?php endif; ?>
+    	</p>
+    	<h3 style="margin: 0 auto 0 auto;"><?php $this->_e('Behavior and Interface Customization'); ?></h3>
     	<table class="optiontable form-table">
     		<?php
     		    $aggregate   = ($form['aggregate'])  ? 'checked="checked"' : '';
@@ -146,7 +147,10 @@ $current_image = $this->_praized_inc_url . '/PraizedXHTML/css/themes/' . $curren
     			</td>
     		</tr>
     	</table>
-    	<h3 style="margin:30px auto 0 auto;"><?php $this->_e('Data Caching'); ?></h3>
+    	<p class="submit">
+    		<input type="submit" name="save_config" class="button-primary" value="<?php $this->_e('Save Config'); ?>" />
+    	</p>
+    	<h3 style="margin: 0 auto 0 auto;"><?php $this->_e('Data Caching'); ?></h3>
     	<table class="optiontable form-table">
         <?php
             $caching_checkbox = ($form['caching']) ? 'checked="checked"' : '';
@@ -204,7 +208,7 @@ $current_image = $this->_praized_inc_url . '/PraizedXHTML/css/themes/' . $curren
     	?>
     	</table>
     	<p class="submit">
-    		<input type="submit" id="save_config" name="save_config" value="<?php $this->_e('Save Config'); ?>" />
+    		<input type="submit" name="save_config" class="button-primary" value="<?php $this->_e('Save Config'); ?>" />
     	</p>
     </form>
 </div>

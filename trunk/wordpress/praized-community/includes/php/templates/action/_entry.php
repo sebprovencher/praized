@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Individual action entry
  *
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -17,8 +17,15 @@
     <?php if ( pzdc_action_type(FALSE) == 'comment' ) : ?>
     	<br />
     	<blockquote><?php pzdc_action_comment_body(); ?></blockquote>
+    <?php elseif ( pzdc_action_type(FALSE) == 'question' ) : ?>
+    	<br />
+    	<blockquote><?php pzdc_action_question_content(); ?></blockquote>
+    <?php elseif ( pzdc_action_type(FALSE) == 'answer' ) : ?>
+    	<br />
+    	<blockquote><?php pzdc_action_answer_content(); ?></blockquote>
+    	<?php pzdc_action_answer_merchants(); ?>
     <?php endif; ?>
-    <br />
+    <br clear="all" />
     <small><abbr title="<?php pzdc_action_created_at(); ?>"><?php pzdc_time_distance(pzdc_action_created_at(FALSE)); ?></abbr></small>
   </div>
 <?php endif;?>

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Praized Community 1.5\n"
+"Project-Id-Version: Praized Community 1.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-community\n"
-"POT-Creation-Date: 2008-09-29 11:55-0400\n"
+"POT-Creation-Date: 2008-12-04 13:52-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,32 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: includes/php/PraizedCommunity.php:417
+#: includes/php/PraizedCommunity.php:496
 #, php-format
 msgid "Please submit a value for the \"%s\" form field."
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:420
+#: includes/php/PraizedCommunity.php:499
 msgid "Community"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:422 includes/php/config.php:38
+#: includes/php/PraizedCommunity.php:501 includes/php/config.php:38
 msgid "API Key"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:424 includes/php/config.php:47
+#: includes/php/PraizedCommunity.php:503 includes/php/config.php:47
 msgid "OAuth Consumer Key"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:426 includes/php/config.php:56
+#: includes/php/PraizedCommunity.php:505 includes/php/config.php:56
 msgid "OAuth Consumer Secret"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:428 includes/php/config.php:68
+#: includes/php/PraizedCommunity.php:507 includes/php/config.php:71
 msgid "URL Trigger"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:461
+#: includes/php/PraizedCommunity.php:540
 #, php-format
 msgid ""
 "Thank you for installing the <strong>Praized Community</strong> plugin. To "
@@ -49,7 +49,7 @@ msgid ""
 "the last few details</a> and request your <a href=\"%s\">Praized API key</a>."
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:496
+#: includes/php/PraizedCommunity.php:575
 #, php-format
 msgid ""
 "Please be sure to use mod_rewrite and, by extension, \"nice URLs\" (ie: not "
@@ -57,55 +57,91 @@ msgid ""
 "structure</a> to setup your Praized Community.</p>"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:519 includes/php/PraizedCommunity.php:549
+#: includes/php/PraizedCommunity.php:598 includes/php/PraizedCommunity.php:628
 msgid "Widget Title"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:617
+#: includes/php/PraizedCommunity.php:695 includes/php/PraizedCommunity.php:702
 msgid "Everything"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:623
+#: includes/php/PraizedCommunity.php:696 includes/php/PraizedCommunity.php:708
 msgid "Everywhere"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:634
+#: includes/php/PraizedCommunity.php:724
 msgid "Tag"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:672
+#: includes/php/PraizedCommunity.php:762
 #: includes/php/templates/_auth_nav.php:18
-#: includes/php/templates/_auth_nav.php:25
+#: includes/php/templates/_auth_nav.php:26
 msgid "The Local Buzz"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1832
+#: includes/php/PraizedCommunity.php:764
+msgid "Local Questions &amp; Answers"
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:767
+#: includes/php/templates/answer/_details.php:17
+#: includes/php/templates/answer/_details.php:35
+#: includes/php/templates/answer/_details.php:60
+#: includes/php/templates/question/_details.php:29
+msgid "answer"
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:767
+msgid "answers"
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:768
+msgid "Question:"
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:770
+msgid "Answer:"
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:2246
+msgid "This answer has been deleted."
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:2265
+msgid "Suggested places"
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:2288
 msgid ""
 "You must login before you can vote! - Just click, we'll take you there and "
 "back!"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1833
+#: includes/php/PraizedCommunity.php:2289
 msgid "Vote Up"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1834
+#: includes/php/PraizedCommunity.php:2290
 msgid "Vote Down"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1863
+#: includes/php/PraizedCommunity.php:2319
 msgid "Previous"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:1866
+#: includes/php/PraizedCommunity.php:2322
 msgid "Next"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:2000
+#: includes/php/PraizedCommunity.php:2519
+msgid "Other related places"
+msgstr ""
+
+#: includes/php/PraizedCommunity.php:2541
 msgid "Praized: Search"
 msgstr ""
 
-#: includes/php/PraizedCommunity.php:2027
+#: includes/php/PraizedCommunity.php:2568
 msgid "Praized: Session"
 msgstr ""
 
@@ -131,40 +167,45 @@ msgstr ""
 
 #: includes/php/config.php:33 includes/php/config.php:42
 #: includes/php/config.php:51 includes/php/config.php:60
-#: includes/php/config.php:73
+#: includes/php/config.php:76
 msgid "required"
 msgstr ""
 
-#: includes/php/config.php:64
+#: includes/php/config.php:65 includes/php/config.php:104
+#: includes/php/config.php:173 includes/php/config.php:221
+msgid "Save Config"
+msgstr ""
+
+#: includes/php/config.php:67
 msgid "Permalink Structure"
 msgstr ""
 
-#: includes/php/config.php:76
+#: includes/php/config.php:79
 msgid ""
 "Define where in your WordPress install the Praized Community plugin should "
 "be integrated."
 msgstr ""
 
-#: includes/php/config.php:79
+#: includes/php/config.php:82
 #, php-format
 msgid ""
 "For example, \"/praized\" or \"/local\", or use \"/\" if you want your "
 "section at the <a href=\"%s\">root of your Wordpress install</a>."
 msgstr ""
 
-#: includes/php/config.php:83
+#: includes/php/config.php:86
 msgid ""
 "Important: This value must match the information you provided when "
 "registering your community with Praized Media."
 msgstr ""
 
-#: includes/php/config.php:87
+#: includes/php/config.php:90
 #, php-format
 msgid ""
 "<p><strong><a href=\"%s%s\">View your Praized community.</a></strong></p>"
 msgstr ""
 
-#: includes/php/config.php:92
+#: includes/php/config.php:95
 #, php-format
 msgid ""
 "<p><strong>Tip</strong>: You can <a href=\"%s\">create a page</a> matching "
@@ -173,43 +214,48 @@ msgid ""
 "your page navigation list.</p>"
 msgstr ""
 
-#: includes/php/config.php:100
+#: includes/php/config.php:106
 msgid "Behavior and Interface Customization"
 msgstr ""
 
-#: includes/php/config.php:104
+#: includes/php/config.php:110
 msgid "Default View"
 msgstr ""
 
-#: includes/php/config.php:115 includes/php/templates/merchant/_actions.php:19
+#: includes/php/config.php:127 includes/php/templates/merchant/_actions.php:19
 #: includes/php/templates/merchant/_profile.php:23
 #: includes/php/templates/user/_actions.php:19
 #: includes/php/templates/user/_profile.php:19
 msgid "Activity Stream"
 msgstr ""
 
-#: includes/php/config.php:116 includes/php/templates/_auth_nav.php:17
-#: includes/php/templates/_auth_nav.php:24
+#: includes/php/config.php:128 includes/php/templates/_auth_nav.php:19
+#: includes/php/templates/_auth_nav.php:27
+msgid "Questions &amp; Answers"
+msgstr ""
+
+#: includes/php/config.php:129 includes/php/templates/_auth_nav.php:17
+#: includes/php/templates/_auth_nav.php:25
 msgid "Top Places"
 msgstr ""
 
-#: includes/php/config.php:122
+#: includes/php/config.php:135
 msgid "Default Search"
 msgstr ""
 
-#: includes/php/config.php:131
+#: includes/php/config.php:144
 msgid "Button Theme"
 msgstr ""
 
-#: includes/php/config.php:159
+#: includes/php/config.php:175
 msgid "Google Maps"
 msgstr ""
 
-#: includes/php/config.php:163
+#: includes/php/config.php:179
 msgid "Maps API Key"
 msgstr ""
 
-#: includes/php/config.php:170
+#: includes/php/config.php:186
 #, php-format
 msgid ""
 "Request your Google Maps API key by <a href=\"%s\" target=\"_blank"
@@ -218,32 +264,28 @@ msgid ""
 "user experience (and is a simple two-step process)."
 msgstr ""
 
-#: includes/php/config.php:180
+#: includes/php/config.php:196
 msgid "Dimensions"
 msgstr ""
 
-#: includes/php/config.php:184
+#: includes/php/config.php:200
 msgid "Width:"
 msgstr ""
 
-#: includes/php/config.php:187
+#: includes/php/config.php:203
 msgid "Height:"
 msgstr ""
 
-#: includes/php/config.php:189
-msgid "(Default: 470x200. Maximum: 512x512)"
+#: includes/php/config.php:205
+msgid "(Default: 470x200. Maximum: 640x640)"
 msgstr ""
 
-#: includes/php/config.php:195
+#: includes/php/config.php:211
 msgid "Zoom Level"
 msgstr ""
 
-#: includes/php/config.php:200
+#: includes/php/config.php:216
 msgid "(Default: 15. Definition: 0=far, 19=close)"
-msgstr ""
-
-#: includes/php/config.php:205
-msgid "Save Config"
 msgstr ""
 
 #: includes/php/functions/helpers.php:113
@@ -308,12 +350,12 @@ msgstr ""
 msgid "over %d years ago"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:286
+#: includes/php/praized-wp-core/PraizedWP.php:296
 #, php-format
 msgid "<strong>Praized Plugin:</strong> %s"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:308
+#: includes/php/praized-wp-core/PraizedWP.php:318
 #, php-format
 msgid ""
 "\n"
@@ -324,7 +366,7 @@ msgid ""
 "    \t\t\t"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:325
+#: includes/php/praized-wp-core/PraizedWP.php:335
 #, php-format
 msgid ""
 "\n"
@@ -335,38 +377,38 @@ msgid ""
 "    \t\t\t"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:432
+#: includes/php/praized-wp-core/PraizedWP.php:442
 #, php-format
 msgid "Requested Praized class not found inside %s."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:436
+#: includes/php/praized-wp-core/PraizedWP.php:446
 #, php-format
 msgid "Requested Praized library not found in %s."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:483
+#: includes/php/praized-wp-core/PraizedWP.php:493
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_bank\">Wordpress caching</a> is currently disabled."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:489
+#: includes/php/praized-wp-core/PraizedWP.php:499
 #, php-format
 msgid ""
 "The <a href=\"%s\" target=\"_bank\">caching functions</a> do not seem to be "
 "available in your Wordpress install."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:563
+#: includes/php/praized-wp-core/PraizedWP.php:573
 msgid "Please be sure to fill all the required fields."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:568
+#: includes/php/praized-wp-core/PraizedWP.php:578
 msgid "Your configurations were successfully tested and saved."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:572
+#: includes/php/praized-wp-core/PraizedWP.php:582
 msgid ""
 "Sorry, but we could not activate your access to the Praized API with the "
 "submitted information."
@@ -376,23 +418,23 @@ msgstr ""
 msgid "Hi"
 msgstr ""
 
-#: includes/php/templates/_auth_nav.php:19
+#: includes/php/templates/_auth_nav.php:20
 msgid "Add a new place"
 msgstr ""
 
-#: includes/php/templates/_auth_nav.php:20
+#: includes/php/templates/_auth_nav.php:21
 msgid "View Profile"
 msgstr ""
 
-#: includes/php/templates/_auth_nav.php:21
+#: includes/php/templates/_auth_nav.php:22
 msgid "Manage Profile"
 msgstr ""
 
-#: includes/php/templates/_auth_nav.php:22
+#: includes/php/templates/_auth_nav.php:23
 msgid "Disconnect Praized account"
 msgstr ""
 
-#: includes/php/templates/_auth_nav.php:26
+#: includes/php/templates/_auth_nav.php:28
 msgid "Connect to your Praized account"
 msgstr ""
 
@@ -417,6 +459,64 @@ msgstr ""
 msgid "Search for your favorite places and start <em>praizing</em>!"
 msgstr ""
 
+#: includes/php/templates/answer/_details.php:17
+#: includes/php/templates/question/_details.php:16
+#, php-format
+msgid "<a href=\"%s\">%s</a>'s"
+msgstr ""
+
+#: includes/php/templates/answer/_details.php:23
+#: includes/php/templates/question/_details.php:20
+#: includes/php/templates/question/_list.php:37
+msgid "asked"
+msgstr ""
+
+#: includes/php/templates/answer/_details.php:28
+#: includes/php/templates/question/_details.php:54
+msgid "The requested question cannot be found."
+msgstr ""
+
+#: includes/php/templates/answer/_details.php:35
+#: includes/php/templates/answer/_details.php:60
+#: includes/php/templates/question/_details.php:29
+#, php-format
+msgid "gave an <a href=\"%s\">%s</a>"
+msgstr ""
+
+#: includes/php/templates/answer/_details.php:39
+#: includes/php/templates/answer/_details.php:64
+#: includes/php/templates/question/_details.php:33
+msgid "Delete"
+msgstr ""
+
+#: includes/php/templates/answer/_details.php:52
+msgid "You can provide your own answer to this question by clicking here"
+msgstr ""
+
+#: includes/php/templates/answer/_details.php:55
+msgid "Other answers"
+msgstr ""
+
+#: includes/php/templates/answer/_details.php:80
+msgid "The requested answer cannot be found."
+msgstr ""
+
+#: includes/php/templates/answer/_form.php:47
+msgid "I want to suggest a place"
+msgstr ""
+
+#: includes/php/templates/answer/_form.php:49
+msgid "Give me a blank box"
+msgstr ""
+
+#: includes/php/templates/answer/_form.php:96
+msgid "Post answer"
+msgstr ""
+
+#: includes/php/templates/answer/_no_results.php:15
+msgid "No answers have been provided for this question yet."
+msgstr ""
+
 #: includes/php/templates/merchant/_actions.php:25
 #: includes/php/templates/merchant/_profile.php:35
 #: includes/php/templates/user/_actions.php:25
@@ -426,9 +526,9 @@ msgstr ""
 
 #: includes/php/templates/merchant/_actions.php:32
 #: includes/php/templates/merchant/_comment_form.php:49
-#: includes/php/templates/merchant/_comments.php:39
+#: includes/php/templates/merchant/_comments.php:40
 #: includes/php/templates/merchant/_favorites.php:36
-#: includes/php/templates/merchant/_profile.php:94
+#: includes/php/templates/merchant/_profile.php:95
 #: includes/php/templates/merchant/_taggings.php:23
 #: includes/php/templates/merchant/_taggings_form.php:34
 #: includes/php/templates/merchant/_votes.php:36
@@ -462,13 +562,13 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: includes/php/templates/merchant/_comments.php:24
-#: includes/php/templates/merchant/_profile.php:78
+#: includes/php/templates/merchant/_comments.php:25
+#: includes/php/templates/merchant/_profile.php:79
 msgid "says"
 msgstr ""
 
-#: includes/php/templates/merchant/_comments.php:30
-#: includes/php/templates/merchant/_profile.php:87
+#: includes/php/templates/merchant/_comments.php:31
+#: includes/php/templates/merchant/_profile.php:88
 #: includes/php/templates/user/_comments.php:39
 #: includes/php/templates/user/_profile.php:130
 msgid "No comment"
@@ -538,7 +638,7 @@ msgstr ""
 msgid "No praizer"
 msgstr ""
 
-#: includes/php/templates/merchant/_profile.php:84
+#: includes/php/templates/merchant/_profile.php:85
 #: includes/php/templates/user/_profile.php:127
 msgid "See all comments"
 msgstr ""
@@ -576,11 +676,80 @@ msgstr ""
 msgid "No praizers"
 msgstr ""
 
+#: includes/php/templates/question/_details.php:16
+#: includes/php/templates/question/_list.php:38
+msgid "Answer"
+msgstr ""
+
+#: includes/php/templates/question/_details.php:16
+msgid "question"
+msgstr ""
+
+#: includes/php/templates/question/_form.php:19
+msgid "Give me a guided box for my question"
+msgstr ""
+
+#: includes/php/templates/question/_form.php:20
+msgid "Give me a blank box for my question"
+msgstr ""
+
+#: includes/php/templates/question/_form.php:65
+msgid "Does anyone know a"
+msgstr ""
+
+#: includes/php/templates/question/_form.php:68
+msgid "in"
+msgstr ""
+
+#: includes/php/templates/question/_form.php:81
+msgid "Add more networks"
+msgstr ""
+
+#: includes/php/templates/question/_form.php:83
+msgid "Send via:"
+msgstr ""
+
+#: includes/php/templates/question/_form.php:87
+msgid "Ask"
+msgstr ""
+
+#: includes/php/templates/question/_list.php:16
+msgid "Looking for a particular place?"
+msgstr ""
+
+#: includes/php/templates/question/_list.php:16
+msgid "Ask your friends!"
+msgstr ""
+
+#: includes/php/templates/question/_list.php:22
+msgid "Got Answers?"
+msgstr ""
+
+#: includes/php/templates/question/_list.php:22
+msgid "Tackle a question."
+msgstr ""
+
+#: includes/php/templates/question/_list.php:30
+msgid "No answers so far"
+msgstr ""
+
+#: includes/php/templates/question/_list.php:32
+msgid "answer so far"
+msgstr ""
+
+#: includes/php/templates/question/_list.php:33
+msgid "answers so far"
+msgstr ""
+
+#: includes/php/templates/question/_no_results.php:15
+msgid "No questions have been asked in this community yet."
+msgstr ""
+
 #: includes/php/templates/user/_actions.php:32
 #: includes/php/templates/user/_comments.php:47
 #: includes/php/templates/user/_favorites.php:45
 #: includes/php/templates/user/_friends.php:36
-#: includes/php/templates/user/_hcard.php:59
+#: includes/php/templates/user/_hcard.php:60
 #: includes/php/templates/user/_profile.php:136
 #: includes/php/templates/user/_votes.php:45
 msgid "The requested user cannot be found."
@@ -606,31 +775,31 @@ msgstr ""
 msgid "No friend yet"
 msgstr ""
 
-#: includes/php/templates/user/_hcard.php:22
+#: includes/php/templates/user/_hcard.php:24
 msgid "User since:"
 msgstr ""
 
-#: includes/php/templates/user/_hcard.php:23
+#: includes/php/templates/user/_hcard.php:25
 msgid "%a, %B %e %Y at %H:%M:%S"
 msgstr ""
 
-#: includes/php/templates/user/_hcard.php:27
+#: includes/php/templates/user/_hcard.php:29
 msgid "About:"
 msgstr ""
 
-#: includes/php/templates/user/_hcard.php:33
+#: includes/php/templates/user/_hcard.php:35
 msgid "Claim to fame:"
 msgstr ""
 
-#: includes/php/templates/user/_hcard.php:44
+#: includes/php/templates/user/_hcard.php:46
 msgid "Remove from my friends"
 msgstr ""
 
-#: includes/php/templates/user/_hcard.php:47
+#: includes/php/templates/user/_hcard.php:49
 msgid "Add to my friends"
 msgstr ""
 
-#: includes/php/templates/user/_hcard.php:53
+#: includes/php/templates/user/_hcard.php:55
 msgid "Manage your Praized profile"
 msgstr ""
 

@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual merchant tag related functions
  * 
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -33,7 +33,7 @@ function pzdc_tag_name($echo = TRUE) {
 function pzdc_tag_link($echo = TRUE) {
     global $PraizedCommunity;
     if ( $tag = pzdc_tag_name(FALSE) ) {
-        $out = $PraizedCommunity->link_helper("/tag/$tag", 'merchant');
+        $out = $PraizedCommunity->link_helper("/category/$tag", 'merchant');
         if ( $echo )
             echo $out;
     }

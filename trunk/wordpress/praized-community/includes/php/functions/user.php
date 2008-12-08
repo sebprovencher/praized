@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual user related functions
  * 
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -78,10 +78,11 @@ function pzdc_user_is_self($identifier = FALSE) {
  */
 function pzdc_user_permalink($view = '', $echo = TRUE, $identifier = FALSE) {
     global $PraizedCommunity;
-    $out = pzdc_user_login(FALSE, $identifier);
+    $out = $PraizedCommunity->tpt_attribute_helper('user', 'permalink', FALSE, $identifier);
     if ( ! empty($view) )
         $out .= '/' . $view;
     $out = $PraizedCommunity->link_helper($out, 'user');
+    $out = pzdc_stripper($out);
     if ( $echo )
         echo $out;
     return $out;
@@ -163,6 +164,45 @@ function pzdc_user_date_of_birth($echo = TRUE, $identifier = FALSE) {
 function pzdc_user_claim_to_fame($echo = TRUE, $identifier = FALSE) {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_attribute_helper('user', 'claim_to_fame', $echo, $identifier);
+}
+
+/**
+ * Template function: Current user large avatar (140x140)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @param string $identifier Optional user identifier (login) for custom template development (see bundled praized-php lib)
+ * @return string
+ * @since 1.6
+ */
+function pzdc_user_avatar_large($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('user', 'avatar->large', $echo, $identifier);
+}
+
+/**
+ * Template function: Current user medium avatar (70x70)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @param string $identifier Optional user identifier (login) for custom template development (see bundled praized-php lib)
+ * @return string
+ * @since 1.6
+ */
+function pzdc_user_avatar_medium($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('user', 'avatar->medium', $echo, $identifier);
+}
+
+/**
+ * Template function: Current user small avatar (40x40)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @param string $identifier Optional user identifier (login) for custom template development (see bundled praized-php lib)
+ * @return string
+ * @since 1.6
+ */
+function pzdc_user_avatar_small($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('user', 'avatar->small', $echo, $identifier);
 }
 
 /**

@@ -2,7 +2,7 @@
 /**
  * hCard fragment, included through PraizedXHTML::_template()
  *
- * @version 1.5.1
+ * @version 1.6
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury
@@ -92,7 +92,7 @@ if ( ! $config['hide_tags'] ) {
 
 $xhtml .= "<fieldset class=\"vcard praized-xhtml-merchant-hcard\" id=\"praized-xhtml-merchant-{$merchant->pid}-hcard\">\n";
 
-$xhtml .= "<h4 class=\"fn\"><a class=\"org url\" href=\"{$link}\">{$merchant->name}</strong></a></h4>\n";
+$xhtml .= "<h4 class=\"fn\"><a class=\"org url\" href=\"{$link}\">{$merchant->name}</a></h4>\n";
 
 if ( ! $config['hide_vote'] ) {
     $xhtml .= $this->_fragment('vote_button');
@@ -106,10 +106,10 @@ if ( ! empty($merchant->phone) )
 	$xhtml .= "<br /><strong class=\"tel pref\">{$merchant->phone}</strong>\n";
 
 if ( ! empty($merchant->email) )
-	$xhtml .= "<br /><a href=\"mailto:{$merchant->email}\" class=\"adr\">{$merchant->email}</a>\n";
+	$xhtml .= "<br /><a href=\"mailto:{$merchant->email}\" class=\"email\">{$merchant->email}</a>\n";
 
 if ( ! empty($merchant->url) )
-	$xhtml .= "<br /><a href=\"{$merchant->url}\" class=\"adr\">{$merchant->url}</a>\n";
+	$xhtml .= "<br /><a href=\"{$merchant->url}\" class=\"url\">{$merchant->url}</a>\n";
 
 if ( ! $config['hide_vote'] )
     $xhtml .= "</div>\n";
