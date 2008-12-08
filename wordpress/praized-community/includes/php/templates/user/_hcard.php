@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User hcard
  *
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury
@@ -13,10 +13,12 @@
 
 <?php if ( pzdc_has_user() ) : ?>
   <div class="praized-user vcard">
+    <img src="<?php pzdc_user_avatar_medium(); ?>" width="70" height="70" border="none" alt="<?php pzdc_user_login(); ?>" style="float:right;" />
+    
     <h2 class="fn">
       <a href="<?php pzdc_user_permalink(); ?>" class="fn"><?php pzdc_page_header(); ?></a>
     </h2>
-  
+
     <ul>
       <li>
       	<strong><?php pzdc_e('User since:'); ?></strong>
@@ -53,8 +55,7 @@
         <a href="<?php pzdc_hub_user_profile(); ?>" class="praized-action"><?php pzdc_e('Manage your Praized profile'); ?></a>  
       </div>
     <?php endif; ?>
-  </div>
-  
+  </div>  
 <?php else:?>
   <p><?php pzdc_e('The requested user cannot be found.'); ?></p>
 <?php endif;?>

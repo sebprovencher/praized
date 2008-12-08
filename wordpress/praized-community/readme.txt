@@ -1,6 +1,6 @@
 === Praized Community ===
 Contributors: stephdau, sylvaincarle
-Tags: location, places, merchants, api, integration, widget, social, geocode, microformat
+Tags: location, places, merchants, api, integration, widget, social, geocode, microformats, microformat, oauth
 Requires at least: 2.2
 Tested up to: 2.7
 Stable tag: trunk
@@ -15,17 +15,16 @@ functionalities through your WordPress blog. REQUIRES PHP5.
 
 The Praized Community plugin allows you to deploys a complete local search
 section including 17M+ North American place listings, social tools and search
-functionalities through your WordPress blog.
+functionalities through your WordPress blog (see screenshots).
 
-You will need a [Praized API key](http://praizedmedia.com/en/api/) to use it.
+**You will need a [Praized API key](http://praizedmedia.com/en/api/) to use it.**
 
 This plugin is designed for use with the latest version of WordPress, but will
 work with versions 2.2 and newer. Our plugins also support WordPress MU 1.3+.
 
-Our plugins also currently require PHP5, though some efforts are being made to
-achieve PHP4 compatibility for some features.
+**Please note that the Praized Community plugin requires PHP5**.
 
-See also: The [Praized Tools](http://praizedmedia.com/en/download/wordpress/) plugin.
+**See also**: The companion [Praized Tools](http://wordpress.org/extend/plugins/praized-tools/) plugin (PHP4 compatible).
 
 
 
@@ -62,9 +61,20 @@ You will need a [Praized API key](http://praizedmedia.com/en/api/) to use it.
 
 Once you have received your API access credentials, go to the plugin's
 configuration screen in "Admin -> Settings -> Praized Community" and fill in
-the appropriate options with the information provided to you by Praized Media. 
+the appropriate options with the information provided to you by Praized Media
+when you [request access to our API](http://praizedmedia.com/en/api/). 
 
 **See Also:** ["Installing Plugins" on the WP Codex](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
+
+
+
+== Screenshots ==
+
+1. Top Places (highest rated) for the deployed community.
+2. The Local Buzz (activity stream) for the deployed community.
+3. Single place details screen, with microformats, Google Maps integration, etc.
+4. Sample user profile page.
+5. Plugin administration screen. **Note**: API credentials seen in the picture won't work. You need to [get your own](http://praizedmedia.com/en/api/). :)
 
 
 
@@ -157,7 +167,23 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 == ChangeLog ==
 
-**Version 1.5.1: 2008-10-24**
+Version 1.6: 2008-12-05
+
+* Implemented Questions & Answers features!
+* Added the ability to select the Questions & Answers section as the default page for your Praized
+  Community (see plugin config screen)
+* Place/Merchant tags are now routed as */category/* for (supposedly) better search engine indexing.
+  Both */category/* and */tag/* are supported.
+* If a user tries to vote, post a question or post an answer while not logged in to the Praized Network,
+  their action is now processed after they sign in.
+  EG: vote while logged out -> redirect login + authorize -> back to merchant -> vote is counted
+* Added user avatar support where appropriate (user profile, comments, etc).
+* Now supporting Google Maps up to 640x640px (from a previous max of 512x512px).
+* Updated to praized-php-1.6 to implement the new place resolver API methods.
+* Updated to praized-wp-core-1.6 to implement the new place resolver API methods.
+
+
+Version 1.5.1: 2008-10-24
 
 * Updated to praized-php-1.5.1 to implement a security in the 3rd-party Snoopy library
 

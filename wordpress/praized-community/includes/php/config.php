@@ -2,7 +2,7 @@
 /**
  * Plugin configuration screen template, included in PraizedCommunity::wp_options_page()
  *
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage ConfigScreen
  * @author Stephane Daury
@@ -13,7 +13,7 @@
 <div class="wrap">
     <h2><?php $this->_e('Praized Community Options'); ?></h2>
     <form id="praized-community" name="praized-community" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-    	<h3 style="margin:30px auto 0 auto;"><?php $this->_e('API Connectivity'); ?></h3>
+    	<h3 style="margin:20px auto 0 auto;"><?php $this->_e('API Connectivity'); ?></h3>
         <p style="margin:5px auto 0 auto;">
             <?php
                 printf(
@@ -61,7 +61,10 @@
     			</td>
     		</tr>
     	</table>
-    	<h3 style="margin:30px auto 0 auto;"><?php $this->_e('Permalink Structure'); ?></h3>
+    	<p class="submit">
+    		<input type="submit" name="save_config" class="button-primary" value="<?php $this->_e('Save Config'); ?>" />
+    	</p>
+    	<h3 style="margin: 0 auto 0 auto;"><?php $this->_e('Permalink Structure'); ?></h3>
     	<table class="optiontable form-table">
     		<tr valign="top">
     			<th scope="row">
@@ -97,7 +100,10 @@
     			</td>
     		</tr>
     	</table>
-    	<h3 style="margin:30px auto 0 auto;"><?php $this->_e('Behavior and Interface Customization'); ?></h3>
+    	<p class="submit">
+    		<input type="submit" name="save_config" class="button-primary" value="<?php $this->_e('Save Config'); ?>" />
+    	</p>
+    	<h3 style="margin: 0 auto 0 auto;"><?php $this->_e('Behavior and Interface Customization'); ?></h3>
     	<table class="optiontable form-table">
 			<tr valign="top">
     			<th scope="row">
@@ -106,13 +112,20 @@
     			<td>
     				<?php
     					if ($form['default_view'] == 'actions') {
-    						$default_view_actions = 'checked="checked"';
-    						$default_view_places  = '';
+    						$default_view_actions   = 'checked="checked"';
+    						$default_view_questions = '';
+    						$default_view_places    = '';
+    					} elseif ($form['default_view'] == 'questions') {
+    						$default_view_actions   = '';
+    						$default_view_questions = 'checked="checked"';
+    						$default_view_places    = '';
     					} else {
-    						$default_view_actions = '';
-    						$default_view_places  = 'checked="checked"';
+    						$default_view_actions   = '';
+    						$default_view_questions = '';
+    						$default_view_places    = 'checked="checked"';
     					}
     					echo ' <input type="radio" id="pca_default_view" name="default_view" value="actions" '.$default_view_actions.' /> '.$this->__('Activity Stream');
+    					echo ' <input type="radio" id="pca_default_view" name="default_view" value="questions" '.$default_view_questions.' /> '.$this->__('Questions &amp; Answers');
     					echo ' <input type="radio" id="pca_default_view" name="default_view" value="places" '.$default_view_places.' /> '.$this->__('Top Places');
     				?>
     			</td>
@@ -156,7 +169,10 @@
     			</td>
     		</tr>
     	</table>
-    	<h3 style="margin:30px auto 0 auto;"><?php $this->_e('Google Maps'); ?></h3>
+    	<p class="submit">
+    		<input type="submit" name="save_config" class="button-primary" value="<?php $this->_e('Save Config'); ?>" />
+    	</p>
+    	<h3 style="margin: 0 auto 0 auto;"><?php $this->_e('Google Maps'); ?></h3>
     	<table class="optiontable form-table">
     		<tr valign="top">
     			<th scope="row">
@@ -186,7 +202,7 @@
     				/
     				<strong><?php $this->_e('Height:'); ?></strong>
 					<input id="map_height" name="map_height" value="<?php echo $form['map_height']; ?>" size="3" maxlength="3" /> px
-    				<?php $this->_e('(Default: 470x200. Maximum: 512x512)'); ?>
+    				<?php $this->_e('(Default: 470x200. Maximum: 640x640)'); ?>
     			</td>
     		</tr>
     		<tr valign="top">
@@ -202,7 +218,7 @@
     		</tr>
     	</table>
     	<p class="submit">
-    		<input type="submit" id="save_config" name="save_config" value="<?php $this->_e('Save Config'); ?>" />
+    		<input type="submit" name="save_config" class="button-primary" value="<?php $this->_e('Save Config'); ?>" />
     	</p>
     </form>
 </div>

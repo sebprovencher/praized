@@ -2,11 +2,11 @@
 /**
  * Plugin Name:  Praized Tools
  * Plugin URI:   http://praizedmedia.com/en/download/wordpress/
- * Version:      1.5.1
- * Description:  The Praized Tools plugin will enable new editorial tools for your WordPress install for you to blog about places and tie everything back to your or a 3rd party's Praized community. It will also help you create your Praized sidebar widget. You need a <a href="http://praizedmedia.com/en/api/">Praized API key</a> to use it. See also: the <a href="http://praizedmedia.com/en/download/wordpress/">Praized Community</a> plugin.
+ * Version:      1.6
+ * Description:  The Praized Tools plugin is primarily a companion tool for our <a href="http://wordpress.org/extend/plugins/praized-community/"><strong>Praized Community</strong></a> plugin. It will enable new editorial tools within WordPress for you to blog about places and tie everything back to your own Praized Community. When running the Praized Tools without a Praized Community, the plugin will integrate with our <a href="http://praized.com/">Praized.com</a> hub instead. See also: the <a href="http://praizedmedia.com/en/download/wordpress/">Praized Community</a> plugin.
  * Author:       <a href="http://www.praizedmedia.com/">Praized Media, Inc.</a>
  * 
- * @version 1.5.1
+ * @version 1.6
  * @package PraizedTools
  * @subpackage PluginInit
  * @author Stephane Daury

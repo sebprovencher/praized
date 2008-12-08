@@ -3,7 +3,7 @@
  * Praized template fragment: "No results logic" when no actions are found
  * in a community.
  *
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

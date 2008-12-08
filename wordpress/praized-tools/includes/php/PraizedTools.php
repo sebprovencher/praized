@@ -2,7 +2,7 @@
 /**
  * Praized Tools
  * 
- * @version 1.5.1
+ * @version 1.6
  * @package PraizedTools
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ class PraizedTools extends PraizedWP {
      * @var string
      * @since 1.0.2
      */
-    var $version = '1.5.1';
+    var $version = '1.6';
     
 	/**
      * Merchant widget identifier string
@@ -44,7 +44,7 @@ class PraizedTools extends PraizedWP {
 	 */
 	function PraizedTools() {
 		PraizedWP::PraizedWP('praized-tools');
-
+		
 		if ( ! isset($this->_config['aggregate']) )
 		    $this->_config['aggregate'] = FALSE;
 
@@ -61,6 +61,19 @@ class PraizedTools extends PraizedWP {
 		
 		add_action('init', array(&$this, 'wp_action_mce_extras'));
 	}
+	
+	/**
+	 * Initializes default API creds linking to the Praized hub
+	 *
+	 * @since 1.6
+	 */
+	function _init_defaults() {
+        if ( empty($this->_config['community']) )
+		    $this->_config['community'] = 'praized-tools';
+
+		if ( empty($this->_config['api_key']) )
+		    $this->_config['api_key'] = 'd7b379a513515186260108bd4faadc76';
+	}
 
 	/**
 	 * Admin tools "constructor"
@@ -70,8 +83,9 @@ class PraizedTools extends PraizedWP {
 	function admin_tools() {
 		if ( ! strstr($_SERVER['QUERY_STRING'], $this->_plugin_name) && ( ! $this->_config['community'] || ! $this->_config['api_key']) ) {
 			add_action('admin_notices', array(&$this, 'wp_action_install_warning'));
-			return;
 		}
+		
+		$this->_init_defaults();
 
 		if ( count($_POST) > 0 ) {
 			if ( strstr($_GET['page'], $this->_plugin_name) && isset($_POST['community']) ) {
@@ -121,9 +135,9 @@ class PraizedTools extends PraizedWP {
 	 */
 	function wp_action_install_warning() {
 		$this->_load_praized();
-	    echo '<div id="praized-warning" class="error"><p>';
+	    echo '<div id="praized-warning" class="updated fade"><p>';
 		printf(
-			$this->__('Thank you for installing the <strong>Praized Tools</strong> plugin. To finalize the installation, please take the time to <a href="%s">configure the last few details</a> and request your <a href="%s">Praized API key</a>.'),
+			$this->__('Thank you for installing the <strong>Praized Tools</strong> plugin. To finalize the installation, please take the time to <a href="%s">configure the last few details</a>.'),
 			$this->_admin_url . '/options-general.php?page=' . $this->_plugin_name . '/' . $this->_plugin_name . '.php',
 			$this->Praized->praizedLinks['api_request']
 		);
@@ -333,7 +347,8 @@ ________EOS;
 	 * @since 0.1
 	 */
 	function display_tools() {
-		$this->_load_praized();
+		$this->_init_defaults();
+	    $this->_load_praized();
 	    
 	    // Test to make sure caching wasn't disabled at the WP level since the prefs were last saved.
 	    if ( FALSE === $this->_use_caching() )
@@ -390,105 +405,187 @@ ________EOS;
 	 * @param string $content Post/page content
 	 * @return string Modified post/page content
 	 * @since 0.1
+	 * @deprecated 1.5.1 Only here for backward compatibility. See PraizedTools::_parse_merchants().
 	 */
 	function _parse_bbcode($content, $with_aggregate = FALSE) {
+	    return $this->_parse_merchants($content, $with_aggregate);
+	}
+	
+	/**
+	 * Checks the aggregate container array structure for duplicate merchants (pids) and removes them if any
+	 *
+	 * @param array $aggregate See $aggregate in PraizedTools::_parse_merchants();
+	 * @return array
+	 * @since 1.6
+	 */
+	function _aggregate_duplicate_test($aggregate) {
+	    $test = array();
+	    foreach ($aggregate->merchants as $agg_key => $agg_val) {
+            if ( in_array($agg_val->pid, $test) )
+                unset($aggregate->merchants[$agg_key]);
+            else
+                $test[] = $agg_val->pid;
+        }
+        return $aggregate;
+	}
+	
+	/**
+	 * WP Filter: Applied to the post/page content retrieved from the database, prior to printing on the screen
+	 *
+	 * @param string $content Post/page content
+	 * @return string Modified post/page content
+	 * @since 1.6
+	 */
+	function _parse_merchants($content, $with_aggregate = FALSE) {
+	    $cache_key = 'post_cache_' . md5($content);
+	    
+	    if ( ! ( FALSE === ( $cached_content = $this->_get_cache($cache_key) ) ) )
+	        return $cached_content;	     
+	    
 	    require_once($this->_praized_inc_dir . '/PraizedParser.php');
 	    
-	    $bb_tags = PraizedParser::bbFind($content);
-	    
-	    if ( count($bb_tags) < 1 )
-	        return $content;
+	    /**
+	     * Note: it's important to scan for URLs before we scan for bbcodes,
+	     * or we'll process the same info twice (ie: converted bbcode).
+	     */
             
         if ( $with_aggregate && ( is_single() || is_page() ) ) {
             $aggregate = new stdClass();
             $aggregate->merchants = array();
+            $urls = PraizedParser::urlFind($content);
+        } else {
+            $urls = FALSE;
         }
-
-        foreach ( $bb_tags as $original => $specs ) {
-            $replacement = '';
+	    
+	    $bb_tags = PraizedParser::bbFind($content);
+	    
+	    if ( ! $urls && ! $bb_tags )
+	        return $content;
+        
+	    if ( $bb_tags ) {
+            foreach ( $bb_tags as $original => $specs ) {
+                $replacement = '';
+                
+                $type    = ( isset($specs->type) )     ? $specs->type : 'list';
+                $dynamic = ( isset($specs->dynamic) )  ? $specs->dynamic : 'true';
+                
+                $dynamic = ( 'true' == strtolower($dynamic) ) ? TRUE : FALSE;
+    
+                $static_key = 'bbcode_static_' . md5(serialize($specs));
+                
+                $config = array();
+                
+                switch ($type) {
+                    case 'badge':
+                        if ( ! isset($specs->pid) || empty($specs->pid) )
+                            break;
+                        
+                        $config['subtype'] = ( isset($specs->subtype) ) ? $specs->subtype : 'big';
+                        $config['name']    = ( isset($specs->name) )    ? $specs->name    : 'false';
+                        $config['address'] = ( isset($specs->address) ) ? $specs->address : 'false';
+                        $config['phone']   = ( isset($specs->phone) )   ? $specs->phone   : 'false';
+                        
+                        if ( FALSE == $dynamic ) {
+                	        if ( FALSE == ( $data = $this->_get_static($static_key) ) ) {
+                	            if ( FALSE != ( $data = $this->merchant_get($specs->pid) ) ) {
+                	                $this->_save_static($static_key, $data);
+                	                break;
+                	            }
+                	        }
+                	    } elseif ( FALSE == ( $data = $this->merchant_get($specs->pid) ) ) {
+                	        break;
+                	    }
+                	    
+                	    if ( isset($aggregate) && is_object($data->merchant) )
+                	        $aggregate->merchants[] = $data->merchant;
+        	            
+                	    break;
+                    default:
+                        $specs->limit = ( intval($specs->limit) > 25 ) ? 25 : $specs->limit;
+                        
+                        $type = 'list';
+                        
+                        $config['query']    = ( isset($specs->query) )    ? $specs->query    : '';
+                        $config['location'] = ( isset($specs->location) ) ? $specs->location : '';
+                        $config['limit']    = ( isset($specs->limit) )    ? $specs->limit    : 5;
+                        $config['address']  = ( isset($specs->address) ) ? $specs->address : 'false';
+                        
+                        if ( FALSE == $dynamic ) {
+                	        if ( FALSE == ( $data = $this->_get_static($static_key) ) ) {
+                	            if ( FALSE != ( $data = $this->merchants_search($config['query'], $config['location'], $config['limit']) ) ) {
+                	                $this->_save_static($static_key, $data);
+                	                break;
+                	            }
+                	        }
+                	    } elseif ( FALSE == ( $data = $this->merchants_search($config['query'], $config['location'], $config['limit']) ) ) {
+                	        break;
+                	    }
+                	    
+                	    if ( isset($aggregate) && is_array($data->merchants) )
+                	        $aggregate->merchants = array_merge($aggregate->merchants, $data->merchants);
+                        
+                	    break;
+                }
+                
+                if ( isset($data) && ( is_object($data) || is_array($data) ) )
+                    $replacement = ( $xhtml = $this->_xhtml($data, $type, $config) ) ? $xhtml : '';
+                
+                $content = str_replace($original, $replacement, $content);
+            }
+	    }
+        
+	    if ( isset($aggregate) ) {
+            if ( count($aggregate->merchants) > 0 )
+                $aggregate = $this->_aggregate_duplicate_test($aggregate);
             
-            $type    = ( isset($specs->type) )     ? $specs->type : 'list';
-            $dynamic = ( isset($specs->dynamic) )  ? $specs->dynamic : 'true';
-            
-            $dynamic = ( 'true' == strtolower($dynamic) ) ? TRUE : FALSE;
-
-            $static_key = 'bbcode_static_' . md5(serialize($specs));
-            
-            $config = array();
-            
-            switch ($type) {
-                case 'badge':
-                    if ( ! isset($specs->pid) || empty($specs->pid) )
-                        break;
-                    $config['subtype'] = ( isset($specs->subtype) ) ? $specs->subtype : 'big';
-                    $config['name']    = ( isset($specs->name) )    ? $specs->name    : 'false';
-                    $config['address'] = ( isset($specs->address) ) ? $specs->address : 'false';
-                    $config['phone']   = ( isset($specs->phone) )   ? $specs->phone   : 'false';
-                    if ( FALSE == $dynamic ) {
-            	        if ( FALSE == ( $data = $this->_get_static($static_key) ) ) {
-            	            if ( FALSE != ( $data = $this->merchant_get($specs->pid) ) ) {
-            	                $this->_save_static($static_key, $data);
-            	                break;
-            	            }
-            	        }
-            	    } elseif ( FALSE == ( $data = $this->merchant_get($specs->pid) ) ) {
-            	        break;
-            	    }
-            	    if ( isset($aggregate) && is_object($data->merchant) )
-            	        $aggregate->merchants[] = $data->merchant;
-    	            break;
-                default:
-                    $specs->limit = ( intval($specs->limit) > 25 ) ? 25 : $specs->limit;
-                    $type = 'list';
-                    $config['query']    = ( isset($specs->query) )    ? $specs->query    : '';
-                    $config['location'] = ( isset($specs->location) ) ? $specs->location : '';
-                    $config['limit']    = ( isset($specs->limit) )    ? $specs->limit    : 5;
-                    $config['address']  = ( isset($specs->address) ) ? $specs->address : 'false';
-                    if ( FALSE == $dynamic ) {
-            	        if ( FALSE == ( $data = $this->_get_static($static_key) ) ) {
-            	            if ( FALSE != ( $data = $this->merchants_search($config['query'], $config['location'], $config['limit']) ) ) {
-            	                $this->_save_static($static_key, $data);
-            	                break;
-            	            }
-            	        }
-            	    } elseif ( FALSE == ( $data = $this->merchants_search($config['query'], $config['location'], $config['limit']) ) ) {
-            	        break;
-            	    }
-            	    if ( isset($aggregate) && is_array($data->merchants) )
-            	        $aggregate->merchants = array_merge($aggregate->merchants, $data->merchants);
-                    break;
+            if ( $urls ) {
+                $limit = 0;
+                
+                if ( isset($urls['pids']) )
+                    $limit += count($urls['pids']);
+                
+                if ( isset($urls['permalinks']) )
+                    $limit += count($urls['permalinks']);
+                
+                if ( isset($urls['short_urls']) )
+                    $limit += count($urls['permalinks']);
+                
+                if ( $limit == 0 )
+                    $limit = 10;
+                elseif ( $limit > 25 )
+                    $limit = 25;
+                
+                if ( $urls_merchants = $this->merchants_resolve($urls, $limit) ) {
+                    if ( ! isset($aggregate->community) )
+                        $aggregate->community = $urls_merchants->community;
+                    $aggregate->merchants = array_merge($aggregate->merchants, $urls_merchants->merchants);
+                    $aggregate = $this->_aggregate_duplicate_test($aggregate);
+                }
             }
             
-            if ( isset($data) && ( is_object($data) || is_array($data) ) )
-                $replacement = ( $xhtml = $this->_xhtml($data, $type, $config) ) ? $xhtml : '';
-            
-            $content = str_replace($original, $replacement, $content);
+            if ( count($aggregate->merchants) > 0 ) {
+                if ( ! isset($aggregate->community) )
+                    $aggregate->community = $data->community;
+                
+                $display_options = array(
+                    'hide_vote'   => $this->_config['hide_vote'],
+                    'hide_tags'   => $this->_config['hide_tags'],
+                    'hide_stats'  => $this->_config['hide_stats']
+                );
+                
+                if ( $xhtml = $this->_xhtml($aggregate, 'hcard_list', $display_options ) ) {
+                    $content .= "\n\n<h3>"
+                             .  $this->__(sprintf(
+                             		'Places mentioned in this %s',
+                                    ( is_page() ) ? $this->__('page') : $this->__('post')
+                                ))
+                             . "</h3>\n";
+                    $content .= $xhtml;
+                }
+            }
         }
         
-        if ( isset($aggregate) && count($aggregate->merchants) > 0 ) {
-            $agg_dupe_check = array();
-            foreach ($aggregate->merchants as $agg_key => $agg_val) {
-                if ( in_array($agg_val->pid, $agg_dupe_check) )
-                    unset($aggregate->merchants[$agg_key]);
-                else
-                    $agg_dupe_check[] = $agg_val->pid;
-            }
-            $aggregate->community = $data->community;
-            $display_options = array(
-                'hide_vote'   => $this->_config['hide_vote'],
-                'hide_tags'   => $this->_config['hide_tags'],
-                'hide_stats'  => $this->_config['hide_stats']
-            );
-            if ( $xhtml = $this->_xhtml($aggregate, 'hcard_list', $display_options ) ) {
-                $content .= "\n\n<h3>"
-                         .  $this->__(sprintf(
-                         		'Places mentioned in this %s',
-                                ( is_page() ) ? $this->__('page') : $this->__('post')
-                            ))
-                         . "</h3>\n";
-                $content .= $xhtml;
-            }
-        }
+        $this->_set_cache($cache_key, $content);
 	    
 	    return $content;
 	}
@@ -507,7 +604,7 @@ ________EOS;
 	    
 	    if ( ! is_array($config) || ! isset($config['content']) || empty($config['content']) )
 	        return;
-	    elseif ( ! ($xhtml = $this->_parse_bbcode(stripslashes($config['content']), FALSE)) )
+	    elseif ( ! ($xhtml = $this->_parse_merchants(stripslashes($config['content']), FALSE)) )
 	        return;
 	    
 	    echo $before_widget; // WP STANDARD	    
@@ -533,7 +630,7 @@ ________EOS;
 	 * @since 0.1
 	 */
 	function wp_filter_the_content($content) {
-	    return $this->_parse_bbcode($content, $this->_config['aggregate']);
+	    return $this->_parse_merchants($content, $this->_config['aggregate']);
 	}
 }
 ?>

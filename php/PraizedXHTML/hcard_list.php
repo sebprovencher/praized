@@ -2,7 +2,7 @@
 /**
  * hCard list template, included through PraizedXHTML::_template()
  *
- * @version 1.5.1
+ * @version 1.6
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury

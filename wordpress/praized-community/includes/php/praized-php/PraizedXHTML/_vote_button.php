@@ -2,7 +2,7 @@
 /**
  * Fake vote button fragment, included through PraizedXHTML::_fragment()
  *
- * @version 1.5.1
+ * @version 1.6
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury
@@ -33,6 +33,12 @@ if ( $voteCount < 1 )
 elseif ( isset($merchant->self->rating) )
 	$voteCss = 'voted-' . $merchant->self->rating;
 
+$voteUpTitle   = ( isset($merchant->self) ) ? $captions['vote_up']   : $captions['must_login'];
+$voteDownTitle = ( isset($merchant->self) ) ? $captions['vote_down'] : $captions['must_login'];
+
+$voteUpTitle   = str_replace('"', '&#34;', $voteUpTitle);
+$voteDownTitle = str_replace('"', '&#34;', $voteDownTitle);
+
 if ( isset($config['translations']) && is_array($config['translations']) )
 	$captions = array_merge($captions, $config['translations']);
 
@@ -45,8 +51,8 @@ $xhtml .= <<<EOS
         	</fieldset>
         	<fieldset class="actions">
         		<legend>Actions:</legend>
-        			<button type="submit" title="{$captions['must_login']}"  class="vote-for vote-option login-required" name="vote" value="1"><b>{$captions['vote_up']}</b></button>
-        			<button type="submit" title="{$captions['must_login']}"  class="vote-against vote-option login-required" name="vote" value="0"><b>{$captions['vote_down']}</b></button>
+        			<button type="submit" title="{$voteUpTitle}"  class="vote-for vote-option login-required" name="vote" value="1"><b>{$captions['vote_up']}</b></button>
+        			<button type="submit" title="{$voteDownTitle}"  class="vote-against vote-option login-required" name="vote" value="0"><b>{$captions['vote_down']}</b></button>
         	</fieldset>
         </form>
     <!-- end vote button -->

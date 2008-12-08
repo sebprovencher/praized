@@ -4,7 +4,7 @@
  * 
  * Common codebase used by the Praized WordPress plugins.
  *
- * @version 1.5
+ * @version 1.6
  * @package PraizedWP
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedWP')) {
          * @var string
          * @since 0.1
          */
-        var $version = '1.5';
+        var $version = '1.6';
         
         /**
          * Plugin errors
@@ -187,11 +187,30 @@ if ( ! class_exists('PraizedWP')) {
     		$this->_includes        = ABSPATH . $this->_plugin_dir . '/includes';
     		$this->_praized_inc_dir = $this->_includes . '/php/praized-php';
     		$this->_praized_inc_url = $this->_plugin_dir_url . '/includes/php/praized-php';
-    
+
+            // WordPress version  
+    		global $wp_db_version;
+    		if ( $wp_db_version >= 8201 )
+    			$this->_wp_version = 2.6;
+    		elseif ( $wp_db_version >= 7558 )
+    			$this->_wp_version = 2.5;
+    		elseif ( $wp_db_version >= 6124 )
+    			$this->_wp_version = 2.3;
+    		elseif ( $wp_db_version >= 5183 )
+    			$this->_wp_version = 2.2;
+    		elseif ( $wp_db_version >= 4772 )
+    			$this->_wp_version = 2.1;
+    		else
+    			$this->_wp_version = 0; // We do not support version less than 2.1 (officially 2.2) anyway
+    		
     		// Localization if we're using WordPress in a different language
-    		// Just drop it in "{this->_includes}/localization/{this->_plugin_name}-{lang code in wp-config}.mo"
-    		load_plugin_textdomain( $this->_plugin_name, $this->_includes . '/localization' );
-    
+    		// Just drop it in "{this->_plugin_name}/includes/localization/{this->_plugin_name}-{lang code in wp-config}.mo"
+    		$mo_path = '/includes/localization';
+    		if ( $this->_wp_version >= 2.6 )
+    			load_plugin_textdomain( $this->_plugin_name, FALSE, $this->_plugin_name . $mo_path );
+    	    else
+    	        load_plugin_textdomain( $this->_plugin_name, PLUGINDIR . '/' . $this->_plugin_name . $mo_path );
+    		
     		if ( ! defined('PLUGINDIR') ) {
     			add_action( 'admin_notices', array(&$this, 'wp_action_too_old') );
     			return;
@@ -199,15 +218,6 @@ if ( ! class_exists('PraizedWP')) {
     			add_action( 'admin_notices', array(&$this, 'wp_action_incorrectly_installed') );
     			return;
     		}
-    		
-    		// WordPress version
-    		global $wp_db_version;
-    		if ( $wp_db_version > 6124 ) // add_meta_box() isn't defined at this point, so db_version works well here
-    			$this->_wp_version = 2.5;
-    		elseif ( class_exists('WP_Scripts') )
-    			$this->_wp_version = 2.1; // and 2.2, 2.3 (no 2.4 was ever released)
-    		else
-    			$this->_wp_version = 2.0;
     		
             if ( $this->_wp_version < 2.1 ) {
     			add_action( 'admin_notices', array(&$this, 'wp_action_too_old') );
@@ -611,6 +621,25 @@ if ( ! class_exists('PraizedWP')) {
     	    if ( FALSE === ( $results = $this->_get_cache($cache_key) ) ) {
     	        $o = $this->Praized->merchants();
     	    	$results = $o->search($term, $location, $limit, $extra_query);
+                $this->_set_cache($cache_key, $results);
+    	    }
+    	    return $results;
+    	}
+    	
+    	/**
+    	 * Returns merchant search results from cache if available or from Praized->merchants()->resolve()
+    	 *
+         * @param array $list List of strings to be matched, in the form of $list = array('pids' => array(), 'permalinks' => array(), 'short_urls' => array())
+         * @param integer $limit Resultset limit
+         * @param array $extra_query Supplemental query parameters (details, etc)
+         * @return array List of merchants objects as returned by the Praize API
+         * @since 0.1
+    	 */
+    	function merchants_resolve($list, $limit = 10, $extra_query = array()) {
+    	    $cache_key = 'merchants_resolve_' . md5(serialize(array($list, $limit, $extra_query)));
+    	    if ( FALSE === ( $results = $this->_get_cache($cache_key) ) ) {
+    	        $o = $this->Praized->merchants();
+    	    	$results = $o->resolve($list, $limit, $extra_query);
                 $this->_set_cache($cache_key, $results);
     	    }
     	    return $results;

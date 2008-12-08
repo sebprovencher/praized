@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Action listing, with paging
  *
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury

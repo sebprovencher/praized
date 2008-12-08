@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.5.1
+ * @version 1.6
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @var string
     	 * @since 0.1
     	 */
-        var $version = '1.5.1';
+        var $version = '1.6';
         
         /**
          * Library errors
@@ -119,7 +119,6 @@ if ( ! class_exists('PraizedCore') ) {
     		$this->_apiKey    = trim($apiKey);
     		
     		$this->_loadVendors();
-    		$this->_Json = new Services_JSON;
 
     	    if ( ! isset($_SERVER['SCRIPT_URI']) ) {
     	        $this->_scriptUri = sprintf(
@@ -205,7 +204,17 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @since 0.1
     	 */
     	function jsonDecode($json) {
-	        if ( ! ( $obj = $this->_Json->decode($json) ) ) {
+	        if ( function_exists('json_decode') ) {
+	            $obj = json_decode($json);
+    	    } elseif ( class_exists('Services_JSON') ) {
+	            if ( ! $this->_Json )
+	                $this->_Json = new Services_JSON;
+    	        $obj = $this->_Json->decode($json);
+    	    } else {
+	            $this->errors['500'] = "JSON: No JSON parser found.";
+	            return false;
+	        }
+    	    if ( ! $obj ) {
 			    $this->errors['500'] = "JSON: Decode error.";
 			    return false;
 	        }
@@ -315,10 +324,11 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @since 0.1
     	 */
     	function googleMap($mapApiKey, $latitude, $longitude, $rawParams = array(), $caption = '') {
-    	    if ( empty($mapApiKey) || empty($latitude) || empty($longitude) )
+    	    if ( empty($mapApiKey) || ( ( empty($latitude) || empty($longitude) ) && empty($rawParams['markers']) ) )
     	        return false;
     	    
-          $markers = ( isset($rawParams['markers']) ) ? $rawParams['markers'] : "$latitude,$longitude";
+            $markers = ( ! empty($rawParams['markers']) ) ? $rawParams['markers'] : "$latitude,$longitude";
+            list($latitude, $longitude) = explode(',', $markers);
 
     	    $size = ( isset($rawParams['size']) ) ? $rawParams['size'] : '470x200';
     	    list($width, $height) = explode('x', strtolower($size));
@@ -558,6 +568,20 @@ __________EOS;
         }
     	
     	/**
+    	 * Place picker searchlet script tag
+    	 *
+    	 * @return string HTML script tag
+    	 * @since 1.6
+    	 */
+    	function placePickerScript() {
+    		if ( isset($_SERVER['HTTPS']) && ( ! empty($_SERVER['HTTPS']) ) )
+                $jsHost = str_replace('http:', 'https:', $this->praizedLinks['static']);
+            else
+                $jsHost = $this->praizedLinks['static'];    		
+    		return '<script src="'.$jsHost.'/praized-com/javascripts/widgets/grimlock/main.js" type="text/javascript" charset="utf-8"></script>';
+    	}
+    	
+    	/**
     	 * Praized credits line helper.
     	 *
     	 * @return string
@@ -585,8 +609,10 @@ __________EOS;
     	 * @since 0.1
     	 */
     	function _loadVendors() {
-    		if ( ! class_exists('Snoopy') )        $this->_loadClass('../vendor/Snoopy');
-    		if ( ! class_exists('Services_JSON') ) $this->_loadClass('../vendor/JSON');
+    		if ( ! class_exists('Snoopy') )
+    		    $this->_loadClass('../vendor/Snoopy');
+    		if ( ! function_exists('json_decode') && ! class_exists('Services_JSON') )
+    		    $this->_loadClass('../vendor/JSON');
     	}
     	
     	/**
@@ -651,7 +677,7 @@ __________EOS;
     		} else {
     		    $http->fetch($url);
     		}
-    		
+
     		if ( $http->status != '200' ) {
     			$this->errors[$http->status] = 'HTTP: '.$http->response_code;
     			return false;
@@ -713,7 +739,7 @@ __________EOS;
     	            return $obj;
     	        }
 	        } else {
-	            $nsRegex = '/^{\s*?"praized":/';
+	            $nsRegex = '/^{\s*?"praized":(.*)\s*?}$/';
 	            if ( ! preg_match('/^{.*?}$/', $json) ) {
 	                $this->errors['500'] = 'JSON: The content returned by the API does not look like valid JSON.';
     			    return false;
@@ -721,7 +747,7 @@ __________EOS;
 	                $this->errors['500'] = $nsMissingError;
     			    return false;
 	            } else {
-	                return preg_replace($nsRegex, '', rtrim($json, '}'));
+	                return preg_replace($nsRegex, '\1', $json);
 	            }
 	        }
     	}

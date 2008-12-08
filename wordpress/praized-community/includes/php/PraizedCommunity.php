@@ -2,7 +2,7 @@
 /**
  * Praized Community
  * 
- * @version 1.5.1
+ * @version 1.6
  * @package PraizedCommunity
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ class PraizedCommunity extends PraizedWP {
      * @var string
      * @since 1.0.4
      */
-    var $version = '1.5.1';
+    var $version = '1.6';
     
 	/**
      * Valid Praized Community URL routes
@@ -38,7 +38,9 @@ class PraizedCommunity extends PraizedWP {
         'places',
         'users',
         'oauth',
-        'actions'
+        'actions',
+        'questions',
+    	'answers'
     );
     
     /**
@@ -82,6 +84,27 @@ class PraizedCommunity extends PraizedWP {
      * @since 1.5
      */
     var $_route_is_actions = FALSE;
+    
+    /**
+     * Keeps track of if the current page is a questions listing route
+     * @var boolean
+     * @since 1.6
+     */
+    var $_route_is_questions = FALSE;
+    
+    /**
+     * Keeps track of if the current page is a single question route
+     * @var boolean
+     * @since 1.6
+     */
+    var $_route_is_question = FALSE;
+    
+    /**
+     * Keeps track of if the current page is a single answer route
+     * @var boolean
+     * @since 1.6
+     */
+    var $_route_is_answer = FALSE;
     
     /**
      * API object holder: Community data
@@ -341,6 +364,62 @@ class PraizedCommunity extends PraizedWP {
      * @since 1.5
      */
     var $tpt_has_next_action = FALSE;
+    
+    /**
+     * API object holder: Questions data (collection)
+     * @var mixed boolean FALSE or object
+     * @since 1.6
+     */
+    var $tpt_questions = FALSE;
+    
+    /**
+     * Keeps track of which question we're dealing with in $this->tpt_questions_loop()
+     * @var integer
+     * @since 1.6
+     */
+    var $tpt_question_index = 0;
+    
+    /**
+     * API object holder: Question data (single)
+     * @var mixed boolean FALSE or object
+     * @since 1.6
+     */
+    var $tpt_question = FALSE;
+    
+    /**
+     * Keeps track of if there is another question to be processed in $this->tpt_questions_loop()
+     * @var boolean
+     * @since 1.6
+     */
+    var $tpt_has_next_question = FALSE;
+    
+    /**
+     * API object holder: Answers data (collection)
+     * @var mixed boolean FALSE or object
+     * @since 1.6
+     */
+    var $tpt_answers = FALSE;
+    
+    /**
+     * Keeps track of which answer we're dealing with in $this->tpt_answers_loop()
+     * @var integer
+     * @since 1.6
+     */
+    var $tpt_answer_index = 0;
+    
+    /**
+     * API object holder: Answer data (single)
+     * @var mixed boolean FALSE or object
+     * @since 1.6
+     */
+    var $tpt_answer = FALSE;
+    
+    /**
+     * Keeps track of if there is another answer to be processed in $this->tpt_answers_loop()
+     * @var boolean
+     * @since 1.6
+     */
+    var $tpt_has_next_answer = FALSE;
     
     /**
      * Search form widget identifier string
@@ -610,24 +689,35 @@ class PraizedCommunity extends PraizedWP {
 	function page_header($separator = '&raquo;') {
 	    $header = '';
 	    if ( $this->_route_is_merchants ) {
-	        $query    = ( ! empty($_GET['q']) )
-	                  ? $this->stripper($_GET['q'])
-	                  : ( ( ! empty($this->_config['default_query']) && empty($_GET['l']) )
-	                      ? $this->_config['default_query']
-	                      : $this->__('Everything') );
+	        if ( isset($_GET['q']) && empty($_GET['q']) && isset($_GET['l']) && empty($_GET['l']) ) {
+                // We still need users to be able to overwrite the defaults and submit an
+                // "Everything + Everywhere" query, but only when the form is truly submitted.
+	            $query    = $this->__('Everything');
+                $location = $this->__('Everywhere');
+	        } else {
+    	        $query    = ( ! empty($_GET['q']) )
+    	                  ? $this->stripper($_GET['q'])
+    	                  : ( ( ! empty($this->_config['default_query']) && empty($_GET['l']) )
+    	                      ? $this->_config['default_query']
+    	                      : $this->__('Everything') );
+    	        
+    	        $location = ( ! empty($_GET['l']) )
+    	                  ? $this->stripper($_GET['l'])
+    	                  : ( ( ! empty($this->_config['default_location']) && empty($_GET['q']) )
+    	                      ? $this->_config['default_location']
+    	                      : $this->__('Everywhere') );
+	        }
 	        
-	        $location = ( ! empty($_GET['l']) )
-	                  ? $this->stripper($_GET['l'])
-	                  : ( ( ! empty($this->_config['default_location']) && empty($_GET['q']) )
-	                      ? $this->_config['default_location']
-	                      : $this->__('Everywhere') );
-	        
-	        if (  ! empty($_GET['t']) || ! empty($_GET['tag']) ) {
-	            $tag = ( ! empty($_GET['t']) ) ? $this->stripper($_GET['t']) : $this->stripper($_GET['tag']);
+	        if (  ! empty($_GET['t']) || ! empty($_GET['tag']) || ! empty($_GET['category']) ) {
+	            $tag = ( ! empty($_GET['t']) )
+	                 ? $this->stripper($_GET['t'])
+	                 : ( ! empty($_GET['tag']) )
+	                     ? $this->stripper($_GET['tag'])
+	                     : $this->stripper($_GET['category']);
 	        } elseif ( $this->_route_is_tag ) {
-	            preg_match('|/tag/([^/]*)|', $this->_script_uri, $matches);
-	            if ( ! empty($matches[1]) )
-	                 $tag = htmlspecialchars(urldecode($matches[1]));
+	            preg_match('/\/(tag|category)\/([^\/]*)/', $this->_script_uri, $matches);
+	            if ( ! empty($matches[2]) )
+	                 $tag = htmlspecialchars(urldecode($matches[2]));
 	        }
 	        
 	        if ( isset($tag) )
@@ -670,6 +760,14 @@ class PraizedCommunity extends PraizedWP {
 	        $header     = ( $full_name ) ? "{$full_name} ({$login})" : $login;
 	    } elseif ( $this->_route_is_actions && $this->tpt_has_actions() ) {
 	        $header     = $this->__('The Local Buzz');
+	    } elseif ( $this->_route_is_questions && $this->tpt_has_questions() ) {
+	        $header     = $this->__('Local Questions &amp; Answers');
+	    } elseif ( $this->_route_is_question && $this->tpt_has_question() ) {
+	        $answer_count = (int) $this->tpt_attribute_helper('question', 'answer_count', FALSE);
+	    	$answer_count .= ( $answer_count < 2 ) ? ' ' . $this->__('answer') : ' ' . $this->__('answers');
+	    	$header     = $this->__('Question:') . ' ' . $this->tpt_attribute_helper('question', 'content', FALSE) . ' (' . $answer_count . ')';
+	    } elseif ( $this->_route_is_answer && $this->tpt_has_answer() ) {
+	        $header     = $this->__('Answer:') . ' ' . $this->tpt_attribute_helper('answer', 'content', FALSE);
 	    }
 	    return $header;
 	}
@@ -706,7 +804,7 @@ class PraizedCommunity extends PraizedWP {
 	function wp_action_template_head() {
 	    if ( $css = $this->_css() )
 	        echo $css;
-	    echo sprintf(
+	    printf(
 	        '<link rel="stylesheet" href="%s/includes/css/commons/styles.css?v=%s" type="text/css" media="screen" />' . "\n",
 	        $this->_plugin_dir_url,
 	        $this->version
@@ -719,7 +817,7 @@ class PraizedCommunity extends PraizedWP {
 	 * @since 0.1
 	 */
 	function wp_action_template_footer() {
-	    echo sprintf(
+	    printf(
 	        '<script src="%s/includes/js/commons/PraizedVoteButton.js?v=%s" type="text/javascript" charset="utf-8"></script>' . "\n",
 	        $this->_plugin_dir_url,
 	        $this->version
@@ -770,8 +868,11 @@ class PraizedCommunity extends PraizedWP {
 	    /**
 	     * Default only to the merchant route when at the root of $this->trigger_url
 	     */
-	    if ( empty($route) || ($route == '/') )
-	        $route = ($this->_config['default_view'] == 'actions') ? '/actions' : '/places';
+	    if ( empty($route) || ($route == '/') ) {
+	        $route = ( empty($this->_config['default_view']) || ! in_array($this->_config['default_view'], $this->_routes) )
+	               ? '/places'
+	               : '/' . $this->_config['default_view'];
+	    }
 
         $parts = explode('/', trim($route,'/'));
         
@@ -792,7 +893,9 @@ class PraizedCommunity extends PraizedWP {
                 $this->_route_user($parts);
                 break;
             case 'oauth':
-                if ( ! empty($_SERVER["HTTP_REFERER"]) && stristr($_SERVER["HTTP_REFERER"], $this->trigger_url) )
+                if ( ! empty($_GET['return_to']) && stristr(rawurldecode($_GET['return_to']), $this->trigger_url) )
+                	$callback = $_GET['return_to'];
+            	elseif ( ! empty($_SERVER["HTTP_REFERER"]) && stristr($_SERVER["HTTP_REFERER"], $this->trigger_url) )
                     $callback = $_SERVER["HTTP_REFERER"];
                 else
                     $callback = $this->trigger_url;
@@ -800,6 +903,12 @@ class PraizedCommunity extends PraizedWP {
                 break;
             case 'actions':
                 $this->_route_actions($parts);
+                break;
+            case 'questions':
+                $this->_route_questions($parts);
+                break;
+            case 'answers':
+                $this->_route_answer($parts);
                 break;
         }
     }
@@ -811,7 +920,7 @@ class PraizedCommunity extends PraizedWP {
 	 * @return array
 	 * @since 0.1
 	 */
-	function _preserveQuery($query = array()) {
+	function _preserve_query($query = array()) {
         if ( ! is_array($query) ) 
 	        $query = array();
 	    
@@ -821,14 +930,47 @@ class PraizedCommunity extends PraizedWP {
 		if ( isset($_GET['l']) && ! empty($_GET['l']) )
 		    $query['l'] = urlencode($this->stripper($_GET['l']));
 
-        if ( ( isset($_GET['tag']) && ! empty($_GET['tag']) ) || ( isset($_GET['t']) && ! empty($_GET['t']) ) ) {
-		    if ( isset($_GET['tag']) && ! empty($_GET['tag']) )
-		        $query['t'] = urlencode($this->stripper($_GET['tag']));
-		    else
-		        $query['t'] = urlencode($this->stripper($_GET['t']));
+        if ( isset($_GET['tag']) && ! empty($_GET['tag']) ) {
+		    $query['t'] = urlencode($this->stripper($_GET['tag']));
+	    } elseif ( isset($_GET['category']) && ! empty($_GET['category']) ) {
+	        $query['t'] = urlencode($this->stripper($_GET['category']));
+	    } elseif ( isset($_GET['t']) && ! empty($_GET['t']) ) {
+	        $query['t'] = urlencode($this->stripper($_GET['t']));
 	    }
 	    
 	    return $query;
+	}
+	
+	/**
+	 * Standard cookie name to be used with $this->_preserve_post()
+	 * 
+	 * @return string
+	 * @since 1.6
+	 */
+	function _preserve_post_cookie_name() {
+		return 'praized_'.$this->_config['community'].'_post_holder';
+	}
+	
+	/**
+	 * Tries to conserve the _POST vars in a cookie to be retrieved later (used when eg: posting questions or answers while not signed in).
+	 * 
+	 * @param boolean $preserve true to save the cookie, false to delete it
+	 * @return void
+	 * @since 1.6
+	 */
+	function _preserve_post($preserve = TRUE) {
+		if ( ! headers_sent() ) {
+			$name = $this->_preserve_post_cookie_name();
+			if ( $preserve )
+				setcookie($name, serialize($_POST), 0, '/');
+			else
+				setcookie($name, '', time() - 3600 );
+		} else {
+			if ( $preserve )
+				$_COOKIE[$name] = serialize($_POST);
+			else
+				unset($_COOKIE[$name]);
+		}
 	}
 	
 	/**
@@ -848,11 +990,17 @@ class PraizedCommunity extends PraizedWP {
 	            case 'merchant':
 	                $link = $this->trigger_url . '/merchants/' . ltrim($link, '/');
 	                break;
+	            case 'question':
+	                $link = $this->trigger_url . '/questions/' . ltrim($link, '/');
+	                break;
+	            case 'answer':
+	                $link = $this->trigger_url . '/answers/' . ltrim($link, '/');
+	                break;
 	            default:
 	                $link = $this->trigger_url . '/places/' . ltrim($link, '/');
 	                break;
 	        }
-	        $query = $this->_preserveQuery();
+	        $query = $this->_preserve_query();
 	        if ( count($query) > 0 ) {
         		$qs = '?';
         		foreach ($query as $key => $val)
@@ -881,11 +1029,13 @@ class PraizedCommunity extends PraizedWP {
                 $this->template('merchants');
 	            break;
 	        case 'tag':
+	        case 'category':
 	            $this->_route_is_merchants = TRUE;
 	            $this->_route_is_tag = TRUE;
 	            unset($_GET['q']); // Special case for tags, not preserving the ?q
-	            $query = $this->_preserveQuery($_GET);
+	            $query = $this->_preserve_query($_GET);
 	            unset($query['tag']); // make sure we don't double-send
+	            unset($query['category']); // make sure we don't double-send
 	            $query['t'] = $route_parts[2];
 	            $this->tpt_has_merchants($query);
 	            $this->_reset_404();
@@ -903,7 +1053,7 @@ class PraizedCommunity extends PraizedWP {
 	
 	/**
 	 * Handles the /merchants/{merchant_pid}* and /places/{merchant_permalink}* API routes
-	 * (from $this->_reroute(), through $htis->_route_merchants())
+	 * (from $this->_reroute(), through $this->_route_merchants())
 	 *
 	 * @param array $route_parts  Indexed array of the elements making the current API route (as def in $this->_reroute())
 	 * @since 0.1
@@ -926,6 +1076,15 @@ class PraizedCommunity extends PraizedWP {
         
         $mObj = $this->Praized->merchant();
         
+        // handles posting votes while not logged in to the praized network
+		if ( ( $identifier == $route_parts[1] ) && $this->Praized->isAuthorized() && isset($_GET['oauth_token']) && isset($_COOKIE[$this->_preserve_post_cookie_name()]) ) {
+			$route_parts[2] = 'votes';
+        	$_POST = unserialize(stripslashes($_COOKIE[$this->_preserve_post_cookie_name()]));
+			$this->_preserve_post(FALSE);
+		} elseif ( isset($_COOKIE[$this->_preserve_post_cookie_name()]) ) {
+			$this->_preserve_post(FALSE);
+		}
+        
         switch ($route_parts[2]) {
             case 'comments':
                 if ( count($_POST) > 0 ) {
@@ -938,9 +1097,8 @@ class PraizedCommunity extends PraizedWP {
                         $redirect = $this->link_helper($identifier, 'merchant');
                     wp_redirect($redirect);
                     exit;
-                } else {
-                    $template = 'merchant_comments';
                 }
+                $template = 'merchant_comments';
                 break;
             case 'votes':
             case 'votes.json':
@@ -950,7 +1108,9 @@ class PraizedCommunity extends PraizedWP {
                     if ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHTTPRequest') {
                         // JSON output
                         if ( ! $this->Praized->isAuthorized() ) {
-                            echo '{ "redirect_url" : "' . $this->trigger_url . '/oauth/login", "code" : 401, "errors" : {} }';
+                            $this->_preserve_post();
+                        	$return_to = ( strstr($identifier, '/') ) ? $this->trigger_url . $identifier : $this->link_helper($identifier, 'merchant');
+                        	echo '{ "redirect_url" : "' . $this->trigger_url . '/oauth/login?return_to=' . rawurlencode($return_to) . '", "code" : 401, "errors" : {} }';
                         } elseif($m = $mObj->voteAdd($identifier, $_POST)) {
         					if ( $m->vote->merchant->votes->count ) {
                                 echo '{';
@@ -970,10 +1130,13 @@ class PraizedCommunity extends PraizedWP {
                     } else {
                         // Accessible vote form (ie: no JS)
                         if ( ! $this->Praized->isAuthorized() ) {
-                            wp_redirect($this->trigger_url . '/oauth');
+                        	$this->_preserve_post();
+                        	wp_redirect($this->trigger_url . '/oauth/login');
                         } else {
                             $return = $mObj->voteAdd($identifier, $_POST);
-                            if ( isset($return->merchant->permalink) )
+                            if ( isset($return->vote->merchant->permalink) )
+                                $redirect = $return->vote->merchant->permalink;
+                            elseif ( isset($return->merchant->permalink) )
                                 $redirect = $return->merchant->permalink;
                             elseif( isset($mObj->errors[401]) )
                                 $redirect = $this->trigger_url . '/oauth/logout';
@@ -983,9 +1146,8 @@ class PraizedCommunity extends PraizedWP {
                         }
                     }
                     exit;
-                } else {
-                    $template = 'merchant_votes';
                 }
+                $template = 'merchant_votes';
                 break;
             case 'favorites':
                 if ( isset($_POST['_action']) ) {
@@ -1001,9 +1163,8 @@ class PraizedCommunity extends PraizedWP {
                         $redirect = $this->link_helper($identifier, 'merchant');
                     wp_redirect($redirect);
                     exit;
-                } else {
-                    $template = 'merchant_favorites';
                 }
+                $template = 'merchant_favorites';
                 break;
             case 'taggings':
                 if ( count($_POST) > 0 ) {
@@ -1016,9 +1177,8 @@ class PraizedCommunity extends PraizedWP {
                         $redirect = $this->link_helper($identifier, 'merchant');
                     wp_redirect($redirect);
                     exit;
-                } else {
-                    $template = 'merchant_taggings';
                 }
+                $template = 'merchant_taggings';
                 break;
             case 'actions':
                 $template = 'merchant_actions';
@@ -1030,8 +1190,7 @@ class PraizedCommunity extends PraizedWP {
         
         if ( $merchant_object = $mObj->get($identifier, $_GET) ) {
             if ( is_object($merchant_object) ) { 
-                $this->_route_is_merchant = TRUE;
-                $this->tpt_merchant = ( isset($merchant_object->merchant) ) ? $merchant_object->merchant : FALSE;
+            	$this->_route_is_merchant = TRUE;
                 $this->_tpt_environment($merchant_object);
 	            $this->_reset_404();
                 $this->template($template);
@@ -1074,9 +1233,8 @@ class PraizedCommunity extends PraizedWP {
                         $redirect = $this->link_helper($this->Praized->currentUserLogin(), 'user');
                     wp_redirect($redirect);
                     exit;
-                } else {
-                    $template = 'user_favorites';
                 }
+                $template = 'user_favorites';
                 break;
             case 'friends':
                 if ( isset($_POST['_action']) ) {
@@ -1090,9 +1248,8 @@ class PraizedCommunity extends PraizedWP {
                         $redirect = $this->link_helper($this->Praized->currentUserLogin(), 'user');
                     wp_redirect($redirect);
                     exit;
-                } else {
-                    $template = 'user_friends';
                 }
+                $template = 'user_friends';
                 break;
             case 'actions':
                 $template = 'user_actions';
@@ -1105,7 +1262,6 @@ class PraizedCommunity extends PraizedWP {
         if ( $user_object = $uObj->get($identifier, $_GET) ) {
             if ( is_object($user_object) ) {
                 $this->_route_is_user = TRUE;
-                $this->tpt_user = ( isset($user_object->user) ) ? $user_object->user : FALSE;
                 $this->_tpt_environment($user_object);
 	            $this->_reset_404();
                 $this->template($template);
@@ -1132,6 +1288,170 @@ class PraizedCommunity extends PraizedWP {
 	}
 	
 	/**
+	 * Handles the /questions* API routes
+	 * (from $this->_reroute())
+	 *
+	 * @param array $route_parts Indexed array of the elements making the current API route (as def in $this->_reroute())
+	 * @since 1.6
+	 */
+	function _route_questions($route_parts) {
+	    if ( ! isset($route_parts[1]) || empty($route_parts[1]) )
+	        $route_parts[1]  = '';
+	    
+ 	    // Leaving switch for future-proofing
+	    switch ($route_parts[1]) {
+	        case '':
+            	// handles posting questions while not logged in to the praized network
+	        	if ( $this->Praized->isAuthorized() && isset($_GET['oauth_token']) && isset($_COOKIE[$this->_preserve_post_cookie_name()]) ) {
+                    $_POST = unserialize(stripslashes($_COOKIE[$this->_preserve_post_cookie_name()]));
+                    $this->_preserve_post(FALSE);
+            	}
+                if ( count($_POST) > 0 ) {
+                    if ( ! $this->Praized->isAuthorized() )
+                    	$this->_preserve_post();
+                	$qObj = $this->Praized->question();
+                    $return = $qObj->add($_POST);
+                    if ( isset($return->question->permalink) )
+                        $redirect = $return->question->permalink;
+                    elseif( isset($qObj->errors[401]) )
+                        $redirect = $this->trigger_url . '/oauth/logout';
+                    else
+                        $redirect = $this->link_helper('', 'question');
+                    wp_redirect($redirect);
+                    exit;
+                }
+	            $qObj = $this->Praized->questions();
+	            if ( $questions_object = $qObj->get($_GET) ) {
+	                if ( is_object($questions_object) ) {
+	                    $this->_route_is_questions = TRUE;
+	                    $this->_tpt_environment($questions_object);
+	                    $this->_reset_404();
+	                    $this->template('questions');
+	                }
+	            }
+	            break;
+	        default:
+	            $this->_route_question($route_parts);
+	            break;
+	    }
+	}
+	
+	/**
+	 * Handles the /questions/{question_pid}* API routes
+	 * (from $this->_reroute(), through $this->_route_questions())
+	 *
+	 * @param array $route_parts  Indexed array of the elements making the current API route (as def in $this->_reroute())
+	 * @since 1.6
+	 */
+	function _route_question($route_parts) {
+	    if ( empty($route_parts[1]) )
+            return;
+        
+        $identifier = $route_parts[1];
+        
+        // handles posting answers while not logged in to the praized network
+        if ( $this->Praized->isAuthorized() && isset($_GET['oauth_token']) && isset($_COOKIE[$this->_preserve_post_cookie_name()]) && $route_parts[2] == 'answers' ) {
+            $_POST = unserialize(stripslashes($_COOKIE[$this->_preserve_post_cookie_name()]));
+            $this->_preserve_post(FALSE);
+        }
+        
+	    if ( ! isset($route_parts[2]) || empty($route_parts[2]) )
+	        $route_parts[2]  = '';
+	    elseif ( $route_parts[2] == 'answers' && ( ! isset($route_parts[3]) || empty($route_parts[3]) ) && count($_POST) == 0 )
+	        $route_parts[2]  = $route_parts[3] = '';
+	        
+        switch ($route_parts[2]) {
+            case 'answers':
+                if ( count($_POST) > 0 ) {
+                    if ( ! $this->Praized->isAuthorized() )
+                    	$this->_preserve_post();
+                    $qObj = $this->Praized->question();
+                    $return = $qObj->answerAdd($identifier, $_POST);
+                    if ( isset($return->answer->question->permalink) )
+                        $redirect = $return->answer->question->permalink;
+                    elseif ( isset($return->answer->permalink) )
+                        $redirect = $return->answer->permalink;
+                    elseif( isset($qObj->errors[401]) )
+                        $redirect = $this->trigger_url . '/oauth/logout';
+                    else
+                        $redirect = $this->link_helper($identifier, 'question');
+                    wp_redirect($redirect);
+                    exit;
+                }
+                $this->_route_answer($route_parts);
+                break;
+            default:
+	            $qObj = $this->Praized->question();
+	            if ( $question_object = $qObj->answers($identifier, $_GET) ) {
+	                if ( is_object($question_object) ) {
+	                	$this->_route_is_question = TRUE;
+	                    if ( isset($question_object->user->login) ) 
+	                        $this->tpt_user = $question_object->user;
+	                    if ( isset($question_object->answers) ) 
+	                        $this->tpt_answers = $question_object->answers;
+	                    $this->_tpt_environment($question_object);
+	                    $this->_reset_404();
+	                    $this->template('question');
+	                }
+	            }
+                break;
+        }
+	}
+	
+	/**
+	 * Handles the /questions/{question_pid}/answers/{answer_pid} API routes
+	 * (from $this->_reroute(), through $this->_route_question())
+	 *
+	 * @param array $route_parts  Indexed array of the elements making the current API route (as def in $this->_reroute())
+	 * @since 1.6
+	 */
+	function _route_answer($route_parts) {
+		if ( $route_parts[0] == 'answers' ) {
+			if ( empty($route_parts[1]) )
+				return;
+			$identifier   =  $route_parts[1];
+			$alt_redirect = '../questions'; // should be path to questions list
+		} elseif ( $route_parts[0] == 'questions' ) {
+			if ( empty($route_parts[3]) )
+				return;
+			$identifier   =  $route_parts[3];
+			$alt_redirect = '../'; // should be path to parent question
+		} else {
+			return;
+		}
+		
+		$qObj = $this->Praized->question();
+		
+		if ( $answer_object = $qObj->answer($identifier, $_GET) ) {
+			if ( ! is_object($answer_object) ) {
+				wp_redirect($alt_redirect);
+				exit;
+			}
+			if ( $_POST['_action'] == 'delete' ) {
+				$qObj->answerDelete($identifier, $_POST);
+				if ( isset($answer_object->answer->question->permalink) )
+					wp_redirect($answer_object->answer->question->permalink);
+				else
+					wp_redirect($alt_redirect);
+				exit;
+			}
+			$this->_route_is_answer = TRUE;
+			if ( isset($answer_object->answer->question) ) 
+				$this->tpt_question = $answer_object->answer->question;
+			if ( isset($answer_object->answer->user->login) ) 
+				$this->tpt_user = $answer_object->answer->user;
+			if ( isset($answer_object->answer->merchants) ) 
+				$this->tpt_merchants = $answer_object->answer->merchants;
+			$this->_tpt_environment($answer_object);
+			$this->_reset_404();
+			$this->template('answer');
+		} else {
+			wp_redirect($alt_redirect);
+			exit;
+		}
+	}
+	
+	/**
 	 * Sets the template environment with meta data such as the
 	 * community's info, pagination, etc.
 	 *
@@ -1142,8 +1462,11 @@ class PraizedCommunity extends PraizedWP {
 	function _tpt_environment($target) {
 	    if ( ! isset($target->community) )
 	        return FALSE;
-	    $this->tpt_community  = ( isset($target->community) && is_object($target->community) )     ? $target->community  : FALSE;
-	    $this->tpt_pagination = ( isset($this->tpt_pagination) && is_object($target->pagination) ) ? $target->pagination : FALSE;
+	    foreach ( $target as $key => $value ) {
+	        $tpt_key = 'tpt_' . $key;
+	        if ( isset($this->$tpt_key) && ( is_object($target->$key) || is_array($target->$key) ) )
+	            $this->$tpt_key = $value;
+	    }
 	    return TRUE;
 	}
 	
@@ -1255,22 +1578,28 @@ class PraizedCommunity extends PraizedWP {
         if ( ! $this->tpt_merchants ) {
             if ( ! is_array($query) ) {
                 $query = $_GET;
-                if ( empty($query['q']) )
-                    $query['q'] = ( ! empty($query['l']) ) ? '' : $this->_config['default_query'];
-                if ( empty($query['l']) )
-                    $query['l'] = ( ! empty($query['q']) ) ? '' : $this->_config['default_location'];
+                if ( isset($_GET['q']) && empty($_GET['q']) && isset($_GET['l']) && empty($_GET['l']) ) {
+                    // We still need users to be able to overwrite the defaults and submit an
+                    // "Everything + Everywhere" query, but only when the form is truly submitted.
+                    $query['q'] = $query['l'] = ''; // Just for clarity
+                } else {
+                    // Important to test against the original $_GET value in the ternary operator,
+                    // or the query transformation (1st) will mess up the location transformation
+                    // (2nd) done after... 
+                    if ( empty($query['q']) )
+                        $query['q'] = ( ! empty($_GET['l']) ) ? '' : $this->_config['default_query'];
+                    if ( empty($query['l']) )
+                        $query['l'] = ( ! empty($_GET['q']) ) ? '' : $this->_config['default_location'];
+                }
             }
             $mObj = $this->Praized->merchants();
             $response = $mObj->get($query);
-            if ( is_object($response) && is_array($response->merchants) ) {
-                $this->tpt_merchants = $response->merchants;
+            if ( is_object($response) && is_array($response->merchants) )
                 $this->_tpt_environment($response);
-            }
         }
 	    if ( is_array($this->tpt_merchants) )
             return count($this->tpt_merchants);
-        else
-            return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1294,12 +1623,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_merchant = TRUE;
 	            $this->tpt_merchant_index++;
     	        return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+	    return FALSE;
 	}
 	
 	/**
@@ -1314,19 +1640,13 @@ class PraizedCommunity extends PraizedWP {
 	        if ( ! empty($identifier) ) {
 	            $mObj = $this->Praized->merchant();
                 $response = $mObj->get($identifier);
-                if ( is_object($response) && isset($response->merchant) ) {
-                    $this->tpt_merchant = ( is_object($response->merchant) && isset($response->merchant->pid) )
-                        ? $response->merchant
-                        : FALSE;
-                    if ( ! $this->tpt_community )
-                        $this->_tpt_environment($response);
-                }
+                if ( is_object($response) && isset($response->merchant) )
+                    $this->_tpt_environment($response);
             }
 	    }
         if ( is_object($this->tpt_merchant) && isset($this->tpt_merchant->pid) )
             return TRUE;
-	    else
-            return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1355,8 +1675,7 @@ class PraizedCommunity extends PraizedWP {
         }
         if ( is_array($this->tpt_tags) )
             return count($this->tpt_tags);
-        else
-            return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1376,12 +1695,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_tag = TRUE;
 	            $this->tpt_tag_index++;
 	            return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+        return FALSE;
 	}
 	
 	/**
@@ -1411,8 +1727,7 @@ class PraizedCommunity extends PraizedWP {
         }
         if ( is_array($this->tpt_splinks) )
             return count($this->tpt_splinks);
-        else
-            return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1435,12 +1750,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_splink = TRUE;
 	            $this->tpt_splink_index++;
 	            return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+	    return FALSE;
 	}
 	
 	/**
@@ -1463,17 +1775,12 @@ class PraizedCommunity extends PraizedWP {
             } else {
                 $response = FALSE;
             }
-            if ( is_object($response) ) {
-                $this->tpt_comments = ( is_object($response) && is_array($response->comments) )
-                    ? $response->comments
-                    : FALSE;
+            if ( is_object($response) )
                 $this->_tpt_environment($response);
-            }
         }
 	    if ( is_array($this->tpt_comments) )
             return count($this->tpt_comments);
-	    else
-	        return FALSE;
+       return FALSE;
 	}
 	
 	/**
@@ -1498,12 +1805,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_comment = TRUE;
 	            $this->tpt_comment_index++;
 	            return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+		return FALSE;
 	}
 	
 	/**
@@ -1536,8 +1840,7 @@ class PraizedCommunity extends PraizedWP {
         }
 	    if ( is_array($this->tpt_favorites) )
             return count($this->tpt_favorites);
-	    else
-	        return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1561,12 +1864,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_favorite = TRUE;
 	            $this->tpt_favorite_index++;
 	            return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+	    return FALSE;
 	}
 	
 	/**
@@ -1589,17 +1889,12 @@ class PraizedCommunity extends PraizedWP {
             } else {
                 $response = FALSE;
             }
-            if ( is_object($response) ) {
-                $this->tpt_votes = ( is_object($response) && is_array($response->votes) )
-                    ? $response->votes
-                    : FALSE;
+            if ( is_object($response) )
                 $this->_tpt_environment($response);
-            }
         }
 	    if ( is_array($this->tpt_votes) )
             return count($this->tpt_votes);
-	    else
-	        return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1624,12 +1919,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_vote = TRUE;
 	            $this->tpt_vote_index++;
 	            return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+	    return FALSE;
 	}
 	
 	/**
@@ -1644,19 +1936,13 @@ class PraizedCommunity extends PraizedWP {
 	        if ( ! empty($identifier) ) {
                 $uObj = $this->Praized->user();
 	            $response = $uObj->get($identifier);
-                if ( is_object($response) && isset($response->user) ) {
-                    $this->tpt_user = ( is_object($response->user) && isset($response->user->login) )
-                        ? $response->user
-                        : FALSE;
-                    if ( ! $this->tpt_community )
-                        $this->_tpt_environment($response);
-                }
+                if ( is_object($response) && isset($response->user) )
+                    $this->_tpt_environment($response);
             }
 	    }
 	    if ( is_object($this->tpt_user) && isset($this->tpt_user->login) )
             return TRUE;
-        else
-            return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1685,8 +1971,7 @@ class PraizedCommunity extends PraizedWP {
         }
 	    if ( is_array($this->tpt_friends) )
             return count($this->tpt_friends);
-	    else
-	        return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1707,12 +1992,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_friend = TRUE;
 	            $this->tpt_friend_index++;
 	            return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+	    return FALSE;
 	}
 	
 	/**
@@ -1738,8 +2020,7 @@ class PraizedCommunity extends PraizedWP {
 	    }
 	    if ( is_object($this->tpt_friend) && isset($this->tpt_friend->login) )
             return TRUE;
-        else
-            return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1763,15 +2044,12 @@ class PraizedCommunity extends PraizedWP {
                 $obj = $this->Praized->actions();
                 $response = $obj->get($query);
             }
-            if ( is_object($response) && is_array($response->actions) ) {
-                $this->tpt_actions = $response->actions;
+            if ( is_object($response) && is_array($response->actions) )
                 $this->_tpt_environment($response);
-            }
         }
 	    if ( is_array($this->tpt_actions) )
             return count($this->tpt_actions);
-        else
-            return FALSE;
+        return FALSE;
 	}
 	
 	/**
@@ -1792,12 +2070,9 @@ class PraizedCommunity extends PraizedWP {
                     $this->tpt_has_next_action = TRUE;
 	            $this->tpt_action_index++;
     	        return TRUE;
-            } else {
-                return FALSE;
             }
-	    } else {
-	        return FALSE;
 	    }
+        return FALSE;
 	}
 	
 	/**
@@ -1809,8 +2084,209 @@ class PraizedCommunity extends PraizedWP {
 	function tpt_has_action() {
 	    if ( is_object($this->tpt_action) && isset($this->tpt_action->summary) )
             return TRUE;
-	    else
-            return FALSE;
+        return FALSE;
+	}
+	
+	/**
+	 * Template function: Tests if there are > 0 items in $this->tpt_questions
+	 *
+	 * @param array Optional query to overwrite the current context and force fetch other data
+	 * @return mixed boolean FALSE or integer Question count
+	 * @since 1.6
+	 */
+	function tpt_has_questions($query = FALSE) {
+        if ( ! $this->tpt_questions ) {
+            if ( ! is_array($query) )
+                $query = $_GET;
+            if ( $this->_route_is_merchant ) {
+                $obj = $this->Praized->merchant();
+                $response = $obj->questions($this->tpt_merchant->pid, $query); 
+            } elseif ( $this->_route_is_user ) {
+                $obj = $this->Praized->user();
+                $response = $obj->questions($this->tpt_user->login, $query); 
+            } else {
+                $obj = $this->Praized->questions();
+                $response = $obj->get($query);
+            }
+            if ( is_object($response) && is_array($response->questions) )
+                $this->_tpt_environment($response);
+        }
+	    if ( is_array($this->tpt_questions) )
+            return count($this->tpt_questions);
+        return FALSE;
+	}
+	
+	/**
+	 * Template function: Praized equivalent of the WP "the_loop" for the current questions list, usually used in while loop
+	 *
+	 * @param array Optional query to overwrite the current context and force fetch other data
+	 * @return boolean and sets $this->tpt_action if appropriate
+	 * @since 1.6
+	 */
+	function tpt_questions_loop($query = FALSE) {
+        $this->tpt_has_next_question = FALSE;
+        if ( $this->tpt_has_questions($query) ) {
+            $questions = $this->tpt_questions;
+	        if ( isset($questions[$this->tpt_question_index]) ) {
+	            $question = $questions[$this->tpt_question_index];
+	            $this->tpt_question = $question;
+	            if ( isset($question->user->login) )
+	                $this->tpt_user = $question->user;
+                if ( isset($questions[$this->tpt_question_index + 1]) )
+                    $this->tpt_has_next_question = TRUE;
+	            $this->tpt_question_index++;
+    	        return TRUE;
+            }
+	    }
+	    return FALSE;
+	}
+	
+	/**
+	 * Returns an array of the current user's configured broadcast services.
+	 * 
+	 * @return mixed Boolean FALSE or Array
+	 * @since 1.6
+	 */
+	function _user_broadcast_services() {
+		if ( ! ( $identifier = $this->Praized->currentUserLogin() ) )
+			return FALSE;
+		$uObj = $this->Praized->user();
+		if ( ! ( $data = $uObj->get($identifier) ) || ! isset($data->user) || ! isset($data->user->self) )
+			return FALSE;
+		if ( ! ( $self = $data->user->self ) || ! isset($self->broadcast_services) || ! is_array($self->broadcast_services) )
+			return FALSE;
+		return $self->broadcast_services;
+	}
+	
+	/**
+	 * Template function: Tests if there is a valid $this->tpt_question
+	 *
+	 * @return boolean
+	 * @since 1.6
+	 */
+	function tpt_has_question() {
+	    if ( is_object($this->tpt_question) && isset($this->tpt_question->pid) ) {
+            if ( isset($this->tpt_question->answers) )
+                $this->tpt_answers = $this->tpt_question->answers;
+            if ( isset($this->tpt_question->user) )
+                $this->tpt_user = $this->tpt_question->user;
+            return TRUE;
+	    }
+        return FALSE;
+	}
+	
+	/**
+	 * Template function: Tests if there are > 0 items in $this->tpt_answers
+	 *
+	 * @param array Optional query to overwrite the current context and force fetch other data
+	 * @return mixed boolean FALSE or integer Answer count
+	 * @since 1.6
+	 */
+	function tpt_has_answers($query = FALSE) {
+        if ( ! $this->tpt_answers ) {
+            if ( ! is_array($query) )
+                $query = $_GET;
+            if ( $this->_route_is_merchant ) {
+                $obj = $this->Praized->merchant();
+                $response = $obj->answers($this->tpt_merchant->pid, $query); 
+            } elseif ( $this->_route_is_user ) {
+                $obj = $this->Praized->user();
+                $response = $obj->answers($this->tpt_user->login, $query); 
+            } elseif ( is_object($this->tpt_question) && isset($this->tpt_question->pid) ) {
+                $obj = $this->Praized->question();
+                $response = $obj->answers($this->tpt_question->pid);
+            }
+            if ( is_object($response) && is_array($response->answers) )
+                $this->_tpt_environment($response);
+        }
+	    if ( is_array($this->tpt_answers) )
+            return count($this->tpt_answers);
+        return FALSE;
+	}
+	
+	/**
+	 * Template function: Praized equivalent of the WP "the_loop" for the current answers list, usually used in while loop
+	 *
+	 * @param array Optional query to overwrite the current context and force fetch other data
+	 * @return boolean and sets $this->tpt_action if appropriate
+	 * @since 1.6
+	 */
+	function tpt_answers_loop($query = FALSE) {
+        $this->tpt_has_next_answer = FALSE;
+        if ( $this->tpt_has_answers($query) ) {
+            $answers = $this->tpt_answers;
+	        if ( isset($answers[$this->tpt_answer_index]) ) {
+	            $answer = $answers[$this->tpt_answer_index];
+	            $this->tpt_answer = $answer;
+	            if ( isset($answer->user->login) )
+	                $this->tpt_user = $answer->user;
+	            if ( isset($answer->merchants) )
+	                $this->tpt_merchants = $answer->merchants;
+                if ( isset($answers[$this->tpt_answer_index + 1]) )
+                    $this->tpt_has_next_answer = TRUE;
+	            $this->tpt_answer_index++;
+    	        return TRUE;
+            }
+	    }
+        return FALSE;
+	}
+	
+	/**
+	 * Template function: Tests if there is a valid $this->tpt_answer
+	 *
+	 * @return boolean
+	 * @since 1.6
+	 */
+	function tpt_has_answer() {
+	    if ( is_object($this->tpt_answer) && isset($this->tpt_answer->pid) ) {
+            if ( isset($this->tpt_answer->merchants) )
+                $this->tpt_merchants = $this->tpt_answer->merchants;
+            if ( isset($this->tpt_answer->user) )
+                $this->tpt_user = $this->tpt_answer->user;
+            if ( isset($this->tpt_answer->question) )
+                $this->tpt_question = $this->tpt_answer->question;
+            return TRUE;
+	    }
+        return FALSE;
+	}
+
+	/**
+	 * Returns the content node of an answer, with the localized "deleted at" text instead of required
+	 *
+	 * @param boolean $echo
+	 * @return string content
+	 * @since 1.6
+	 */
+	function tpt_answer_content($echo = TRUE, $answer = FALSE) {
+	    if ( ! $answer )
+	    	$answer = $this->tpt_answer;
+		if ( ! $answer || ! $answer->pid )
+	    	return FALSE;
+    	if ( isset($answer->deleted_at) )
+    		$out = $this->__('This answer has been deleted.');
+    	else
+    		$out = $answer->content;
+	    if ( $echo )
+    	    echo $out;
+    	return $out;
+	}
+
+	/**
+	 * Returns an unordered list of merchants related to a specific answer.
+	 *
+	 * @param boolean $echo
+	 * @return mixed Boolean FALSE or String unordered list of merchants
+	 * @since 1.6
+	 */
+	function tpt_answer_merchants($echo = TRUE) {
+	    if ( ! $this->tpt_answer || ! $this->tpt_answer->merchants || ! is_array($this->tpt_answer->merchants) || count($this->tpt_answer->merchants) < 1 )
+	    	return FALSE;
+	    $merchants = $this->tpt_answer->merchants;
+    	$out = '<p class="praized-questions-sub-header"><strong>'.$this->__('Suggested places').'</strong></p>';
+	    $out .= $this->tpt_merchants_simple_list($merchants);
+	    if ( $echo )
+    	    echo $out;
+    	return $out;
 	}
 	
 	/**
@@ -1983,6 +2459,91 @@ class PraizedCommunity extends PraizedWP {
 	}
 	
 	/**
+	 * Template function: Returns a simple <ul> of the passed merchants array.
+	 * 
+	 * @param array $merchants
+	 * @return string
+	 * @since 1.6
+	 */
+	function tpt_merchants_simple_list($merchants) {
+	    if ( ! is_array($merchants) || count($merchants) < 1 )
+	    	return ''; 
+    	$out .= '<ul>';
+    	foreach ( $merchants as $merchant ) {
+			$out .= '<li>';
+			$out .= '<a href="'.$merchant->permalink.'">'.$merchant->name.'</a>';
+			if ( $location =  $merchant->location ) {
+				$out .= ': <small>';
+				if ( $location->city->name ) {
+					$out .= $location->city->name;
+					if ( $location->regions->state || $location->regions->province || $location->country->name )
+						$out .= ', ';
+				}
+				if ( $location->regions->state || $location->regions->province ) {
+					$out .= ( $location->regions->state ) ? $location->regions->state : $location->regions->province;
+					if ( $location->country->name )
+						$out .= ', ';
+				}
+				if ( $location->country->name ) {
+					$out .= $location->country->name;
+				}
+				$out .= '</small>';
+			}
+			$out .= '</li>';
+    	}
+    	$out .= '</ul>';
+		return $out;
+	}
+	
+	/**
+	 * Template function: Returns a list of the current user's configured broadcast services as checkboxes.
+	 * 
+	 * @param boolean $echo
+	 * @return string
+	 * @since 1.6
+	 */
+	function tpt_questions_user_broadcast_services($echo = TRUE) {
+		if ( ! ( $services = $this->_user_broadcast_services() ) )
+			return '';
+		$checkboxes = '';
+		foreach ( $services as $service ) {
+			if ( isset($service->service_type) && isset($service->name) ) {
+				$service_id = 'praized_broadcast_service_'.strtolower($service->service_type);
+				$checkboxes .= '<input type="checkbox" name="broadcast_services[]" id="'.$service_id.'" value="'.$service->service_type.'" class="praized_broadcast_service" checked="checked"/> '
+							.  '<label for="'.$service_id.'">'.$service->name.'</label> ';
+			}
+		}
+		if ( $echo )
+			echo $checkboxes;
+		return $checkboxes;
+	}
+
+	/**
+	 * Template function: Returns an unordered list of merchants related to a specific structured question.
+	 *
+	 * @param boolean $echo
+	 * @param string Optional question pid, or defaults to $this->tpt_question->pid
+	 * @return mixed Boolean FALSE or String unordered list of related merchants
+	 * @since 1.6
+	 */
+	function tpt_question_related_merchants($echo = TRUE, $identifier = FALSE) {
+	    if ( ! $identifier ) {
+	    	if ( ! $this->tpt_question || ! $this->tpt_question->pid )
+	    		return FALSE;
+	    	$identifier = $this->tpt_question->pid;
+	    }
+	    $obj = $this->Praized->question();
+	    $data = $obj->relatedMerchants($identifier);
+	    if ( ! ($merchants = $data->merchants) || ! is_array($merchants) || count($merchants) < 1 )
+	    	return FALSE; 
+    	$out = '<p class="praized-questions-sub-header"><strong>'.$this->__('Other related places').'</strong></p>';
+    	$out .= $this->tpt_merchants_simple_list($merchants);
+	    if ( $echo )
+    	    echo $out;
+    	return $out;
+	}
+	
+	/**
 	 * Widget: Search form
 	 * 
 	 * @param array $args WP standard
@@ -2000,7 +2561,7 @@ class PraizedCommunity extends PraizedWP {
 	    $title = ( $config['title'] != '' ) ? $config['title'] : $this->__('Praized: Search');
 	    
 	    echo $before_title;  // WP STANDARD
-	    echo '<h2>'.$title.'</h2>';
+	    echo '<h2 class="widgettitle">'.$title.'</h2>';
 	    echo $after_title;   // WP STANDARD
         
         $this->template('_search_form', true);
@@ -2027,7 +2588,7 @@ class PraizedCommunity extends PraizedWP {
 	    $title = ( $config['title'] != '' ) ? $config['title'] : $this->__('Praized: Session');
 	    
 	    echo $before_title;  // WP STANDARD
-	    echo '<h2>'.$title.'</h2>';
+	    echo '<h2 class="widgettitle">'.$title.'</h2>';
 	    echo $after_title;   // WP STANDARD
         
         $this->template('_auth_nav', true);

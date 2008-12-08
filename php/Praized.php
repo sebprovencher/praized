@@ -6,7 +6,7 @@
  * 
  * @note Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.5.1
+ * @version 1.6
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -39,7 +39,7 @@ if ( ! class_exists('Praized') ) {
     	var $_merchantsInst;
     	
     	/**
-    	 * Merchants object instance holder
+    	 * Merchant object instance holder
     	 * @var object
     	 * @since 0.1
     	 */
@@ -58,6 +58,20 @@ if ( ! class_exists('Praized') ) {
     	 * @since 0.1
     	 */
     	var $_actionsInst;
+    
+    	/**
+    	 * Questions object instance holder
+    	 * @var object
+    	 * @since 1.6
+    	 */
+    	var $_questionsInst;
+    	
+    	/**
+    	 * Question object instance holder
+    	 * @var object
+    	 * @since 1.6
+    	 */
+    	var $_questionInst;
     	
     	/**
     	 * Constructor.
@@ -151,7 +165,7 @@ if ( ! class_exists('Praized') ) {
     	 * Convenience PraizedActions instantiator (for PHP4 compat)
     	 *
     	 * @return object PraizedActions
-    	 * @since 0.1
+    	 * @since 1.5
     	 */
     	function actions() {
     		if (is_object($this->_actionsInst))
@@ -161,6 +175,38 @@ if ( ! class_exists('Praized') ) {
     		if ( isset($this->_actionsInst->errors) )
     		    $this->errors = $this->_actionsInst->errors;
     		return $this->_actionsInst;
+    	}
+    	
+    	/**
+    	 * Convenience PraizedQuestions instantiator (for PHP4 compat)
+    	 *
+    	 * @return object PraizedQuestions
+    	 * @since 1.6
+    	 */
+    	function questions() {
+    		if (is_object($this->_questionsInst))
+    			return $this->_questionsInst;
+    		$this->_loadClass('Questions');
+    		$this->_questionsInst = new PraizedQuestions($this->_community, $this->_apiKey, $this->_oAuthInst);
+    		if ( isset($this->_questionsInst->errors) )
+    		    $this->errors = $this->_questionsInst->errors;
+    		return $this->_questionsInst;
+    	}
+    	
+    	/**
+    	 * Convenience PraizedQuestion instantiator (for PHP4 compat)
+    	 *
+    	 * @return object PraizedQuestion
+    	 * @since 1.6
+    	 */
+    	function question() {
+    		if (is_object($this->_questionInst))
+    			return $this->_questionInst;
+    		$this->_loadClass('Question');
+    		$this->_questionInst = new PraizedQuestion($this->_community, $this->_apiKey, $this->_oAuthInst);
+    		if ( isset($this->_questionInst->errors) )
+    		    $this->errors = $this->_questionInst->errors;
+    		return $this->_questionInst;
     	}
     }
 }

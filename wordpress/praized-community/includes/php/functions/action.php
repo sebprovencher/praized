@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual merchant action related functions
  * 
- * @version 1.5
+ * @version 1.6
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury
@@ -73,9 +73,65 @@ function pzdc_action_type($echo = TRUE) {
 function pzdc_action_comment_body($echo = TRUE) {
     global $PraizedCommunity;
     $out = $PraizedCommunity->tpt_attribute_helper('action', 'targets', FALSE);
-    $body = $out[0]->comment->comment;
+    $html = ( $out[0] && $out[0]->comment && $out[0]->comment->comment ) ? $out[0]->comment->comment : FALSE;
     if ( $echo )
-        echo $body;
-    return $body;
+        echo $html;
+    return $html;
+}
+
+/**
+ * Template function: Current Question content (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 1.6
+ */
+function pzdc_action_question_content($echo = TRUE) {
+    global $PraizedCommunity;
+    $out = $PraizedCommunity->tpt_attribute_helper('action', 'targets', FALSE);
+    $html = ( $out[0] && $out[0]->question && $out[0]->question->content ) ? $out[0]->question->content : FALSE;
+    if ( ! $html )
+    	return;
+    if ( $echo )
+        echo $html;
+    return $html;
+}
+
+/**
+ * Template function: Current Answer content (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 1.6
+ */
+function pzdc_action_answer_content($echo = TRUE) {
+    global $PraizedCommunity;
+    $out = $PraizedCommunity->tpt_attribute_helper('action', 'targets', FALSE);
+    $answer = ( $out[0] && $out[0]->answer ) ? $out[0]->answer : FALSE;
+    if ( ! $answer )
+    	return;
+    $html = $PraizedCommunity->tpt_answer_content(FALSE, $answer);
+    if ( $echo )
+        echo $html;
+    return $html;
+}
+
+/**
+ * Template function: Current Answer attached merchants (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 1.6
+ */
+function pzdc_action_answer_merchants($echo = TRUE) {
+    global $PraizedCommunity;
+    $out = $PraizedCommunity->tpt_attribute_helper('action', 'targets', FALSE);
+    $merchants = ( $out[0] && $out[0]->answer && $out[0]->answer->merchants ) ? $out[0]->answer->merchants : FALSE;
+    if ( ! $merchants )
+    	return;
+    $html = $PraizedCommunity->tpt_merchants_simple_list($merchants);
+    if ( $echo )
+        echo $html;
+    return $html;
 }
 ?>

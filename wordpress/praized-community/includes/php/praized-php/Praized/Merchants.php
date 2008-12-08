@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.5.1
+ * @version 1.6
  * @package Praized
  * @author Stephane Daury
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -89,6 +89,33 @@ if ( ! class_exists('PraizedMerchants') ) {
     	        $query = array_merge($query, $extra_query);
     	        
     	    return $this->get($query, $rawJson);
+    	}
+    	
+    	/*
+    	 * Returns a list of merchants objects, based on the submitted pids, permalinks or short urls
+    	 * 
+    	 * @param array $list List of strings to be matched, in the form of $list = array('pids' => array(), 'permalinks' => array(), 'short_urls' => array())
+         * @param integer $limit Resultset limit
+         * @param array $extra_query Supplemental query parameters (page, details, etc)
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+    	 * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 */
+    	function resolve($list, $limit = 10, $extra_query = array(), $rawJson = false) {
+    	    if ( ! is_array($list) )
+    	        return false;
+    	    	    
+    	    $query = array(
+    	        'per_page' => $limit,
+    	        'page'     => 1
+    	    );
+    	    
+    	    if ( is_array($extra_query) && count($extra_query) > 0 )
+    	        $query = array_merge($query, $extra_query);
+    	    
+    	    if ( $json = $this->_post('/merchants/search.json', $list, 'post', $query) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
     	}
     }
 }
