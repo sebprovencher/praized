@@ -27,8 +27,9 @@
 
 = CSS classes for (X)HTML integration of the Praized Plugins =
 
-All html/xhtml elements generated from the Praized plugins have style classes for easier customization. Here a list of CSS classes found in style.css, colors.css and vote_button.css (all prefixed with "praized" to prevent clashes with existing stylesheets in the blog). Default values are provided in the stylesheets provided in the initial plugin download, this is just a quick list to give you an idea of what's possible. :
+All html/xhtml elements generated from the Praized plugins have style classes for easier customization. Here a list of CSS classes found in style.css, colors.css and vote_button.css (all prefixed with "praized" to prevent clashes with existing stylesheets your site or blog). Default values are provided in the stylesheets provided in the initial plugin download, this is just a quick list to give you an idea of what's possible.
 
+You can take a peek at some default CSS files at http://beta-tribe.com/wp-content/themes/wordpraized/style.css and http://beta-tribe.com/wp-content/themes/wordpraized/styles/black/color.css the default theme, WordPraized is available here on Google Code at http://code.google.com/p/praized/downloads/detail?name=wordpraized.1.0.zip
 
 {{{
 
