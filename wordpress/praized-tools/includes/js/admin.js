@@ -6,17 +6,17 @@
 		
 		Config : {
 			cacheTtl : function() {
-		    	if ($('pta_caching').checked == true) {
-		    		$('pta_cache_ttl').disabled = '';
+		    	if (pte('pta_caching').checked == true) {
+		    		pte('pta_cache_ttl').disabled = '';
 		    	} else {
-		    		$('pta_cache_ttl').disabled = 'disabled';
-		    		$('pta_cache_ttl').options.selectedIndex = 0;
+		    		pte('pta_cache_ttl').disabled = 'disabled';
+		    		pte('pta_cache_ttl').options.selectedIndex = 0;
 		    	}
 			},
 			
 			caching : function() {
-				if ($('pta_cache_ttl').options.selectedIndex == 0) {
-					$('pta_caching').checked = false;
+				if (pte('pta_cache_ttl').options.selectedIndex == 0) {
+					pte('pta_caching').checked = false;
 					ptc().cacheTtl();
 				}
 			}
@@ -24,7 +24,7 @@
 		
 		init : function() {
 			addEvent(document, 'load', function() {
-				if ( $('pta_cache_ttl') ) {
+				if ( pte('pta_cache_ttl') ) {
 					ptc().cacheTtl();
 				}
 			});
@@ -51,9 +51,9 @@
 					buttonsnap2_settext(bbCode);
 				else
 					buttonsnap_settext(bbCode);
-			} else if ($(conf.widgetContentField)) {
+			} else if (pte(conf.widgetContentField)) {
 				// Widget admin
-				$(conf.widgetContentField).value = bbCode;
+				pte(conf.widgetContentField).value = bbCode;
 			}
 			pts().hide();
 		}

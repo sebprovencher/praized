@@ -167,6 +167,27 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 == ChangeLog ==
 
+
+Version 1.7: 2009-01-12
+
+* Added search form to the top of most of the praized templates, as appropriate.
+* Modified the search form widget so that it is automatically hidden when the same form is shown in
+  the main content area (see above).
+* Implemented a new search results header which mentions the number of results found.
+* Extracted the main section links (Top Places, The Local Buzz and Questions & Answers) from the Praized
+  Session widget and created a stand-alone Praized Section widget as a navigation only tool.  
+* Exposed the place tagging and commenting functionalities for non-logged in users and made it so that
+  the submitted data (tags, comment) is preserved and processed at the end of the login process if
+  required (like we've done for votes and such in v1.6).
+* Added a new help section for the Praized functionalities. Note that the content we display in this page
+  is actually stored on our server (but cached on yours), so you will get any updates we make automatically
+  as we release them. 
+* Added an upgrade notification mechanism so you don't miss out on important new changes when upgrading to a new version of the plugin.
+* Added suport for the Praized sponsored images in the sponsored links block.
+* Updated to praized-php-1.7.
+* Updated to praized-wp-core-1.7.
+
+
 Version 1.6: 2008-12-05
 
 * Implemented Questions & Answers features!

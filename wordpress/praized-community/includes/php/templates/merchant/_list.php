@@ -2,22 +2,25 @@
 /**
  * Praized template fragment: Merchant listing, search and tag results, with paging
  *
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage Templates
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
 ?>
 
 <div class="praized-merchants-list">
-  <h2 class="praized-search-header"><?php pzdc_page_header(); ?></h2>
   <?php if ( pzdc_has_merchants() ) : ?>
+    <div style="margin-top:15px;"><?php pzdc_tpt_fragment('search_form'); ?></div>
+    <br clear="all" />
     <?php while ( pzdc_merchants_loop() ) : ?>
       <?php pzdc_tpt_fragment('merchant/hcard'); ?>
     <?php endwhile; ?>
   <?php else:?>
+    <div style="margin-top:15px;"><?php pzdc_tpt_fragment('search_form'); ?></div>
+    <br clear="all" />
     <?php pzdc_tpt_fragment('merchant/no_results'); ?>
   <?php endif;?>
   <?php pzdc_paginate(); ?>

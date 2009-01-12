@@ -2,10 +2,10 @@
 /**
  * Praized template functions/helpers/tags: miscelaneous search related functions
  * 
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -34,20 +34,7 @@ function pzdc_search_link($echo = TRUE) {
  */
 function pzdc_search_query($echo = TRUE) {
     global $PraizedCommunity;
-    if ( isset($_GET['q']) && empty($_GET['q']) && isset($_GET['l']) && empty($_GET['l']) ) {
-        // We still need users to be able to overwrite the defaults and submit an
-        // "Everything + Everywhere" query, but only when the form is truly submitted.
-        $out = '';
-    } else {
-        $out = ( ! empty($_GET['q']) )
-             ? pzdc_stripper($_GET['q'])
-             : ( ( ! empty($_GET['l']) )
-                 ? ''
-                 : $PraizedCommunity->_config['default_query'] );
-    }
-    if ( $echo )
-        echo $out;
-    return $out;
+    return $PraizedCommunity->tpt_search_query($echo);
 }
 
 /**
@@ -59,24 +46,11 @@ function pzdc_search_query($echo = TRUE) {
  */
 function pzdc_search_location($echo = TRUE) {
     global $PraizedCommunity;
-    if ( isset($_GET['q']) && empty($_GET['q']) && isset($_GET['l']) && empty($_GET['l']) ) {
-        // We still need users to be able to overwrite the defaults and submit an
-        // "Everything + Everywhere" query, but only when the form is truly submitted.
-        $out = '';
-    } else {
-        $out = ( ! empty($_GET['l']) )
-             ? pzdc_stripper($_GET['l'])
-             : ( ( ! empty($_GET['q']) )
-                 ? ''
-                 : $PraizedCommunity->_config['default_location'] );
-    }
-    if ( $echo )
-        echo $out;
-    return $out;
+    return $PraizedCommunity->tpt_search_location($echo);
 }
 
 /**
- * Template function: Current merchants tag search term (?t= or ?tag=)
+ * Template function: Current merchants tag search term (?t= or ?tag= or ?category= or from route)
  * 
  * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
  * @return string
@@ -84,12 +58,18 @@ function pzdc_search_location($echo = TRUE) {
  */
 function pzdc_search_tag($echo = TRUE) {
     global $PraizedCommunity;
-    if ( isset($_GET['tag']) )
-        $out = pzdc_stripper($_GET['tag']);
-    else
-        $out = pzdc_stripper($_GET['t']);
-    if ( $echo )
-        echo $out;
-    return $out;
+    return $PraizedCommunity->tpt_search_tag($echo);
+}
+
+/**
+ * Template function: returns the info to be displayed between the search form and result
+ * 
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 1.7
+ */
+function pzdc_search_results_info($echo = TRUE) {
+    global $PraizedCommunity;
+    $PraizedCommunity->tpt_search_results_info($echo);
 }
 ?>

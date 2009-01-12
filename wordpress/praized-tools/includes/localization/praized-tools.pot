@@ -1,14 +1,14 @@
 # praized-tools WordPress plugin localization template
 # Copyright (C) 2008 <a href="http://www.praizedmedia.com/">Praized Media, Inc.</a>
 # This file is distributed under the same license as the PraizedTools package.
-# Stephane Daury, Praized Media, Inc. 2008
+# Stephane Daury, Praized Media, Inc. 2008, 2009
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Praized Tools 1.6\n"
+"Project-Id-Version: Praized Tools 1.7\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-tools\n"
-"POT-Creation-Date: 2008-12-04 13:54-0500\n"
+"POT-Creation-Date: 2009-01-12 12:01-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -196,12 +196,11 @@ msgstr ""
 msgid "Caching Notice"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:296
-#, php-format
-msgid "<strong>Praized Plugin:</strong> %s"
+#: includes/php/praized-wp-core/PraizedWP.php:298
+msgid "Praized Plugin"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:318
+#: includes/php/praized-wp-core/PraizedWP.php:324
 #, php-format
 msgid ""
 "\n"
@@ -212,7 +211,7 @@ msgid ""
 "    \t\t\t"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:335
+#: includes/php/praized-wp-core/PraizedWP.php:341
 #, php-format
 msgid ""
 "\n"
@@ -223,38 +222,42 @@ msgid ""
 "    \t\t\t"
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:442
+#: includes/php/praized-wp-core/PraizedWP.php:416
+msgid "Acknowledged"
+msgstr ""
+
+#: includes/php/praized-wp-core/PraizedWP.php:490
 #, php-format
 msgid "Requested Praized class not found inside %s."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:446
+#: includes/php/praized-wp-core/PraizedWP.php:494
 #, php-format
 msgid "Requested Praized library not found in %s."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:493
+#: includes/php/praized-wp-core/PraizedWP.php:541
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_bank\">Wordpress caching</a> is currently disabled."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:499
+#: includes/php/praized-wp-core/PraizedWP.php:547
 #, php-format
 msgid ""
 "The <a href=\"%s\" target=\"_bank\">caching functions</a> do not seem to be "
 "available in your Wordpress install."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:573
+#: includes/php/praized-wp-core/PraizedWP.php:636
 msgid "Please be sure to fill all the required fields."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:578
+#: includes/php/praized-wp-core/PraizedWP.php:641
 msgid "Your configurations were successfully tested and saved."
 msgstr ""
 
-#: includes/php/praized-wp-core/PraizedWP.php:582
+#: includes/php/praized-wp-core/PraizedWP.php:645
 msgid ""
 "Sorry, but we could not activate your access to the Praized API with the "
 "submitted information."

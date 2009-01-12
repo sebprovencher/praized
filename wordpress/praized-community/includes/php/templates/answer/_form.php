@@ -2,10 +2,10 @@
 /**
  * Praized template fragment: Answer form
  *
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage Templates
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -72,18 +72,14 @@ $post_button_id = $submit_id . '-button';
               document.getElementById('<?php echo $form_id; ?>').style.display = 'block';
             },
             callback: function(merchants){
-              var comment = document.getElementById('<?php echo $comment_id; ?>-content').value;
               var pids = [];
-              var _new = Praized.DOMTools.newElement;
               for(i=0;i<merchants.length;i++) pids.push(merchants[i].pid);
+              var pidsInput = Praized.DOMTools.newElement('input',{type:'hidden',name:'pids',value: pids.join(',')});
               var form = document.getElementById('<?php echo $form_id; ?>');
-              var pidsInput =  _new('input',{type:'hidden',name:'pids',value: pids.join(',')})
-              var commentInput = _new('input',{type:'hidden',name:'content',value: comment ,style:'display:none'} )
-              var newForm = _new('form', { action: form.action, method: form.method } );
-              newForm.appendChild(pidsInput);
-              newForm.appendChild(commentInput);              
-              document.body.appendChild(newForm);
-              newForm.submit();
+              form.appendChild(pidsInput);
+              if ( PraizedLightBox )
+            	  PraizedLightBox.show();
+              form.submit();
             }
         })
         </script>
@@ -93,8 +89,8 @@ $post_button_id = $submit_id . '-button';
 	  <label>Answer</label>
 		<textarea name="content" id="<?php echo $comment_id; ?>-content" rows="2" cols="55" style="width:99%"></textarea>
 	</fieldset>
-	<div id="<?php echo $submit_id; ?>" style="text-align:right;padding:4px;display:none;">
+	<fieldset id="<?php echo $submit_id; ?>" style="text-align:right;padding:4px;border-top:0;margin-top:0;display:none;">
 		<button id="<?php echo $post_button_id; ?>" type="submit"><?php pzdc_e('Post answer'); ?></button>
-	</div>
+	</fieldset>
 </form>
 

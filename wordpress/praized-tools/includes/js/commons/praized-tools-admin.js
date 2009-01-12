@@ -1,6 +1,6 @@
 (function() {
 
-	$ = function(el) { return document.getElementById(el); };
+	pte = function(el) { return document.getElementById(el); };
 
 	pta = function() { return window.PraizedToolsAdmin; }
 
@@ -49,67 +49,78 @@
 			intervalId : null,
 			
 			newDiv : function() {
+				if ( pte(pts().ieHackId) && pte(pts().ieHackId).style )
+					return;
 				
-				if ( ! $(pts().ieHackId)) {
-					conf = window.ptasConf;
-					
-					gH = document.documentElement.scrollHeight;
-					
-					if (document.body.currentStyle)
-						gH = gH + 30;
+				conf = window.ptasConf;
+				
+				gH = document.documentElement.scrollHeight;
+				
+				if (document.body.currentStyle)
+					gH = gH + 30;
 
-					if ( window.innerHeight ) 
-						cH = window.innerHeight;
-					else
-						cH = document.documentElement.clientHeight;
-					
-					if (gH > cH)
-						realHeight = gH + 'px';
-					else if (cH > 1000)
-						realHeight = cH + 'px';
-					else
-						realHeight = '1000px';
+				if ( window.innerHeight ) 
+					cH = window.innerHeight;
+				else
+					cH = document.documentElement.clientHeight;
+				
+				if (gH > cH)
+					realHeight = gH + 'px';
+				else if (cH > 1000)
+					realHeight = cH + 'px';
+				else
+					realHeight = '1000px';
 
-					ieHackDiv = document.createElement('div');
-					ieHackDiv.id = pts().ieHackId;
-					ieHackDiv.style.position = 'absolute';
-					ieHackDiv.style.width = '100%';
-					ieHackDiv.style.height = realHeight;
-					ieHackDiv.style.top = 0;
-					ieHackDiv.style.left = 0;
-					ieHackDiv.style.zIndex = 9996;
-					ieHackDiv.style.display = 'none';
-					document.body.appendChild(ieHackDiv);
-					
-					screenDiv = document.createElement('div');
-					screenDiv.id = pts().screenId;
-					screenDiv.style.position = 'absolute';
-					screenDiv.style.width = '100%';
-					screenDiv.style.height = realHeight;
-					screenDiv.style.zIndex = 9997;
-					ieHackDiv.appendChild(screenDiv);
+				ieHackDiv = document.createElement('div');
+				ieHackDiv.id = pts().ieHackId;
+				ieHackDiv.style.position = 'absolute';
+				ieHackDiv.style.width = '100%';
+				ieHackDiv.style.height = realHeight;
+				ieHackDiv.style.top = 0;
+				ieHackDiv.style.left = 0;
+				ieHackDiv.style.zIndex = 999996;
+				ieHackDiv.style.display = 'none';
+				document.body.appendChild(ieHackDiv);
+				
+				screenDiv = document.createElement('div');
+				screenDiv.id = pts().screenId;
+				screenDiv.style.position = 'absolute';
+				screenDiv.style.width = '100%';
+				screenDiv.style.height = realHeight;
+				screenDiv.style.zIndex = 999997;
+				ieHackDiv.appendChild(screenDiv);
 
-					wrapDiv = document.createElement('div');
-					wrapDiv.id = pts().wrapId;
-					wrapDiv.style.position = 'absolute';
-					wrapDiv.style.width = '100%';
-					wrapDiv.style.height = realHeight;
-					wrapDiv.style.zIndex = 9998;
-					ieHackDiv.appendChild(wrapDiv);
-					
-					if (top.location.href.match(/^https/))
-						pts().iframeUrl.replace('http:', 'https:')
-					
-					newIframe = document.createElement('iframe');
-					newIframe.id = pts().iframeId;
-					newIframe.src = conf.schltUrl;
-					newIframe.style.zIndex = 9999;
-					wrapDiv.appendChild(newIframe);
-				}
+				wrapDiv = document.createElement('div');
+				wrapDiv.id = pts().wrapId;
+				wrapDiv.style.position = 'absolute';
+				wrapDiv.style.width = '100%';
+				wrapDiv.style.height = realHeight;
+				wrapDiv.style.zIndex = 999998;
+				addEvent(wrapDiv, 'click', function(){ pts().hide(); });
+				ieHackDiv.appendChild(wrapDiv);
+
+				var iframeWidth = 640;
+				var iframeHeight = 480;
+				var iframeMarginTop = Math.round( ( cH - iframeHeight ) / 2 );
+				var iframeMarginLeft = Math.round( ( ( (window.innerWidth) ? window.innerWidth : document.documentElement.clientWidth ) - iframeWidth ) / 2 );
+				
+				if (top.location.href.match(/^https/))
+					pts().iframeUrl.replace('http:', 'https:')
+				
+				newIframe = document.createElement('iframe');
+				newIframe.id = pts().iframeId;
+				newIframe.src = conf.schltUrl;
+				newIframe.style.zIndex = 999999;
+				newIframe.style.position = 'fixed';
+				newIframe.style.width = iframeWidth + 'px';
+				newIframe.style.height = iframeHeight + 'px';
+				newIframe.style.margin = iframeMarginTop + 'px 0 0 ' + iframeMarginLeft + 'px';
+				wrapDiv.appendChild(newIframe);
 			},
 			
 			toggle : function(el, display) {
-				$(el).style.display = display;
+				if ( pte(el) && pte(el).style ) 
+					pte(el).style.display = display;
 			},
 			
 			show : function(context, btnSnap) {

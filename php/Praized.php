@@ -6,9 +6,9 @@
  * 
  * @note Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.6
+ * @version 1.7
  * @package Praized
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */

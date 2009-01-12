@@ -2,10 +2,10 @@
 /**
  * Praized template fragment: Merchant tag listing
  *
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage Templates
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -22,9 +22,7 @@
     <?php else: ?>
       <?php pzdc_e('No tags.'); ?>
     <?php endif;?>
-    <?php if ( pzdc_is_authorized() ) :?>
-      <a class="praized-action" href="<?php pzdc_merchant_permalink('taggings'); ?>"><?php pzdc_e('add tags'); ?></a>
-    <?php endif;?>
+    <a class="praized-action" href="<?php pzdc_merchant_permalink('taggings'); ?>"><?php pzdc_e('add tags'); ?></a>
  </p>
 
 <?php endif;?>

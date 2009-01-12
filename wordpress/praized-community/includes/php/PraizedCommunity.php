@@ -2,9 +2,9 @@
 /**
  * Praized Community
  * 
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -26,7 +26,7 @@ class PraizedCommunity extends PraizedWP {
      * @var string
      * @since 1.0.4
      */
-    var $version = '1.6';
+    var $version = '1.7';
     
 	/**
      * Valid Praized Community URL routes
@@ -40,7 +40,8 @@ class PraizedCommunity extends PraizedWP {
         'oauth',
         'actions',
         'questions',
-    	'answers'
+    	'answers',
+    	'help'
     );
     
     /**
@@ -105,6 +106,13 @@ class PraizedCommunity extends PraizedWP {
      * @since 1.6
      */
     var $_route_is_answer = FALSE;
+    
+    /**
+     * Keeps track of if the current page is the Praized help route
+     * @var boolean
+     * @since 1.7
+     */
+    var $_route_is_help = FALSE;
     
     /**
      * API object holder: Community data
@@ -223,7 +231,35 @@ class PraizedCommunity extends PraizedWP {
      * @var boolean
      * @since 0.1
      */
-    var $tpt_has_next_splink = FALSE;
+    var $tpt_has_next_splink = FALSE;    
+    
+    /**
+     * API object holder: Merchant sponsored image data (collection)
+     * @var mixed boolean FALSE or object
+     * @since 1.7
+     */
+    var $tpt_spimages = FALSE;
+    
+    /**
+     * Keeps track of which merchant sponsored image we're dealing with in $this->tpt_spimages_loop()
+     * @var integer
+     * @since 1.7
+     */
+    var $tpt_spimage_index = 0;
+    
+    /**
+     * API object holder: Merchant sponsored image data (single)
+     * @var mixed boolean FALSE or object
+     * @since 1.7
+     */
+    var $tpt_spimage = FALSE;
+    
+    /**
+     * Keeps track of if there is another merchant sponsored image to be processed in $this->tpt_spimages_loop()
+     * @var boolean
+     * @since 1.7
+     */
+    var $tpt_has_next_spimage = FALSE;
     
     /**
      * API object holder: Merchant or user comment data (collection)
@@ -422,6 +458,13 @@ class PraizedCommunity extends PraizedWP {
     var $tpt_has_next_answer = FALSE;
     
     /**
+     * Stores the Praized remote file include content to be used in the aproriate template
+     * @var string
+     * @since 1.7
+     */
+    var $tpt_help_content = FALSE;
+    
+    /**
      * Search form widget identifier string
      * @var string
      * @since 0.1
@@ -434,6 +477,13 @@ class PraizedCommunity extends PraizedWP {
      * @since 0.1
      */
     var $wdgt_auth_nav_key;
+    
+    /**
+     * Praized navigation widget identifier string
+     * @var string
+     * @since 1.7
+     */
+    var $wdgt_section_nav_key;
     
     /**
 	 * Constructor
@@ -477,6 +527,38 @@ class PraizedCommunity extends PraizedWP {
 		    
 		$this->wdgt_search_form_key = $this->_wdgt_key . '_search_form';
 		$this->wdgt_auth_nav_key    = $this->_wdgt_key . '_auth_nav';
+		$this->wdgt_section_nav_key    = $this->_wdgt_key . '_section_nav';
+	}
+	
+	/**
+	 * Checks if there are any version specific messages/warnings to be displayed
+	 * to the admin user to let them know about new features, etc. Supports
+	 * cumulative versions, in case the user skipped a few versions.
+	 * 
+	 * @return void
+	 * @since 1.7
+	 */
+	function _upgrade_notices() {
+		if ( $this->_clear_upgrade_notices() )
+			return;
+		
+		if ( ! ( $last_upgrade = $this->_get_wp_option('last_upgrade') ) )
+			$last_upgrade = 0;
+		
+		$notices = array();
+		
+		// Version 1.7
+		if ( version_compare($this->version, '1.7', '>=') && $last_upgrade < strtotime('2009-01-01') ) {
+			$notices['1.7'] = sprintf(
+				$this->__('Please note that we\'ve added a <a href="%s">new sidebar widget</a>.'),
+				$this->_admin_url . '/widgets.php'
+			);
+			$notices['1.7'] .= ' ';
+			$notices['1.7'] .= $this->__('We\'ve removed the main sections links from the existing "<strong>Praized: Session</strong>" widget and separated them in their own "<strong>Praized: Sections</strong>" widget so you have more control over their placement.');
+		}
+		
+		if ( ! empty($notices) )
+			$this->_queue_upgrade_notices($notices);
 	}
 
 	/**
@@ -485,11 +567,16 @@ class PraizedCommunity extends PraizedWP {
 	 * @since 0.1
 	 */
 	function admin_tools() {
-		if ( ! strstr($_SERVER['QUERY_STRING'], $this->_plugin_name) && ( ! $this->_config['community'] || ! $this->_config['api_key']) ) {
+		// Config-level error, warning and notification handling
+		if ( ! strstr($_SERVER['QUERY_STRING'], $this->_plugin_name) && ( ! $this->_config['community'] || ! $this->_config['api_key'] ) ) {
+			// Prompt the admin user to configure the newly activated plugin.
 			add_action('admin_notices', array(&$this, 'wp_action_install_warning'));
 			return;
+		} elseif ( ! empty($this->_config['community']) && ! empty($this->_config['api_key']) ) {
+			// See if there are any upgrade notifications and display them as necessary.
+			$this->_upgrade_notices();
 		}
-
+		
 		if ( count($_POST) > 0 ) {
 			if ( strstr($_GET['page'], $this->_plugin_name) && isset($_POST['community']) ) {
                 // Plugin config save
@@ -512,6 +599,7 @@ class PraizedCommunity extends PraizedWP {
         		    if ( empty($_POST['trigger']) )
         		        $_POST['trigger'] = '/praized';
         		    $this->_save_config();
+        		    $this->_save_wp_option('last_upgrade', time());
         		}
 			} else {
     			// Search form widget config save
@@ -521,6 +609,10 @@ class PraizedCommunity extends PraizedWP {
     			// Auth nav widget config save
     			if( isset($_POST[$this->wdgt_auth_nav_key . '_title']) ) {
     			    $this->widget_auth_nav_options_save();
+    			}			    
+    			// Section nav widget config save
+    			if( isset($_POST[$this->wdgt_section_nav_key . '_title']) ) {
+    			    $this->widget_section_nav_options_save();
     			}			    
 			}
 		}
@@ -610,7 +702,7 @@ class PraizedCommunity extends PraizedWP {
 	    $this->_save_wp_option($widget_id, array(
 	        'title'   => $_POST[$widget_id . '_title']
 	    ));
-	}	
+	}
 	
 	/**
 	 * WP Widget: Auth nav form option form
@@ -636,6 +728,36 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function widget_auth_nav_options_save() {
 	    $widget_id = $this->wdgt_auth_nav_key;
+	    // Note: _save_wp_option() sanitizes the content
+	    $this->_save_wp_option($widget_id, array(
+	        'title'   => $_POST[$widget_id . '_title']
+	    ));
+	}
+	
+	/**
+	 * WP Widget: Section nav form option form
+	 *
+	 * @since 1.7
+	 */
+	function widget_section_nav_options_form() {
+	    $widget_id = $this->wdgt_section_nav_key;
+	    
+	    $config = $this->_get_wp_option($widget_id);
+	    if ( !is_array($config) )
+	        $config = array();
+	    
+        $field_id = $widget_id . '_title';
+	    echo '<p><label for="'.$field_id.'">'.$this->__('Widget Title').': '.'</label></br />';
+	    echo '<input type="text" id="'.$field_id.'" name="'.$field_id.'" value="'.$config['title'].'" /></p>';
+	}
+	
+	/**
+	 * WP Widget: Section nav option save process
+	 *
+	 * @since 1.7
+	 */
+	function widget_section_nav_options_save() {
+	    $widget_id = $this->wdgt_section_nav_key;
 	    // Note: _save_wp_option() sanitizes the content
 	    $this->_save_wp_option($widget_id, array(
 	        'title'   => $_POST[$widget_id . '_title']
@@ -692,38 +814,21 @@ class PraizedCommunity extends PraizedWP {
 	        if ( isset($_GET['q']) && empty($_GET['q']) && isset($_GET['l']) && empty($_GET['l']) ) {
                 // We still need users to be able to overwrite the defaults and submit an
                 // "Everything + Everywhere" query, but only when the form is truly submitted.
-	            $query    = $this->__('Everything');
-                $location = $this->__('Everywhere');
+	            $query    = ucfirst($this->__('everything'));
+                $location = ucfirst($this->__('everywhere'));
 	        } else {
-    	        $query    = ( ! empty($_GET['q']) )
-    	                  ? $this->stripper($_GET['q'])
-    	                  : ( ( ! empty($this->_config['default_query']) && empty($_GET['l']) )
-    	                      ? $this->_config['default_query']
-    	                      : $this->__('Everything') );
+    	        $query = $this->tpt_search_query(FALSE);
+    	        if ( empty($query) )
+    	        	$query = ucfirst($this->__('everything'));
     	        
-    	        $location = ( ! empty($_GET['l']) )
-    	                  ? $this->stripper($_GET['l'])
-    	                  : ( ( ! empty($this->_config['default_location']) && empty($_GET['q']) )
-    	                      ? $this->_config['default_location']
-    	                      : $this->__('Everywhere') );
+    	        $location = $this->tpt_search_location(FALSE);
+    	        if ( empty($location) )
+    	        	$location = ucfirst($this->__('everywhere'));
 	        }
 	        
-	        if (  ! empty($_GET['t']) || ! empty($_GET['tag']) || ! empty($_GET['category']) ) {
-	            $tag = ( ! empty($_GET['t']) )
-	                 ? $this->stripper($_GET['t'])
-	                 : ( ! empty($_GET['tag']) )
-	                     ? $this->stripper($_GET['tag'])
-	                     : $this->stripper($_GET['category']);
-	        } elseif ( $this->_route_is_tag ) {
-	            preg_match('/\/(tag|category)\/([^\/]*)/', $this->_script_uri, $matches);
-	            if ( ! empty($matches[2]) )
-	                 $tag = htmlspecialchars(urldecode($matches[2]));
-	        }
-	        
-	        if ( isset($tag) )
+	        $tag = $this->tpt_search_tag(FALSE);
+	        if ( ! empty($tag) )
 	            $tag =  ' ' . $separator . ' ' . $this->__('Tag') . ': ' . $tag;
-	        else
-	            $tag = '';
 	        
 	        $header .= sprintf(
 	            '%s %s %s%s',
@@ -817,6 +922,7 @@ class PraizedCommunity extends PraizedWP {
 	 * @since 0.1
 	 */
 	function wp_action_template_footer() {
+		// Vote Button include
 	    printf(
 	        '<script src="%s/includes/js/commons/PraizedVoteButton.js?v=%s" type="text/javascript" charset="utf-8"></script>' . "\n",
 	        $this->_plugin_dir_url,
@@ -910,6 +1016,12 @@ class PraizedCommunity extends PraizedWP {
             case 'answers':
                 $this->_route_answer($parts);
                 break;
+            case 'help':
+                $this->_route_help($parts);
+                break;
+            default:
+            	// falls back to standard WP 404
+            	break;
         }
     }
 	
@@ -1078,9 +1190,10 @@ class PraizedCommunity extends PraizedWP {
         
         // handles posting votes while not logged in to the praized network
 		if ( ( $identifier == $route_parts[1] ) && $this->Praized->isAuthorized() && isset($_GET['oauth_token']) && isset($_COOKIE[$this->_preserve_post_cookie_name()]) ) {
-			$route_parts[2] = 'votes';
         	$_POST = unserialize(stripslashes($_COOKIE[$this->_preserve_post_cookie_name()]));
-			$this->_preserve_post(FALSE);
+			if ( isset($_POST['vote']) )
+				$route_parts[2] = 'votes'; // fallback because users can vote from any merchant-related route/views (lists, details, etc).
+        	$this->_preserve_post(FALSE);
 		} elseif ( isset($_COOKIE[$this->_preserve_post_cookie_name()]) ) {
 			$this->_preserve_post(FALSE);
 		}
@@ -1088,6 +1201,8 @@ class PraizedCommunity extends PraizedWP {
         switch ($route_parts[2]) {
             case 'comments':
                 if ( count($_POST) > 0 ) {
+                    if ( ! $this->Praized->isAuthorized() )
+                    	$this->_preserve_post();
                     $return = $mObj->commentAdd($identifier, $_POST);
                     if ( isset($return->merchant->permalink) )
                         $redirect = $return->merchant->permalink;
@@ -1129,21 +1244,18 @@ class PraizedCommunity extends PraizedWP {
                         }
                     } else {
                         // Accessible vote form (ie: no JS)
-                        if ( ! $this->Praized->isAuthorized() ) {
-                        	$this->_preserve_post();
-                        	wp_redirect($this->trigger_url . '/oauth/login');
-                        } else {
-                            $return = $mObj->voteAdd($identifier, $_POST);
-                            if ( isset($return->vote->merchant->permalink) )
-                                $redirect = $return->vote->merchant->permalink;
-                            elseif ( isset($return->merchant->permalink) )
-                                $redirect = $return->merchant->permalink;
-                            elseif( isset($mObj->errors[401]) )
-                                $redirect = $this->trigger_url . '/oauth/logout';
-                            else
-                                $redirect = $this->link_helper($identifier, 'merchant');
-                            wp_redirect($redirect);
-                        }
+	                    if ( ! $this->Praized->isAuthorized() )
+	                    	$this->_preserve_post();
+                        $return = $mObj->voteAdd($identifier, $_POST);
+                        if ( isset($return->vote->merchant->permalink) )
+                            $redirect = $return->vote->merchant->permalink;
+                        elseif ( isset($return->merchant->permalink) )
+                            $redirect = $return->merchant->permalink;
+                        elseif( isset($mObj->errors[401]) )
+                            $redirect = $this->trigger_url . '/oauth/logout';
+                        else
+                            $redirect = $this->link_helper($identifier, 'merchant');
+                        wp_redirect($redirect);
                     }
                     exit;
                 }
@@ -1168,6 +1280,8 @@ class PraizedCommunity extends PraizedWP {
                 break;
             case 'taggings':
                 if ( count($_POST) > 0 ) {
+                    if ( ! $this->Praized->isAuthorized() )
+                    	$this->_preserve_post();
                     $return = $mObj->tagAdd($identifier, $_POST);
                     if ( isset($return->merchant->permalink) )
                         $redirect = $return->merchant->permalink;
@@ -1452,6 +1566,30 @@ class PraizedCommunity extends PraizedWP {
 	}
 	
 	/**
+	 * Handles the /help/ route
+	 * (from $this->_reroute())
+	 *
+	 * @param array $route_parts Indexed array of the elements making the current API route (as def in $this->_reroute())
+	 * @since 1.7
+	 */
+	function _route_help($route_parts) {
+        if ( $route_parts[0] != 'help' )
+            return;
+		$url = $this->Praized->praizedLinks['help_include'] . '?v=' . $this->version;
+		$cache_key = md5($url);
+		if ( ! ( $this->tpt_help_content = wp_cache_get($cache_key, $this->_cache_key) ) ) { 
+			if ( $this->tpt_help_content = $this->Praized->getHttp($url) ) {
+				wp_cache_set($cache_key, $this->tpt_help_content, $this->_cache_key, 86400);
+			}
+		}
+        if ( ! $this->tpt_help_content )
+			return;
+		$this->_route_is_help = TRUE;
+		$this->_reset_404();
+		$this->template('help');
+	}
+	
+	/**
 	 * Sets the template environment with meta data such as the
 	 * community's info, pagination, etc.
 	 *
@@ -1714,7 +1852,7 @@ class PraizedCommunity extends PraizedWP {
 	    if ( ! $this->tpt_splinks ) {
             if ( isset($this->tpt_merchant->sponsored_links) && is_array($this->tpt_merchant->sponsored_links) ) {
                 /**
-                 * Mandatory extra loop to ensure we respect the sponsoredlink
+                 * Mandatory extra loop to ensure we respect the sponsored link
                  * node's own order node to sort the list.
                  */
                 $links = array();
@@ -1756,6 +1894,61 @@ class PraizedCommunity extends PraizedWP {
 	}
 	
 	/**
+	 * Template function: Tests if $this->tpt_spimages truly has a sponsored
+	 * image list.  Will only work in the right views (ie: individual merchant
+	 * show, not listings)
+	 *
+	 * @return boolean
+	 * @since 1.7
+	 */
+	function tpt_has_spimages() {
+		if ( ! $this->_route_is_merchant )
+            return FALSE;
+	    if ( ! $this->tpt_spimages ) {
+            if ( isset($this->tpt_merchant->sponsored_images) && is_array($this->tpt_merchant->sponsored_images) ) {
+                /**
+                 * Mandatory extra loop to ensure we respect the sponsored image
+                 * node's own order node to sort the list.
+                 */
+                $links = array();
+                foreach ( $this->tpt_merchant->sponsored_images as $link) {
+                   if ( is_object($link) && isset($link->order) )
+                       $links[$link->order] = $link; 
+                }
+                $this->tpt_spimages = ( count($links) > 0 ) ? $links : FALSE;
+            }
+        }
+        if ( is_array($this->tpt_spimages) )
+            return count($this->tpt_spimages);
+        return FALSE;
+	}
+	
+	/**
+	 * Template function: Praized equivalent of the WP "the_loop" for the
+	 * current merchant's sponsored image list, usually used in while loop.
+	 * Will only work in the right views (ie: individual merchant show,
+	 * not listings).
+	 *
+	 * @return boolean and sets $this->tpt_merchant if appropriate
+	 * @since 1.7
+	 */
+	function tpt_spimages_loop() {
+        $this->tpt_has_next_spimage = FALSE;
+	    if ( $this->tpt_has_spimages() ) {
+            $spimage_list = $this->tpt_spimages;
+	        if ( isset($spimage_list[$this->tpt_spimage_index]) ) {
+	            $spimage = $spimage_list[$this->tpt_spimage_index];
+	            $this->tpt_spimage = $spimage;
+                if ( isset($spimage_list[$this->tpt_spimage_index + 1]) )
+                    $this->tpt_has_next_spimage = TRUE;
+	            $this->tpt_spimage_index++;
+	            return TRUE;
+            }
+	    }
+	    return FALSE;
+	}
+	
+	/**
 	 * Template function: Tests if $this->tpt_comments truly has a comment list, or sets it.
 	 *
 	 * @param array Optional query to overwrite the current context and force fetch other data
@@ -1764,8 +1957,10 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function tpt_has_comments($query = FALSE) {
         if ( ! $this->tpt_comments ) {
-            if ( ! is_array($query) )
-                $query = $_GET;
+            if ( is_array($query) )
+                $query = array_merge($_GET, $query);
+            else
+            	$query = $_GET;
             $mObj = $this->Praized->merchant();
             $uObj = $this->Praized->user();
             if ( $this->_route_is_merchant ) {
@@ -1819,8 +2014,10 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function tpt_has_favorites($query = FALSE) {
         if ( ! $this->tpt_favorites ) {
-            if ( ! is_array($query) )
-                $query = $_GET;
+            if ( is_array($query) )
+                $query = array_merge($_GET, $query);
+            else
+            	$query = $_GET;
             $mObj = $this->Praized->merchant();
             $uObj = $this->Praized->user();
             if ( $this->_route_is_merchant ) {
@@ -1878,8 +2075,10 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function tpt_has_votes($query = FALSE) {
         if ( ! $this->tpt_votes ) {
-            if ( ! is_array($query) )
-                $query = $_GET;
+            if ( is_array($query) )
+                $query = array_merge($_GET, $query);
+            else
+            	$query = $_GET;
             $mObj = $this->Praized->merchant();
             $uObj = $this->Praized->user();
             if ( $this->_route_is_merchant ) {
@@ -1954,8 +2153,10 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function tpt_has_friends($query = FALSE) {
         if ( ! $this->tpt_friends ) {
-            if ( ! is_array($query) )
-                $query = $_GET;
+            if ( is_array($query) )
+                $query = array_merge($_GET, $query);
+            else
+            	$query = $_GET;
             if ( $this->_route_is_user ) {
                 $uObj = $this->Praized->user();
                 $response = $uObj->friends($this->tpt_user->login, $query); 
@@ -2032,8 +2233,10 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function tpt_has_actions($query = FALSE) {
         if ( ! $this->tpt_actions ) {
-            if ( ! is_array($query) )
-                $query = $_GET;
+            if ( is_array($query) )
+                $query = array_merge($_GET, $query);
+            else
+            	$query = $_GET;
             if ( $this->_route_is_merchant ) {
                 $obj = $this->Praized->merchant();
                 $response = $obj->actions($this->tpt_merchant->pid, $query); 
@@ -2096,8 +2299,10 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function tpt_has_questions($query = FALSE) {
         if ( ! $this->tpt_questions ) {
-            if ( ! is_array($query) )
-                $query = $_GET;
+            if ( is_array($query) )
+                $query = array_merge($_GET, $query);
+            else
+            	$query = $_GET;
             if ( $this->_route_is_merchant ) {
                 $obj = $this->Praized->merchant();
                 $response = $obj->questions($this->tpt_merchant->pid, $query); 
@@ -2184,8 +2389,10 @@ class PraizedCommunity extends PraizedWP {
 	 */
 	function tpt_has_answers($query = FALSE) {
         if ( ! $this->tpt_answers ) {
-            if ( ! is_array($query) )
-                $query = $_GET;
+            if ( is_array($query) )
+                $query = array_merge($_GET, $query);
+            else
+            	$query = $_GET;
             if ( $this->_route_is_merchant ) {
                 $obj = $this->Praized->merchant();
                 $response = $obj->answers($this->tpt_merchant->pid, $query); 
@@ -2517,6 +2724,134 @@ class PraizedCommunity extends PraizedWP {
 			echo $checkboxes;
 		return $checkboxes;
 	}
+	
+	/**
+	 * Template function: Current merchants search term (?q=)
+	 * 
+	 * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+	 * @return string
+	 * @since 1.7
+	 */
+	function tpt_search_query($echo = TRUE) {
+	    global $PraizedCommunity;
+	    if ( isset($_GET['q']) && empty($_GET['q']) && isset($_GET['l']) && empty($_GET['l']) ) {
+	        // We still need users to be able to overwrite the defaults and submit an
+	        // "Everything + Everywhere" query, but only when the form is truly submitted.
+	        $out = '';
+	    } else {
+	        $out = ( ! empty($_GET['q']) )
+	             ? pzdc_stripper($_GET['q'])
+	             : ( ( ! empty($_GET['l']) )
+	                 ? ''
+	                 : $PraizedCommunity->_config['default_query'] );
+	    }
+	    if ( $echo )
+	        echo $out;
+	    return $out;
+	}
+	
+	/**
+	 * Template function: Current merchants location query (?l=)
+	 * 
+	 * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+	 * @return string
+	 * @since 1.7
+	 */
+	function tpt_search_location($echo = TRUE) {
+	    global $PraizedCommunity;
+	    if ( isset($_GET['q']) && empty($_GET['q']) && isset($_GET['l']) && empty($_GET['l']) ) {
+	        // We still need users to be able to overwrite the defaults and submit an
+	        // "Everything + Everywhere" query, but only when the form is truly submitted.
+	        $out = '';
+	    } else {
+	        $out = ( ! empty($_GET['l']) )
+	             ? pzdc_stripper($_GET['l'])
+	             : ( ( ! empty($_GET['q']) )
+	                 ? ''
+	                 : $PraizedCommunity->_config['default_location'] );
+	    }
+	    if ( $echo )
+	        echo $out;
+	    return $out;
+	}
+	
+	/**
+	 * Template function: Current merchants tag search term (?t= or ?tag= or ?category= or from route)
+	 * 
+	 * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+	 * @return string
+	 * @since 1.7
+	 */
+	function tpt_search_tag($echo = TRUE) {
+		if (  ! empty($_GET['t']) || ! empty($_GET['tag']) || ! empty($_GET['category']) ) {
+            $out = ( ! empty($_GET['t']) )
+                 ? $this->stripper($_GET['t'])
+                 : ( ! empty($_GET['tag']) )
+                     ? $this->stripper($_GET['tag'])
+                     : $this->stripper($_GET['category']);
+        } elseif ( $this->_route_is_tag ) {
+            preg_match('/\/(tag|category)\/([^\/]*)/', $this->_script_uri, $matches);
+            if ( ! empty($matches[2]) )
+            	$out = htmlspecialchars(urldecode($matches[2]));
+        }
+	    if ( $echo )
+	        echo $out;
+	    return $out;
+	}
+	
+	/**
+	 * Template function: returns the info to be displayed between the search form and result
+	 * 
+	 * @param boolean $echo
+	 * @return string
+	 * @since 1.7
+	 */
+	function tpt_search_results_info($echo = TRUE) {
+		$pagination = $this->tpt_pagination;
+		
+		if ( ! $pagination || ! $pagination->total_entries || ! $this->_route_is_merchants )
+			return;
+		
+		$total = intval($pagination->total_entries);
+		if ( $total >= 1000 )
+			$total .= '+';
+		
+		// tag search supersedes true query search
+		$query = $this->tpt_search_tag(FALSE);
+		$query_format = $this->__('for the tag "<strong>%s</strong>"');
+		
+		// if not in a tag search context, rollback to search query
+		if ( empty($query) ) {
+			$query = $this->tpt_search_query(FALSE);
+			$query_format = $this->__('for "<strong>%s</strong>"');
+		}
+		
+		if ( ! empty($query) )
+			$query = sprintf($query_format, $query);
+		else
+			$query = 'for <strong>' . $this->__('everything') . '</strong>';
+		
+		$location = $this->tpt_search_location(FALSE);
+		$location_format = $this->__('in <strong>%s</strong>');
+		
+		if ( ! empty($location) )
+			$location = sprintf($location_format, $location);
+		else
+			$location = '<strong>' . $this->__('everywhere') . '</strong>'; 
+		
+		$caption = sprintf(
+			$this->__('We found <strong>%s results</strong> %s %s.'),
+			$total,
+			$query,
+			$location
+		);
+		
+		$caption = '<p class="praized-search-results-info">' . $caption . '</p>';
+		
+		if ( $echo )
+			echo $caption;
+		return $caption;
+	}
 
 	/**
 	 * Template function: Returns an unordered list of merchants related to a specific structured question.
@@ -2550,7 +2885,11 @@ class PraizedCommunity extends PraizedWP {
 	 * @since 0.1
 	 */
 	 function widget_search_form($args = array()) {
-        extract($args);
+	 	// no need to show the search form when it's already shown in the main content area
+	 	if ( $this->_route_is_merchants || $this->_route_is_user || $this->_route_is_actions )
+			return;
+	 	
+	 	extract($args);
 	    
         $widget_id = $this->wdgt_search_form_key;
         $config    = $this->_get_wp_option($widget_id);
@@ -2592,6 +2931,33 @@ class PraizedCommunity extends PraizedWP {
 	    echo $after_title;   // WP STANDARD
         
         $this->template('_auth_nav', true);
+        
+        echo "\n</li>\n";
+        echo $after_widget;  // WP STANDARD
+	 }
+	
+	/**
+	 * Widget: Section nav
+	 * 
+	 * @param array $args WP standard
+	 * @since 1.7
+	 */
+	 function widget_section_nav($args = array()) {
+        extract($args);
+	    
+        $widget_id = $this->wdgt_section_nav_key;
+        $config    = $this->_get_wp_option($widget_id);
+        
+        echo $before_widget; // WP STANDARD	    
+        echo '<li id="'.$widget_id.'" class="widget '.$widget_id.'">';
+        	    
+	    $title = ( $config['title'] != '' ) ? $config['title'] : $this->__('Praized: Sections');
+	    
+	    echo $before_title;  // WP STANDARD
+	    echo '<h2 class="widgettitle">'.$title.'</h2>';
+	    echo $after_title;   // WP STANDARD
+        
+        $this->template('_section_nav', true);
         
         echo "\n</li>\n";
         echo $after_widget;  // WP STANDARD

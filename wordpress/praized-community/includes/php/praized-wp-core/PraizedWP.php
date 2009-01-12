@@ -4,9 +4,9 @@
  * 
  * Common codebase used by the Praized WordPress plugins.
  *
- * @version 1.6
+ * @version 1.7
  * @package PraizedWP
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedWP')) {
          * @var string
          * @since 0.1
          */
-        var $version = '1.6';
+        var $version = '1.7';
         
         /**
          * Plugin errors
@@ -292,8 +292,14 @@ if ( ! class_exists('PraizedWP')) {
     		else
     		    $out = '<ul><li>' . implode( '</li><li>', $messages ) . "</li></ul>\n";
     		
-    	    printf(
-    			$this->__('<strong>Praized Plugin:</strong> %s'),
+    		if ( ! empty($this->_plugin_name) )
+    			$title = ucwords(str_replace('-', ' ', $this->_plugin_name));
+    		else
+    			$title = __('Praized Plugin');
+    	    
+    		printf(
+    			'<strong>%s:</strong> %s',
+    	    	$title,
     			$out
     		);
     		echo "</p></div>\n";
@@ -384,6 +390,48 @@ if ( ! class_exists('PraizedWP')) {
     	 */
     	function _save_wp_option($key, $value) {
     	    return update_option($this->_wp_option_key($key), $value);
+    	}
+    	
+    	/**
+    	 * Enqueues the upgrade notices to be displayed to the admin user through PraizedWP::wp_action_admin_notices()
+    	 * 
+    	 * @param array $notices Messages in the form of {version} => {message}
+    	 * @return void
+    	 * @since 1.7
+    	 */
+    	function _queue_upgrade_notices($notices) {
+	    	if ( is_array($notices) ) {
+				$out = sprintf(
+					'<form action="%s/options-general.php?page=%s/%s.php" method="post"><ul>',
+					$this->_admin_url,
+					$this->_plugin_name,
+					$this->_plugin_name
+				);
+				foreach ( $notices as $version => $msg ) {
+					$out .= "<li><strong>V{$version}</strong>: {$msg}</li>";
+				}
+				$out .= '</ul>';
+				$out .= sprintf(
+					'<input type="submit" name="stop_nagging" value="%s" class="button-primary" style="margin-bottom: 10px;" />',
+					$this->__('Acknowledged')
+				) . '</form>';
+				$this->notices[] = $out;
+				add_action( 'admin_notices', array(&$this, 'wp_action_admin_notices') );
+			}
+    	}
+    	
+    	/**
+    	 * Saves a wp options so that upgrade related notices stop nagging admin users.
+    	 * 
+    	 * @return booelan TRUE if processed, FALSE if not
+    	 * @since 1.7
+    	 */
+    	function _clear_upgrade_notices() {
+	    	if ( isset($_POST['stop_nagging']) ) {
+				$this->_save_wp_option('last_upgrade', time());
+				return TRUE;
+			}
+			return FALSE;
     	}
     	
     	/**
@@ -547,6 +595,21 @@ if ( ! class_exists('PraizedWP')) {
     	function _get_cache($key) {
     	    if ( TRUE === $this->_use_caching() ) {
         	    return wp_cache_get($key, $this->_cache_key);
+    	    } else {
+    	        return FALSE;
+    	    }
+    	}
+    	
+    	/**
+    	 * Deletes a cached key/value pair from the WP caching engine of choice, if enabled
+    	 *
+    	 * @param string $key Unique identifier
+    	 * @return mixed boolean FALSE OR Cached value
+    	 * @since 1.7
+    	 */
+    	function _del_cache($key) {
+    	    if ( TRUE === $this->_use_caching() ) {
+        	    return wp_cache_delete($key, $this->_cache_key);
     	    } else {
     	        return FALSE;
     	    }

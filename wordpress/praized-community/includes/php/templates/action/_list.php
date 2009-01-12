@@ -2,16 +2,18 @@
 /**
  * Praized template fragment: User actions listing, with paging
  *
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage Templates
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
 ?>
 
 <div class="praized-action-list">
+  <div style="margin-top:15px;"><?php pzdc_tpt_fragment('search_form'); ?></div>
+  <br clear="all" />
   <h2 class="praized-search-header"><?php pzdc_page_header(); ?></h2>
   <?php if ( pzdc_has_actions() ) : ?>
     <?php while ( pzdc_actions_loop() ) : ?>

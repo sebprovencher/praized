@@ -13,14 +13,11 @@
 
 #pta_searchlet_wrap {
 	/* Note: most styles set in praized-tools-admin.js */
-	text-align: center;
+	text-align: left;
 }
 
 #pta_searchlet_iframe {
 	/* Note: most styles set in praized-tools-admin.js */
-	width: 640px;
-	height: 480px;
-	margin: 130px auto 0 auto;
 	background-color: #fff;
 	border: 1px green solid;
 }

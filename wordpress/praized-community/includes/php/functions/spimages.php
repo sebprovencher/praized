@@ -1,6 +1,6 @@
 <?php
 /**
- * Praized template functions/helpers/tags: sponsored links listing related functions
+ * Praized template functions/helpers/tags: sponsored images listing related functions
  * 
  * @version 1.7
  * @package PraizedCommunity
@@ -11,45 +11,45 @@
  */
 
 /**
- * Template function: Tests if the current merchant truly has a sponsored links
+ * Template function: Tests if the current merchant truly has a sponsored images
  * list.  Will only work in the right views (ie: individual merchant show, not
  * listings)
  * 
- * <code><?php if ( pzdc_has_splinks() ) : ?>...<?php endif; ?></code>
+ * <code><?php if ( pzdc_has_spimages() ) : ?>...<?php endif; ?></code>
  *
  * @return boolean
- * @since 0.1
+ * @since 1.7
  */
-function pzdc_has_splinks() {
+function pzdc_has_spimages() {
     global $PraizedCommunity;
-    return $PraizedCommunity->tpt_has_splinks();
+    return $PraizedCommunity->tpt_has_spimages();
 }
 
 /**
  * Template function: Praized equivalent of the WP "the_loop" for the current
- * merchant's sponsored links list, usually used in while loop. Will only work
+ * merchant's sponsored images list, usually used in while loop. Will only work
  * in the right views (ie: individual merchant show, not listings)
  * 
- * <code><?php while ( pzdc_splinks_loop() ) : ?>...<?php endwhile; ?></code>
+ * <code><?php while ( pzdc_spimages_loop() ) : ?>...<?php endwhile; ?></code>
  *
  * @return boolean
- * @since 0.1
+ * @since 1.7
  */
-function pzdc_splinks_loop() {
+function pzdc_spimages_loop() {
     global $PraizedCommunity;
-    return $PraizedCommunity->tpt_splinks_loop();
+    return $PraizedCommunity->tpt_spimages_loop();
 }
 
 /**
  * Template function: Tests if there is a next entry in the current loop
  * 
- * <code><?php if ( pzdc_has_next_splink() ) : ?>...<?php endif; ?></code>
+ * <code><?php if ( pzdc_has_next_spimage() ) : ?>...<?php endif; ?></code>
  *
  * @return boolean
- * @since 0.1
+ * @since 1.7
  */
-function pzdc_has_next_splink() {
+function pzdc_has_next_spimage() {
     global $PraizedCommunity;
-    return $PraizedCommunity->tpt_has_next_splink;
+    return $PraizedCommunity->tpt_has_next_spimage;
 }
 ?>

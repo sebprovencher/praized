@@ -3,10 +3,10 @@
  * Praized template fragment: "No results logic" when no answers are found in
  * search results, or when nothing has been Praized in a community.
  *
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage Templates
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
