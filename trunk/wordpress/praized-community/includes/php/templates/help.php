@@ -1,7 +1,6 @@
 <?php
 /**
- * Praized template fragment: "No results logic" when no actions are found
- * in a community.
+ * Praized template: Merchant profile
  *
  * @version 1.7
  * @package PraizedCommunity
@@ -12,6 +11,13 @@
  */
 ?>
 
-<p><?php pzdc_e('There is no activity in this community yet.'); ?></p>
-<p><?php pzdc_e('Search for your favorite places and start <em>praizing</em>!'); ?></p>
+<?php get_header(); ?>
 
+<div id="container">
+  <div id="content" class="narrowcolumn">
+    <?php pzdc_help_content(); ?>
+  </div>
+</div>
+
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>

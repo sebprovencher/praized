@@ -2,10 +2,10 @@
 /**
  * Praized template functions/helpers/tags: miscelaneous helpers related functions
  * 
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -183,6 +183,38 @@ function pzdc_place_picker_script($echo = TRUE) {
     return $out;
 }
 
+/**
+ * Template function: Returns the fully qualified link to the Praized functionality help.
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @return mixed Boolean FALSE or String username
+ * @since 1.7
+ */
+function pzdc_help_link($echo = TRUE) {
+    global $PraizedCommunity;
+    $link = $PraizedCommunity->trigger_url . '/help/';
+    if ( $echo )
+        echo $link;
+    return $link;
+}
+
+/**
+ * Template function: Returns the content of the remote help file.
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned
+ * @return string
+ * @since 1.7
+ */
+function pzdc_help_content($echo = TRUE) {
+    global $PraizedCommunity;
+    $out = $PraizedCommunity->tpt_help_content;
+    if ( ! $out || empty($out) )
+    	return '';
+    if ( $echo )
+        echo $out;
+    return $out;
+}
+
 
 /**
  * Template function: Returns the standard Praized credits.
@@ -194,7 +226,7 @@ function pzdc_place_picker_script($echo = TRUE) {
 function pzdc_credits($echo = TRUE) {
     global $PraizedCommunity;
     $return = '<br /><p><small>' . $PraizedCommunity->Praized->credits() . '</small></p>';
-    if ($echo)
+    if ( $echo )
         echo $return;
     return $return; 
 }

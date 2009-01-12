@@ -18,6 +18,9 @@
 {
 	text-decoration:none;
 }
+.praized-add-to-favorites{
+   font-family:inherit;
+}
 
 .praized-add-tags:hover, .praized-action:hover, .praized-add-to-favorites button:hover
 {
@@ -202,3 +205,8 @@
 #praized-answer-form-submit-button{float:right;}
 #praized-answers-results-picks-labels{color:#999;width:100%;font-size:0.85em;}
 #praized-answers-results-picks-labels b{width:50%;display:block;float:left;}
+
+#praized-community_widget_search_form input{width:96%;}
+#praized-community_widget_search_form fieldset{border:none;}
+#praized-community_widget_search_form label{display: block; margin-bottom:5px;}
+#praized-community_widget_search_form button{float:right;}

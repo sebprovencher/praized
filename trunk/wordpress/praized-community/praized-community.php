@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name:  Praized Community
- * Plugin URI:   http://praizedmedia.com/en/download/wordpress/
- * Version:      1.6
- * Description:  The Praized Community plugin allows you to deploys a complete local search section including 17M+ North American place listings, social tools and search functionalities through your WordPress blog. You need a <a href="http://praizedmedia.com/en/api/"><strong>Praized API key</strong></a> to use it. <strong>This plugin currently requires PHP5</strong>. See also: The <a href="http://praizedmedia.com/en/download/wordpress/">Praized Tools</a> plugin.
+ * Plugin URI:   http://wordpress.org/extend/plugins/praized-community/
+ * Version:      1.7
+ * Description:  The Praized Community plugin allows you to deploys a complete local search section including 17M+ North American place listings, social tools and search functionalities through your WordPress blog. You need a <a href="http://praizedmedia.com/en/api/"><strong>Praized API key</strong></a> to use it. <strong>This plugin currently requires PHP5</strong>. See also: The <a href="http://wordpress.org/extend/plugins/praized-tools/">Praized Tools</a> plugin.
  * Author:       <a href="http://www.praizedmedia.com/">Praized Media, Inc.</a>
  * 
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage PluginInit
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  * 
@@ -23,19 +23,32 @@
  * language governing permissions and limitations under the License.
  */
 
-if ( PHP_VERSION < 5 ) {
-    
+// Compatibility test
+if ( ! version_compare( PHP_VERSION, '5', '>=' ) )
+	$pzdc_nocompat = 'version';
+elseif ( ! function_exists('sha1') )
+	$pzdc_nocompat = 'sha1';
+
+if ( isset($pzdc_nocompat) ) {
     /**
      * Outputs an nice WP notice if the plugin is activated under PHP < 5
      *
      * @since 1.0.1
      */
     function pzdc_nocompat_error() {
-		echo '<div id="praized-community-error" class="error fade-ffffcc">';
+		global $pzdc_nocompat;
+    	switch ( $pzdc_nocompat ) {
+			case 'sha1':
+				$msg = __('Sorry, this plugin requires the standard PHP5 hash functions to be available (md5(), sha1()). Our simpler <a href="http://wordpress.org/extend/plugins/praized-tools/">Praized Tools</a> plugin has less requirements.', 'praized-community');
+				break;
+			default:
+				$msg = __('Sorry, this plugin requires PHP5 or above, but our <a href="http://wordpress.org/extend/plugins/praized-tools/">Praized Tools</a> plugin is PHP4 compatible.', 'praized-community');
+		}
+    	echo '<div id="praized-community-error" class="error fade-ffffcc">';
 		echo '<p>';
 		_e('<strong>PRAIZED COMMUNITY WARNING</strong>:', 'praized-community');
 		echo '<br />';
-		_e('Sorry, this plugin requires PHP5 or above, but our <a href="http://praizedmedia.com/en/download/">Praized Tools</a> plugin is PHP4 compatible.', 'praized-community');
+		echo $msg;
 		echo '</p>';
 		echo "</div>\n";
 	}
@@ -85,11 +98,13 @@ if ( PHP_VERSION < 5 ) {
             
             if ( function_exists('register_sidebar_widget') ){
                 register_sidebar_widget(array('Praized: Search Form', $PraizedCommunity->_plugin_name), 'widget_pzdc_search_form');
-                register_sidebar_widget(array('Praized: Session',  $PraizedCommunity->_plugin_name), 'widget_pzdc_auth_nav');
-                    
+                register_sidebar_widget(array('Praized: Session',     $PraizedCommunity->_plugin_name), 'widget_pzdc_auth_nav');
+                register_sidebar_widget(array('Praized: Sections',    $PraizedCommunity->_plugin_name), 'widget_pzdc_section_nav');
+                
                 if ( is_admin() ) {
                     register_widget_control(array('Praized: Search Form', $PraizedCommunity->_plugin_name), 'widget_pzdc_search_form_options_form');
-                    register_widget_control(array('Praized: Session', $PraizedCommunity->_plugin_name), 'widget_pzdc_auth_nav_options_form');
+                    register_widget_control(array('Praized: Session',     $PraizedCommunity->_plugin_name), 'widget_pzdc_auth_nav_options_form');
+                    register_widget_control(array('Praized: Sections',    $PraizedCommunity->_plugin_name), 'widget_pzdc_section_nav_options_form');
                 }
             }
         }
@@ -108,7 +123,7 @@ if ( PHP_VERSION < 5 ) {
         }
         
         /**
-         * Widget: Praized Tools Merchant
+         * Widget: Praized Search Form
          * 
          * @since 0.1
          */
@@ -128,7 +143,7 @@ if ( PHP_VERSION < 5 ) {
         }
         
         /**
-         * Widget: Praized Tools Merchant
+         * Widget: Praized Auth Nav
          * 
          * @since 0.1
          */
@@ -145,6 +160,26 @@ if ( PHP_VERSION < 5 ) {
         function widget_pzdc_auth_nav_options_form() {
             global $PraizedCommunity;
             $PraizedCommunity->widget_auth_nav_options_form();
+        }
+        
+        /**
+         * Widget: Praized Section Nav
+         * 
+         * @since 1.7
+         */
+        function widget_pzdc_section_nav() {
+            global $PraizedCommunity;
+            $PraizedCommunity->widget_section_nav();
+        }
+        
+        /**
+         * Widget option form: Praized Section Nav
+         * 
+         * @since 1.7
+         */
+        function widget_pzdc_section_nav_options_form() {
+            global $PraizedCommunity;
+            $PraizedCommunity->widget_section_nav_options_form();
         }
     }
 }

@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name:  Praized Tools
- * Plugin URI:   http://praizedmedia.com/en/download/wordpress/
- * Version:      1.6
- * Description:  The Praized Tools plugin is primarily a companion tool for our <a href="http://wordpress.org/extend/plugins/praized-community/"><strong>Praized Community</strong></a> plugin. It will enable new editorial tools within WordPress for you to blog about places and tie everything back to your own Praized Community. When running the Praized Tools without a Praized Community, the plugin will integrate with our <a href="http://praized.com/">Praized.com</a> hub instead. See also: the <a href="http://praizedmedia.com/en/download/wordpress/">Praized Community</a> plugin.
+ * Plugin URI:   http://wordpress.org/extend/plugins/praized-tools/
+ * Version:      1.7
+ * Description:  The Praized Tools plugin is primarily a companion tool for our <a href="http://wordpress.org/extend/plugins/praized-community/"><strong>Praized Community</strong></a> plugin. It will enable new editorial tools within WordPress for you to blog about places and tie everything back to your own Praized Community. When running the Praized Tools without a Praized Community, the plugin will integrate with our <a href="http://praized.com/">Praized.com</a> hub instead. See also: the <a href="http://wordpress.org/extend/plugins/praized-community/">Praized Community</a> plugin.
  * Author:       <a href="http://www.praizedmedia.com/">Praized Media, Inc.</a>
  * 
- * @version 1.6
+ * @version 1.7
  * @package PraizedTools
  * @subpackage PluginInit
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  * 

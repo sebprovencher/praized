@@ -1,6 +1,6 @@
 <?php
 /**
- * Praized template functions/helpers/tags: sponsored links related functions
+ * Praized template functions/helpers/tags: sponsored images related functions
  * 
  * @version 1.7
  * @package PraizedCommunity
@@ -11,40 +11,39 @@
  */
     	
 /**
- * Template function: Current sponsored link label
+ * Template function: Current sponsored image label
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
  * @return string
- * @since 0.1
+ * @since 1.7
  */
-function pzdc_splink_label($echo = TRUE) {
+function pzdc_spimage_label($echo = TRUE) {
     global $PraizedCommunity;
-    return $PraizedCommunity->tpt_attribute_helper('splink', 'label', $echo);
+    return $PraizedCommunity->tpt_attribute_helper('spimage', 'label', $echo);
+}
+    	
+/**
+ * Template function: Current sponsored image source url (ie: img link)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 1.7
+ */
+function pzdc_spimage_source_url($echo = TRUE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('spimage', 'source_url', $echo);
 }
 
 
 /**
- * Template function: Current sponsored link url
+ * Template function: Current sponsored image target url (ie: destination link)
  *
  * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
  * @return string
- * @since 0.1
+ * @since 1.7
  */
-function pzdc_splink_url($echo = TRUE) {
+function pzdc_spimage_target_url($echo = TRUE) {
     global $PraizedCommunity;
-    return $PraizedCommunity->tpt_attribute_helper('splink', 'url', $echo);
-}
-
-
-/**
- * Template function: Current sponsored link ordering index
- *
- * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
- * @return string
- * @since 0.1
- */
-function pzdc_splink_order($echo = TRUE) {
-    global $PraizedCommunity;
-    return $PraizedCommunity->tpt_attribute_helper('splink', 'order', $echo);
+    return $PraizedCommunity->tpt_attribute_helper('spimage', 'target_url', $echo);
 }
 ?>

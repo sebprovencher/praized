@@ -154,6 +154,14 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 == ChangeLog ==
 
+Version 1.7: 2009-01-12
+
+* Tweaked the javascript handling for the administration searchlet and fixed a potential
+  jquery issue with the version bundled with WordPress.
+* Updated to praized-php-1.7.
+* Updated to praized-wp-core-1.7.
+
+
 Version 1.6: 2008-12-05
 
 * The Praized Tools plugin now comes with a default read-only API key that will link

@@ -2,10 +2,10 @@
 /**
  * Praized template fragment: Question form
  *
- * @version 1.6
+ * @version 1.7
  * @package PraizedCommunity
  * @subpackage Templates
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -83,7 +83,7 @@ $random_where     = pzdc_questions_random_qualifier('where', FALSE);
 		<?php pzdc_e('Send via:'); ?>
 		<?php pzdc_questions_user_broadcast_services(); ?>
 	</fieldset>
-	<div style="text-align:right;padding:4px;">
+	<fieldset style="text-align:right;padding:4px;border-top:0;margin-top:0;">
 		<button type="submit"><?php pzdc_e('Ask'); ?></button>
-	</div>
+	</fieldset>
 </form>

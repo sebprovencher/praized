@@ -4,9 +4,9 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.6
+ * @version 1.7
  * @package Praized
- * @author Stephane Daury
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @var string
     	 * @since 0.1
     	 */
-        var $version = '1.6';
+        var $version = '1.7';
         
         /**
          * Library errors
@@ -141,7 +141,8 @@ if ( ! class_exists('PraizedCore') ) {
         		    'logout'       => $this->_praizedHosts['auth']       . '/sessions/destroy?return_to=' . $returnTo,
         		    'add_place'    => $this->_praizedHosts['hub']        . '/merchants/new?return_to=' . $returnTo,
         		    'communities'  => $this->_praizedHosts['hub']        . '/communities?return_to=' . $returnTo,
-        		    'api_request'  => $this->_praizedHosts['corporate']  . '/en/api?return_to=' . $returnTo
+        		    'api_request'  => $this->_praizedHosts['corporate']  . '/en/api?return_to=' . $returnTo,
+    		    	'help_include' => $this->_praizedHosts['static']     . '/praized-com/html/help/index.html'
         		)
         	);
     		
@@ -154,7 +155,7 @@ if ( ! class_exists('PraizedCore') ) {
     		}
     		
     		if ( ! $this->_oAuth )
-    		    $this->praizedLinks['user_profile'] = NULL;
+    		    $this->praizedLinks['user_profile'] = null;
     		else
     		    $this->praizedLinks['user_profile'] = $this->_praizedHosts['hub']
     		                                        . '/users/'

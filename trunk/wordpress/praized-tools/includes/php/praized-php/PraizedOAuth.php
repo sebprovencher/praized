@@ -2,11 +2,11 @@
 /**
  * Praized OAuth handling library
  *
- * @version 1.6
+ * @version 1.7
  * @package Praized
  * @subpackage OAuth
- * @author Pier-Hugures Pellerin
- * @author Stephane Daury
+ * @author Pier-Hugures Pellerin for Praized Media, Inc.
+ * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
  * @license Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
  */
@@ -42,7 +42,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 		var $_encoder;
 
 		var $_net;
-		var $_version = '1.6';
+		var $_version = '1.7';
 		var $errors = array();
 	
 		var $_expirationTime = 1209600; // (14 * 24 * 3600);
@@ -311,6 +311,9 @@ if ( ! class_exists('PraizedOAuth') ) {
 			 	$queryString .= "&oauth_callback=" . OAuthUtil::urlencodeRFC3986($callbackURL);
 			
 			$auth_url = $this->_authorizeURL . $queryString;
+			
+			if ( isset($_GET['i']) )
+				$auth_url .= '&i=' . $_GET['i'];
 
 			header("Location: $auth_url", false, 302);
 			echo $auth_url;
