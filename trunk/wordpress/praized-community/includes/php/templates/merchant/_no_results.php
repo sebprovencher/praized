@@ -3,7 +3,7 @@
  * Praized template fragment: "No results logic" when no merchants are found in
  * search results, or when nothing has been Praized in a community.
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.

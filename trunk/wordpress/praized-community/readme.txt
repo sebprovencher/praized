@@ -151,7 +151,8 @@ hooks machanism to allow for even more third party integration.
 
 ###Internationalization###
 
-The Praized Community plugin is completely translatable out of the box.
+The Praized Community plugin is completely translatable out of the box and comes
+with English and French bundles by default..
 
 You can find the localization template you can use to translate the plugin in
 /wp-content/plugins/praized-community/includes/localization.
@@ -166,6 +167,28 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 
 == ChangeLog ==
+
+
+Version 2.0: 2009-04-29
+
+* Implemented a less intrusive (lightbox-based, optional) authorization process so that users do not
+  completely leave your site to connect your community to their Praized account (see plugin's
+  config screen to enable/disable).
+* Now supporting Facebook Connect to login to the Praized Network when using the new lightbox
+  login (see above). Will also be available in the standard login flow shortly.
+* Implemented the concept of "display name" where appropriate, for people such as Facebook Connect
+  users with non-friendly praized login name.
+* Implemented full user account management functionalities so people can update their Praized account
+  information (password, avatar, social media broadcast settings, etc) right from within your pages,
+  without ever leaving your site.
+* Upgraded the interface of the place and user profiles as a tabbed interface (activity, votes,
+  favorites, comments, etc). SEO or accessibility will no be affected, since the information is still
+  all in the page. The screen is simply reformatted on the fly via css and javascript.
+* Added geo meta and RDF tags to single merchant views for increased semantic and SEO value.
+* Plugin now comes bundled with full French translation if running WordPress in French.
+* And many more misc improvements and performance tweaks.
+* Updated to praized-php-2.0.
+* Updated to praized-wp-core-2.0.
 
 
 Version 1.7: 2009-01-12

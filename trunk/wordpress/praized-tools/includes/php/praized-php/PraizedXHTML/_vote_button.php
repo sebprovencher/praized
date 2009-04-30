@@ -2,7 +2,7 @@
 /**
  * Fake vote button fragment, included through PraizedXHTML::_fragment()
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury for Praized Media, Inc.
@@ -39,12 +39,17 @@ $voteDownTitle = ( isset($merchant->self) ) ? $captions['vote_down'] : $captions
 $voteUpTitle   = str_replace('"', '&#34;', $voteUpTitle);
 $voteDownTitle = str_replace('"', '&#34;', $voteDownTitle);
 
-if ( isset($config['translations']) && is_array($config['translations']) )
+if ( isset($config['translations']) && is_array($config['translations']) && ! empty($config['translations']) )
 	$captions = array_merge($captions, $config['translations']);
+
+if ( isset($config['lang']) && is_string($config['lang']) && ! empty($config['lang']) )
+	$langCss = 'praized-vote-button-' . $config['lang'];
+else
+	$langCss = '';
 
 $xhtml .= <<<EOS
     <!-- begin vote button -->
-        <form action="{$baseUrl}/merchants/{$merchant->pid}/votes" class="praized-vote-button {$voteCss}" method="post">
+        <form action="{$baseUrl}/merchants/{$merchant->pid}/votes" class="praized-vote-button {$voteCss} {$langCss}" method="post">
         	<fieldset class="stats">
         		<legend>Stats:</legend>
         		<div class="score"><span class="positives">{$votePosCount}</span><span class="separator">/</span><span class="total">{$voteCount}</span></div>

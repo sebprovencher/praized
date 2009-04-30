@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Question form
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -46,17 +46,23 @@ $random_where     = pzdc_questions_random_qualifier('where', FALSE);
 		if ( ! action || action != 'set')
 			action = 'clear';
 		if ( action == 'set' ) {
+			document.getElementById('switch_toggle_status').value = 'complex';
 			document.getElementById('<?php echo $fancy_id; ?>-adjective').value = document.getElementById('random_adjective').value;
 			document.getElementById('<?php echo $fancy_id; ?>-what').value      = document.getElementById('random_what').value;
 			document.getElementById('<?php echo $fancy_id; ?>-where').value     = document.getElementById('random_where').value;
 		} else {
+			document.getElementById('switch_toggle_status').value = 'simple';
 			document.getElementById('<?php echo $fancy_id; ?>-adjective').value = '';
 			document.getElementById('<?php echo $fancy_id; ?>-what').value      = '';
 			document.getElementById('<?php echo $fancy_id; ?>-where').value     = '';
 		}
 	}
 </script>
+
+<?php pzdc_required_fields(); ?>
+
 <form id="<?php echo $form_id; ?>" action="<?php pzdc_community_base_url(); ?>/questions/" method="post">
+	<input type="hidden" name="switch_toggle_status" id="switch_toggle_status" value="complex" />
 	<input type="hidden" name="random_adjective" id="random_adjective" value="<?php echo $random_adjective; ?>" />
 	<input type="hidden" name="random_what" id="random_what" value="<?php echo $random_what; ?>" />
 	<input type="hidden" name="random_where" id="random_where" value="<?php echo $random_where; ?>" />
@@ -78,7 +84,13 @@ $random_where     = pzdc_questions_random_qualifier('where', FALSE);
 	</fieldset>
 	<fieldset id="<?php echo $services_id; ?>" style="border-top:0;margin-top:0">
 		<div id="<?php echo $services_id; ?>-caption" style="float: right;">
-			<small><a href="<?php pzdc_link('hub'); ?>/account/settings/edit?return_to=<?php echo urlencode(pzdc_community_base_url(FALSE) . '/questions/'); ?>"><?php pzdc_e('Add more networks'); ?></a></small>
+			<?php
+				if ( pzdc_is_authorized() )
+					$notification_setting_link = pzdc_current_user_permalink('edit', FALSE) . '?tab=notification_settings';
+				else
+					$notification_setting_link = pzdc_auth_link(FALSE);
+			?>
+			<small><a href="<?php echo $notification_setting_link; ?>"><?php pzdc_e('Add more networks'); ?></a></small>
 		</div>
 		<?php pzdc_e('Send via:'); ?>
 		<?php pzdc_questions_user_broadcast_services(); ?>

@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User friend listing, with paging
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -19,17 +19,21 @@
     
   <div id="praized-friends" class="praized-user-section">
     <h3 class="praized-user-section-title"><?php pzdc_user_friend_count(); ?> <?php pzdc_e('Friends'); ?></h3>
-    <ul class="praized-user-friends">
-      <?php if ( pzdc_has_friends(array('per_page' => 50)) ) : ?>
-        <?php while ( pzdc_friends_loop() ) : ?>
-          <li >
-            <a href="<?php pzdc_friend_permalink(); ?>"><?php pzdc_friend_login(); ?></a>
-          </li>
-        <?php endwhile; ?>
+    <?php if ( pzdc_has_friends(array('per_page' => 50)) ) : ?>
+        <ul class="praized-merchant-praizers" style="padding-left:0; margin-left:5px;">
+	    	<?php while ( pzdc_friends_loop() ) : ?>
+		        <li style="padding-bottom: 10px;" class="praized-action-item">
+		          	<a href="<?php pzdc_friend_permalink(); ?>" title="<?php pzdc_friend_display_name(); ?>" style="float: right;"><img src="<?php pzdc_friend_avatar_small(); ?>" border="none" alt="<?php pzdc_friend_display_name(); ?>" style="margin-right: 5px; border: 1px solid;" /></a>
+		          	<span class="buzz-action" style="padding-left:0;">
+		          	  <a href="<?php pzdc_friend_permalink(); ?>" title="<?php pzdc_friend_display_name(); ?>" style="font-weight: bold;"><?php pzdc_friend_display_name(); ?></a>
+		          	</span>
+		          	<br clear="all" />
+	            </li>
+            <?php endwhile; ?>
+        </ul>
       <?php else:?>
-        <li ><?php pzdc_e('No friend yet'); ?></li>
-      <?php endif;?>   
-    </ul>
+        <p><?php pzdc_e('No friend yet'); ?></p>
+    <?php endif;?>  
   </div>
     
   <?php pzdc_paginate(); ?>

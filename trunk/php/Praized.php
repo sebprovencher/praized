@@ -6,7 +6,7 @@
  * 
  * @note Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -55,7 +55,7 @@ if ( ! class_exists('Praized') ) {
     	/**
     	 * Actions object instance holder
     	 * @var object
-    	 * @since 0.1
+    	 * @since 1.6
     	 */
     	var $_actionsInst;
     
@@ -72,6 +72,13 @@ if ( ! class_exists('Praized') ) {
     	 * @since 1.6
     	 */
     	var $_questionInst;
+    	
+    	/**
+    	 * Actions object instance holder
+    	 * @var object
+    	 * @since 2.0
+    	 */
+    	var $_communitiesInst;
     	
     	/**
     	 * Constructor.
@@ -107,7 +114,7 @@ if ( ! class_exists('Praized') ) {
     	            if ( isset($community->errors) )
     		            $this->errors = $community->errors;
     		        else
-    		            return true;
+    		            return $community;
     	        }
     	    }
     	    return false;
@@ -207,6 +214,22 @@ if ( ! class_exists('Praized') ) {
     		if ( isset($this->_questionInst->errors) )
     		    $this->errors = $this->_questionInst->errors;
     		return $this->_questionInst;
+    	}
+    	
+    	/**
+    	 * Convenience PraizedCommunities instantiator (for PHP4 compat)
+    	 *
+    	 * @return object PraizedActions
+    	 * @since 2.0
+    	 */
+    	function communities() {
+    		if (is_object($this->_communitiesInst))
+    			return $this->_communitiesInst;
+    		$this->_loadClass('Communities');
+    		$this->_communitiesInst = new PraizedCommunities($this->_community, $this->_apiKey, $this->_oAuthInst);
+    		if ( isset($this->_communitiesInst->errors) )
+    		    $this->errors = $this->_communitiesInst->errors;
+    		return $this->_communitiesInst;
     	}
     }
 }

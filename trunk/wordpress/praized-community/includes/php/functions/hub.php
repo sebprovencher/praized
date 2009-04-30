@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: miscelaneous Praized.com Hub related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.

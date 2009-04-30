@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: authentication and session related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.
@@ -32,10 +32,31 @@ function pzdc_is_authorized() {
  */
 function pzdc_current_user_login($echo = TRUE) {
     global $PraizedCommunity;
-    $login = $PraizedCommunity->Praized->currentUserLogin();
-    if ($echo)
-        echo $login;
-    return $login;
+    $out = $PraizedCommunity->Praized->currentUserLogin();
+    if ( ! $out )
+    	return FALSE; 
+    if ( $echo )
+        echo $out;
+    return $out;
+}
+
+/**
+ * Template function: Praized display name of the currently authorized user (oauth).
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return mixed Boolean FALSE or String username
+ * @since 0.1
+ */
+function pzdc_current_user_name($echo = TRUE) {
+    global $PraizedCommunity;
+    $out = $PraizedCommunity->Praized->currentUserName();
+    if ( ! $out ) {
+    	if ( ! ( $out = pzdc_current_user_login(FALSE) ) )
+    		return FALSE;
+    }
+    if ( $echo )
+        echo $out;
+    return $out;
 }
 
 /**
@@ -47,7 +68,8 @@ function pzdc_current_user_login($echo = TRUE) {
  */
 function pzdc_current_user_permalink($view = '', $echo = TRUE) {
     global $PraizedCommunity;
-    $out = pzdc_current_user_login(FALSE);
+    if ( ! ( $out = pzdc_current_user_login(FALSE) ) )
+    	return FALSE;
     if ( ! empty($view) )
         $out .= '/' . $view;
     $out = $PraizedCommunity->link_helper($out, 'user');
@@ -65,7 +87,11 @@ function pzdc_current_user_permalink($view = '', $echo = TRUE) {
  */
 function pzdc_auth_link($echo = TRUE) {
     global $PraizedCommunity;
-    $link = $PraizedCommunity->trigger_url . '/oauth/';
+    $link = $PraizedCommunity->trigger_url . '/oauth';
+    if ( pzdc_is_authorized() )
+    	$link .= '/logout';
+    else
+    	$link .= '/login';
     if ($echo)
         echo $link;
     return $link;

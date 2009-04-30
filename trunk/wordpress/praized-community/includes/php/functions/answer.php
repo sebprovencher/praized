@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual answer related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.
@@ -102,5 +102,29 @@ function pzdc_answer_updated_at($echo = TRUE, $format = NULL) {
 function pzdc_answer_merchants() {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_answer_merchants();
+}
+
+/**
+ * Template function: Current answer community name (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 2.0
+ */
+function pzdc_answer_community_name($echo = TRUE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('answer', 'community->name', $echo);
+}
+
+/**
+ * Template function: Current answer community base url (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 2.0
+ */
+function pzdc_answer_community_base_url($echo = TRUE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('answer', 'community->base_url', $echo);
 }
 ?>

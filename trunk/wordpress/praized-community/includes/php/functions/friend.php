@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual friend related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.
@@ -68,6 +68,19 @@ function pzdc_friend_permalink($echo = TRUE, $identifier = FALSE) {
     if ( $echo )
         echo $out;
     return $out;
+}
+
+/**
+ * Template function: Current friend display name
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @param string $identifier Optional user identifier (login) for custom template development (see bundled praized-php lib)
+ * @return string
+ * @since 2.0
+ */
+function pzdc_friend_display_name($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('friend', 'display_name', $echo, $identifier);
 }
 
 /**
@@ -146,6 +159,45 @@ function pzdc_friend_date_of_birth($echo = TRUE, $identifier = FALSE) {
 function pzdc_friend_claim_to_fame($echo = TRUE, $identifier = FALSE) {
     global $PraizedCommunity;
     return $PraizedCommunity->tpt_attribute_helper('friend', 'claim_to_fame', $echo, $identifier);
+}
+
+/**
+ * Template function: Current friend large avatar (140x140)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @param string $identifier Optional friend identifier (login) for custom template development (see bundled praized-php lib)
+ * @return string
+ * @since 2.0
+ */
+function pzdc_friend_avatar_large($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('friend', 'avatar->large', $echo, $identifier);
+}
+
+/**
+ * Template function: Current friend medium avatar (70x70)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @param string $identifier Optional friend identifier (login) for custom template development (see bundled praized-php lib)
+ * @return string
+ * @since 2.0
+ */
+function pzdc_friend_avatar_medium($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('friend', 'avatar->medium', $echo, $identifier);
+}
+
+/**
+ * Template function: Current friend small avatar (40x40)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @param string $identifier Optional friend identifier (login) for custom template development (see bundled praized-php lib)
+ * @return string
+ * @since 2.0
+ */
+function pzdc_friend_avatar_small($echo = TRUE, $identifier = FALSE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('friend', 'avatar->small', $echo, $identifier);
 }
 
 /**

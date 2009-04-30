@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual merchant related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.
@@ -77,6 +77,7 @@ function pzdc_merchant_name($echo = TRUE, $identifier = FALSE) {
 /**
  * Template function: Current merchant permalink (defaults to echo)
  *
+ * @param string $view Defines which sub view link to build (eg: merchant's comment list, etc)
  * @param boolean $echo Defines if the output should be echoed or simpy returned
  * @param string Optional merchant PID, defauts to $this->_tpt_merchant
  * @return string

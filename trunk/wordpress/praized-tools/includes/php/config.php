@@ -2,7 +2,7 @@
 /**
  * Plugin configuration screen template, included in PraizedTools::wp_options_page()
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedTools
  * @subpackage ConfigScreen
  * @author Stephane Daury for Praized Media, Inc.
@@ -18,9 +18,14 @@
 if ( ! class_exists('PraizedCommunity') || ! ( $pc_conf = get_option('praized-community-config') ) )
     unset($pc_conf);
 
-if ( isset($pc_conf) && ! empty($pc_conf['theme']) && $this->PraizedXHTML->themes[$pc_conf['theme']] )
+if ( ! defined('WPLANG') || WPLANG == '' || ! isset($this->PraizedXHTML->themes[WPLANG]) )
+	$theme_lang = 'en';
+else
+	$theme_lang = WPLANG;
+                        
+if ( isset($pc_conf) && ! empty($pc_conf['theme']) && $this->PraizedXHTML->themes[$theme_lang][$pc_conf['theme']] )
     $current_theme = $pc_conf['theme'];
-elseif ( ! empty($form['theme']) && $this->PraizedXHTML->themes[$form['theme']] )
+elseif ( ! empty($form['theme']) && $this->PraizedXHTML->themes[$theme_lang][$form['theme']] )
     $current_theme = $form['theme'];
 else
     $current_theme = $this->PraizedXHTML->defaultTheme;
@@ -32,13 +37,7 @@ $current_image = $this->_praized_inc_url . '/PraizedXHTML/css/themes/' . $curren
     <form id="praized-tools" name="praized-tools" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
     	<h3 style="margin:20px auto 0 auto;"><?php $this->_e('API Connectivity'); ?></h3>
         <p style="margin:5px auto 0 auto;">
-        <?php
-            printf(
-                $this->__('The following information (Community, API key) is provided to you by <a href="%s">Praized Media</a> when you <a href="%s">request access to our API</a>.'),
-                $this->Praized->praizedLinks['corporate'],
-                $this->Praized->praizedLinks['api_request']
-            );
-        ?>
+        <?php $this->_e('The following information (Community, API and OAuth details) is provided to you by <a href="http://praizedmedia.com/">Praized Media</a> when you <a href="http://praizedmedia.com/en/api">request access to our API</a>.'); ?>
         </p>
     	<table class="optiontable form-table">
     		<tr valign="top">
@@ -137,7 +136,7 @@ $current_image = $this->_praized_inc_url . '/PraizedXHTML/css/themes/' . $curren
             		<?php else : ?>
         				<select id="pca_theme" name="theme" onchange="przdThemePreview();">
                         <?php
-                            foreach ($this->PraizedXHTML->themes as $theme => $caption) {
+                            foreach ($this->PraizedXHTML->themes[$theme_lang] as $theme => $caption) {
                                 $selected = ( $current_theme == $theme ) ? 'selected="selected"' : '';
                                 echo '<option value="'.$theme.'" '.$selected.'>'.$caption.'</option>';
                             }

@@ -2,7 +2,7 @@
 /**
  * Praized Tools
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedTools
  * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ class PraizedTools extends PraizedWP {
      * @var string
      * @since 1.0.2
      */
-    var $version = '1.6';
+    var $version = '2.0';
     
 	/**
      * Merchant widget identifier string
@@ -34,6 +34,20 @@ class PraizedTools extends PraizedWP {
      * @since 0.1
      */
     var $_wdgt_bbcode_key;
+    
+    /**
+     * Latest activity widget identifier string
+     * @var string
+     * @since 2.0
+     */
+    var $_wdgt_latest_activity_key;
+    
+    /**
+     * Latest questions widget identifier string
+     * @var string
+     * @since 2.0
+     */
+    var $_wdgt_latest_questions_key;
     
 	/**
 	 * Constructor
@@ -57,7 +71,9 @@ class PraizedTools extends PraizedWP {
 		if ( ! isset($this->_config['hide_stats']) )
 		    $this->_config['hide_stats'] = FALSE;
 		    
-		$this->_wdgt_bbcode_key = $this->_wdgt_key . '_bbcode';
+		$this->_wdgt_bbcode_key           = $this->_wdgt_key . '_bbcode';
+		$this->_wdgt_latest_activity_key  = $this->_wdgt_key . '_latest_activity';
+		$this->_wdgt_latest_questions_key = $this->_wdgt_key . '_latest_questions';
 		
 		add_action('init', array(&$this, 'wp_action_mce_extras'));
 	}
@@ -117,6 +133,14 @@ class PraizedTools extends PraizedWP {
     			// Merchant widget config save
 			    if( isset($_POST[$this->_wdgt_bbcode_key . '_wdgt_title']) ) {
     			    $this->widget_bbcode_options_save();
+    			}
+    			// Latest activity widget config save
+			    if( isset($_POST[$this->_wdgt_latest_activity_key . '_title']) ) {
+    			    $this->widget_latest_activity_options_save();
+    			}
+    			// Latest questions widget config save
+			    if( isset($_POST[$this->_wdgt_latest_questions_key . '_title']) ) {
+    			    $this->widget_latest_questions_options_save();
     			}
 		    }
 		}
@@ -263,6 +287,76 @@ ________EOS;
 	    ));
 	}
 	
+	/**
+	 * WP Widget: Latest activity option form
+	 *
+	 * @since 2.0
+	 */
+	function widget_latest_activity_options_form() {
+	    $widget_id = $this->_wdgt_latest_activity_key;
+	    
+	    $config = $this->_get_wp_option($widget_id);
+	    if ( ! is_array($config) )
+	        $config = array();
+	    
+        $field_id = $widget_id . '_title';
+	    echo '<p><label for="'.$field_id.'">'.$this->__('Widget Title').': '.'</label></br />';
+	    echo '<input type="text" id="'.$field_id.'" name="'.$field_id.'" value="'.$config['title'].'" /></p>';
+	    
+        $field_id = $widget_id . '_limit';
+	    echo '<p><label for="'.$field_id.'">'.$this->__('Limit to').': '.'</label></br />';
+	    echo '<input type="text" id="'.$field_id.'" name="'.$field_id.'" value="'.$config['limit'].'" size="5" /> '.$this->__('items').'</p>';
+	}
+	
+	/**
+	 * WP Widget: Latest activity option save process
+	 *
+	 * @since 2.0
+	 */
+	function widget_latest_activity_options_save() {
+	    $widget_id = $this->_wdgt_latest_activity_key;
+	    // Note: _save_wp_option() sanitizes the content
+	    $this->_save_wp_option($widget_id, array(
+	        'title'   => $_POST[$widget_id . '_title'],
+	        'limit'   => $_POST[$widget_id . '_limit']
+	    ));
+	}
+	
+	/**
+	 * WP Widget: Latest questions option form
+	 *
+	 * @since 2.0
+	 */
+	function widget_latest_questions_options_form() {
+	    $widget_id = $this->_wdgt_latest_questions_key;
+	    
+	    $config = $this->_get_wp_option($widget_id);
+	    if ( !is_array($config) )
+	        $config = array();
+	    
+        $field_id = $widget_id . '_title';
+	    echo '<p><label for="'.$field_id.'">'.$this->__('Widget Title').': '.'</label></br />';
+	    echo '<input type="text" id="'.$field_id.'" name="'.$field_id.'" value="'.$config['title'].'" /></p>';
+	    
+        $field_id = $widget_id . '_limit';
+	    echo '<p><label for="'.$field_id.'">'.$this->__('Limit to').': '.'</label></br />';
+	    echo '<input type="text" id="'.$field_id.'" name="'.$field_id.'" value="'.$config['limit'].'" size="5" /> '.$this->__('items').'</p>';
+	}
+	
+	/**
+	 * WP Widget: Latest questions option save process
+	 *
+	 * @since 2.0
+	 */
+	function widget_latest_questions_options_save() {
+	    $widget_id = $this->_wdgt_latest_questions_key;
+	    // Note: _save_wp_option() sanitizes the content
+	    $this->_save_wp_option($widget_id, array(
+	        'title'   => $_POST[$widget_id . '_title'],
+	        'limit'   => $_POST[$widget_id . '_limit']
+	    ));
+	}
+	
     /**
      * WP Action: Extends the Tiny MCE and Code editors with the Praized functionalities
      *
@@ -366,6 +460,12 @@ ________EOS;
 	function wp_action_template_head() {
 	    if ( ! class_exists('PraizedCommunity') && $css = $this->_css() ) // Note: "$css =" is an assignment, not just a test 
 	        echo $css;
+	    
+	    printf(
+	        '<link rel="stylesheet" href="%s/includes/css/commons/praized-tools.css?v=%s" type="text/css" media="screen" />' . "\n",
+	        $this->_plugin_dir_url,
+	        $this->version
+	    );
 	}
 	
 	/**
@@ -484,6 +584,9 @@ ________EOS;
                         $config['name']    = ( isset($specs->name) )    ? $specs->name    : 'false';
                         $config['address'] = ( isset($specs->address) ) ? $specs->address : 'false';
                         $config['phone']   = ( isset($specs->phone) )   ? $specs->phone   : 'false';
+				        
+                        if ( defined('WPLANG') && WPLANG != '' && isset($this->PraizedXHTML->themes[WPLANG]) )
+				        	$config['lang'] = WPLANG;
                         
                         if ( FALSE == $dynamic ) {
                 	        if ( FALSE == ( $data = $this->_get_static($static_key) ) ) {
@@ -567,18 +670,30 @@ ________EOS;
                 if ( ! isset($aggregate->community) )
                     $aggregate->community = $data->community;
                 
-                $display_options = array(
-                    'hide_vote'   => $this->_config['hide_vote'],
-                    'hide_tags'   => $this->_config['hide_tags'],
-                    'hide_stats'  => $this->_config['hide_stats']
-                );
+				$captions = array(
+					'tags'       => $this->__('Tags'),
+					'favorers'   => $this->__('favorers'),
+					'praizers'   => $this->__('praizers'),
+				    'comments'   => $this->__('comments'),
+					'must_login' => $this->__('You must login before you can vote! - Just click, we\'ll take you there and back!'),
+					'vote_up'    => $this->__('Vote Up'),
+					'vote_down'  => $this->__('Vote Down')
+				);
                 
+                $display_options = array(
+                    'hide_vote'    => $this->_config['hide_vote'],
+                    'hide_tags'    => $this->_config['hide_tags'],
+                    'hide_stats'   => $this->_config['hide_stats'],
+                	'translations' => $captions,
+				    'lang'         => ( defined('WPLANG') && WPLANG != '' && isset($this->PraizedXHTML->themes[WPLANG]) ) ? WPLANG : ''
+                );
+
                 if ( $xhtml = $this->_xhtml($aggregate, 'hcard_list', $display_options ) ) {
                     $content .= "\n\n<h3>"
-                             .  $this->__(sprintf(
-                             		'Places mentioned in this %s',
-                                    ( is_page() ) ? $this->__('page') : $this->__('post')
-                                ))
+                             .  sprintf(
+                             		$this->__('Places mentioned in %s'),
+                                    ( is_page() ) ? $this->__('this page') : $this->__('this post')
+                                )
                              . "</h3>\n";
                     $content .= $xhtml;
                 }
@@ -588,6 +703,17 @@ ________EOS;
         $this->_set_cache($cache_key, $content);
 	    
 	    return $content;
+	}
+	
+	/**
+	 * WP Filter: Applied to the post/page content retrieved from the database, prior to printing on the screen
+	 *
+	 * @param string $content Post/page content
+	 * @return string Modified post/page content
+	 * @since 0.1
+	 */
+	function wp_filter_the_content($content) {
+	    return $this->_parse_merchants($content, $this->_config['aggregate']);
 	}
 	
 	/**
@@ -623,14 +749,95 @@ ________EOS;
 	}
 	
 	/**
-	 * WP Filter: Applied to the post/page content retrieved from the database, prior to printing on the screen
-	 *
-	 * @param string $content Post/page content
-	 * @return string Modified post/page content
-	 * @since 0.1
+	 * Widget: Latest activity
+	 * 
+	 * @param array $args WP standard
+	 * @since 2.0
 	 */
-	function wp_filter_the_content($content) {
-	    return $this->_parse_merchants($content, $this->_config['aggregate']);
+	function widget_latest_activity($args = array()) {
+	 	// no need to show the search form when it's already shown in the main content area
+	 	global $PraizedCommunity;
+	 	if ( isset($PraizedCommunity) && $PraizedCommunity->_route_is_actions )
+			return;
+	 	
+	 	extract($args);
+	    
+        $widget_id = $this->_wdgt_latest_activity_key;
+        $config    = $this->_get_wp_option($widget_id);
+        	    
+	    $title = ( $config['title'] != '' ) ? $config['title'] : $this->__('Praized: Latest Activity');
+	    $limit = ( $config['limit'] != '' ) ? $config['limit'] : 5;
+        
+        $data = $this->actions_get(array('per_page' => $limit));
+        
+        if ( ! isset($data->actions) || ! is_array($data->actions) || empty($data->actions) )
+        	return; 
+        
+        echo $before_widget; // WP STANDARD	    
+        echo '<li id="'.$widget_id.'" class="widget '.$widget_id.'">';
+	    
+	    echo $before_title;  // WP STANDARD
+	    echo '<h2 class="widgettitle">'.$title.'</h2>';
+	    echo $after_title;   // WP STANDARD
+        
+        echo '<div class="praized-actions-listing">';
+
+		foreach ( $data->actions as $action ) {
+		    echo "<div id=\"praized-action-".md5($action->summary)."\" class=\"praized-tools-widget-item\">";
+		    echo $action->summary;
+		    echo "</div>";
+		}
+		
+		echo '</div>';
+        
+        echo "\n</li>\n";
+        echo $after_widget;  // WP STANDARD
+	}
+	
+	/**
+	 * Widget: Latest questions
+	 * 
+	 * @param array $args WP standard
+	 * @since 2.0
+	 */
+	function widget_latest_questions($args = array()) {
+	 	// no need to show the search form when it's already shown in the main content area
+	 	global $PraizedCommunity;
+	 	if ( isset($PraizedCommunity) && $PraizedCommunity->_route_is_questions )
+			return;
+	 	
+	 	extract($args);
+	    
+        $widget_id = $this->_wdgt_latest_questions_key;
+        $config    = $this->_get_wp_option($widget_id);
+        	    
+	    $title = ( $config['title'] != '' ) ? $config['title'] : $this->__('Praized: Latest Questions');
+	    $limit = ( $config['limit'] != '' ) ? $config['limit'] : 5;
+        
+        $data = $this->questions_get(array('per_page' => $limit));
+        
+        if ( ! isset($data->questions) || ! is_array($data->questions) || empty($data->questions) )
+        	return; 
+        
+        echo $before_widget; // WP STANDARD	    
+        echo '<li id="'.$widget_id.'" class="widget '.$widget_id.'">';
+	    
+	    echo $before_title;  // WP STANDARD
+	    echo '<h2 class="widgettitle">'.$title.'</h2>';
+	    echo $after_title;   // WP STANDARD
+        
+        echo '<div class="praized-questions-listing">';
+        
+		foreach ( $data->questions as $question ) {
+		    echo "<div id=\"praized-question-".md5($question->content)."\" class=\"praized-tools-widget-item\">";
+		    echo '<a href="'.$question->permalink.'">'.$question->content.'</a>';
+		    echo "</div>";
+		}
+		
+		echo '</div>';
+        
+        echo "\n</li>\n";
+        echo $after_widget;  // WP STANDARD
 	}
 }
 ?>

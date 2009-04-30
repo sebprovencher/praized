@@ -2,7 +2,7 @@
 /**
  * hCard fragment, included through PraizedXHTML::_template()
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury for Praized Media, Inc.
@@ -92,7 +92,10 @@ if ( ! $config['hide_tags'] ) {
 
 $xhtml .= "<fieldset class=\"vcard praized-xhtml-merchant-hcard\" id=\"praized-xhtml-merchant-{$merchant->pid}-hcard\">\n";
 
-$xhtml .= "<h4 class=\"fn\"><a class=\"org url\" href=\"{$link}\">{$merchant->name}</a></h4>\n";
+if ( $link )
+	$xhtml .= "<h4 class=\"fn\"><a class=\"org url\" href=\"{$link}\">{$merchant->name}</a></h4>\n";
+else
+	$xhtml .= "<h4 class=\"fn org\">{$merchant->name}</h4>\n";
 
 if ( ! $config['hide_vote'] ) {
     $xhtml .= $this->_fragment('vote_button');
@@ -119,13 +122,13 @@ if ( ! empty($tagList) )
 else
     $xhtml .= "<br />\n";
 
-if ( ! $config['hide_stats'] ) {
+if ( ! $config['hide_stats'] && $link ) {
     $xhtml .= <<<____EOS
-        <a href="{$link}#praized-favorites">{$captions['favorers']} ({$merchant->favorite_count})</a>
+        <a href="{$link}?tab=favorites#praized_ui_tab_box_favorites">{$captions['favorers']} ({$merchant->favorite_count})</a>
         |
-        <a href="{$link}#praized-votes">{$captions['praizers']} ({$merchant->votes->count})</a>
+        <a href="{$link}?tab=votes#praized_ui_tab_box_votes">{$captions['praizers']} ({$merchant->votes->count})</a>
         |
-        <a href="{$link}#praized-comments">{$captions['comments']} ({$merchant->comment_count})</a>
+        <a href="{$link}?tab=comments#praized_ui_tab_box_comments">{$captions['comments']} ({$merchant->comment_count})</a>
 ____EOS;
 }
 

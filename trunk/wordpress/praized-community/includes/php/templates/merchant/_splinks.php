@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant sponsored links listing
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.

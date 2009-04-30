@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Answer form
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -46,7 +46,7 @@ $post_button_id = $submit_id . '-button';
 <form id="<?php echo $form_id; ?>" action="<?php pzdc_question_permalink(); ?>/answers/" style="display:none" method="post">
 	<fieldset id="<?php echo $choice_id; ?>" style="text-align:center;padding:10px;">
 		<a href="javascript:interfaceSwitcher('suggest');void(0);" class="praized-action" style="padding: 5px 25px 5px 25px;"><?php pzdc_e('I want to suggest a place') ?></a>
-		<span style="margin:0 10px 0 10px;">OR</span>
+		<span style="margin:0 10px 0 10px;"><?php pzdc_e('OR'); ?></span>
 		<a href="javascript:interfaceSwitcher('comment');void(0);" class="praized-action" style="padding:5px 25px 5px 25px;"><?php pzdc_e('Give me a blank box') ?></a>
 	</fieldset>
 
@@ -67,6 +67,8 @@ $post_button_id = $submit_id . '-button';
             userPicksContainerSelector: '#searchlet-user-picks',
             buttonContainerSelector: '#<?php echo $submit_id; ?>',
             paginationContainerSelector: '#searchlet-pagination',
+            searchTerm: "<?php pzdc_search_query(); ?>",
+            searchCity: "<?php pzdc_search_location(); ?>",
             buttonText: 'Post Answer',
             onInitialize: function(){
               document.getElementById('<?php echo $form_id; ?>').style.display = 'block';
@@ -77,8 +79,8 @@ $post_button_id = $submit_id . '-button';
               var pidsInput = Praized.DOMTools.newElement('input',{type:'hidden',name:'pids',value: pids.join(',')});
               var form = document.getElementById('<?php echo $form_id; ?>');
               form.appendChild(pidsInput);
-              if ( PraizedLightBox )
-            	  PraizedLightBox.show();
+              if ( window.PraizedLightBox )
+            	  window.PraizedLightBox.show();
               form.submit();
             }
         })
@@ -86,7 +88,7 @@ $post_button_id = $submit_id . '-button';
         
 	</fieldset>
 	<fieldset id="<?php echo $comment_id; ?>" style="border-top:0;margin-top:0; display:none;">
-	  <label>Answer</label>
+	  <label><?php pzdc_e('Answer'); ?></label>
 		<textarea name="content" id="<?php echo $comment_id; ?>-content" rows="2" cols="55" style="width:99%"></textarea>
 	</fieldset>
 	<fieldset id="<?php echo $submit_id; ?>" style="text-align:right;padding:4px;border-top:0;margin-top:0;display:none;">

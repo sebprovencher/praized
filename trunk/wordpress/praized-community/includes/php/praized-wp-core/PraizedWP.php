@@ -4,7 +4,7 @@
  * 
  * Common codebase used by the Praized WordPress plugins.
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedWP
  * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedWP')) {
          * @var string
          * @since 0.1
          */
-        var $version = '1.7';
+        var $version = '2.0';
         
         /**
          * Plugin errors
@@ -295,7 +295,12 @@ if ( ! class_exists('PraizedWP')) {
     		if ( ! empty($this->_plugin_name) )
     			$title = ucwords(str_replace('-', ' ', $this->_plugin_name));
     		else
-    			$title = __('Praized Plugin');
+    			$title = $this->__('Praized Plugin');
+    			
+    		if ( $notices )
+    			$title .= ' ' . $this->__('Notices');
+    		else
+    			$title .= ' ' . $this->__('Errors');
     	    
     		printf(
     			'<strong>%s:</strong> %s',
@@ -408,9 +413,14 @@ if ( ! class_exists('PraizedWP')) {
 					$this->_plugin_name
 				);
 				foreach ( $notices as $version => $msg ) {
-					$out .= "<li><strong>V{$version}</strong>: {$msg}</li>";
+					$out .= "<li><strong>{$version}</strong>: {$msg}</li>";
 				}
-				$out .= '</ul>';
+				$out .= '</ul><p>';
+				$out .= sprintf(
+					'See the changelog included at the bottom of the <a href="%s/readme.txt" target="_blank">bundled README file</a> for more info.',
+					$this->_plugin_dir_url
+				);
+				$out .= '</p>';
 				$out .= sprintf(
 					'<input type="submit" name="stop_nagging" value="%s" class="button-primary" style="margin-bottom: 10px;" />',
 					$this->__('Acknowledged')
@@ -520,7 +530,11 @@ if ( ! class_exists('PraizedWP')) {
     	    if ( ! $this->_load_praized() || ! $this->PraizedXHTML )
     	        return FALSE;
     	    $theme = $this->_config['theme'];
-    	    if ( empty($theme) || ! isset($this->PraizedXHTML->themes[$theme]) )
+    	    if ( ! defined('WPLANG') || WPLANG == '' || ! isset($this->PraizedXHTML->themes[WPLANG]) )
+    	    	$lang = 'en';
+    	    else
+    	    	$lang = WPLANG;
+    	    if ( empty($theme) || ! isset($this->PraizedXHTML->themes[$lang][$theme]) )
     	         $theme = $this->PraizedXHTML->defaultTheme;
     	    return $this->PraizedXHTML->css($this->_praized_inc_url, $theme, $this->version);
     	}
@@ -636,9 +650,25 @@ if ( ! class_exists('PraizedWP')) {
     	        $this->errors[] = $this->__('Please be sure to fill all the required fields.');
     	        add_action( 'admin_notices', array(&$this, 'wp_action_admin_errors') );
     	        $status = FALSE;
-    	    } elseif ( TRUE === $this->Praized->test() ) {
+    	    } elseif ( FALSE !== ( $response = $this->Praized->test() ) ) {
     	        $this->_save_wp_option('config', $form);
     	        $this->notices[] = $this->__('Your configurations were successfully tested and saved.');
+    	        if ( isset($this->_config['trigger']) ) {
+	    	        $base_url    = rtrim($response->community->base_url, '/');
+	    	        $trigger_url = rtrim($this->_blog_url . $this->_config['trigger'], '/');
+	    	        if ( $base_url != $trigger_url ) {
+	    	        	$this->notices[] = $this->__('NOTE: Although your credentials are fine, the community URL you provided when requesting your API key does not exactly match how your blog is setup, which might lead to issues with the dynamic vote button.');
+	    	        	$this->notices[] = sprintf(
+	    	        		$this->__('%s vs. %s'),
+	    	        		$base_url,
+	    	        		$trigger_url
+	    	        	);
+	    	        	$this->notices[] = sprintf(
+	    	        		$this->__('<a href="%s">Contact us</a> for help with the above, if you notice problems when voting while logged out.'),
+	    	        		'help@praized.com'
+	    	        	);
+	    	        }
+    	        }
     	        add_action( 'admin_notices', array(&$this, 'wp_action_admin_notices') );
     	        $status = TRUE;
     	    } else {
@@ -775,6 +805,40 @@ if ( ! class_exists('PraizedWP')) {
     	    if ( FALSE === ( $results = $this->_get_cache($cache_key) ) ) {
     	        $o = $this->Praized->user();
     	    	$results = $o->attribute($username, $attribute, $query);
+                $this->_set_cache($cache_key, $results);
+    	    }
+    	    return $results;
+    	}
+    	
+    	/**
+    	 * Returns latest activity from cache if available or from Praized->merchants()->get()
+    	 *
+         * @param array $query Associative array matching the query string keys supported by the Praized API.
+         * @return array List of merchants objects as returned by the Praize API
+         * @since 2.0
+    	 */
+    	function actions_get($query = array()) {
+    	    $cache_key = 'actions_get_' . md5(serialize($query));
+    	    if ( FALSE === ( $results = $this->_get_cache($cache_key) ) ) {
+    	    	$o = $this->Praized->actions();
+    	        $results = $o->get($query);
+                $this->_set_cache($cache_key, $results);
+    	    }
+    	    return $results;
+    	}
+    	
+    	/**
+    	 * Returns latest questions from cache if available or from Praized->merchants()->get()
+    	 *
+         * @param array $query Associative array matching the query string keys supported by the Praized API.
+         * @return array List of merchants objects as returned by the Praize API
+         * @since 2.0
+    	 */
+    	function questions_get($query = array()) {
+    	    $cache_key = 'questions_get_' . md5(serialize($query));
+    	    if ( FALSE === ( $results = $this->_get_cache($cache_key) ) ) {
+    	    	$o = $this->Praized->questions();
+    	        $results = $o->get($query);
                 $this->_set_cache($cache_key, $results);
     	    }
     	    return $results;

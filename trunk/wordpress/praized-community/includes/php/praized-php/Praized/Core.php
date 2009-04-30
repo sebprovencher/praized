@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -26,7 +26,7 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @var string
     	 * @since 0.1
     	 */
-        var $version = '1.7';
+        var $version = '2.0';
         
         /**
          * Library errors
@@ -185,7 +185,7 @@ if ( ! class_exists('PraizedCore') ) {
          */
     	function getHttp($url) {
     		$http = $this->newHttp();
-    	    $http->fetch($url);
+    	    @$http->fetch($url);
     		if ( ! strstr($http->response_code, '200')) {
     			if ( preg_match('/(\d{3,4})/', $http->response_code, $matches) )
     			    $errorCode = $matches[1];
@@ -241,10 +241,12 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @param string $callbackUrl URL to be returned to
     	 * @since 0.1
     	 */
-    	function session($callbackUrl = null) {
-		 	if($callbackUrl == null)
+    	function session($callbackUrl = null, $mode = 'login') {
+		 	if ( $callbackUrl == null )
     	    	$callbackUrl = preg_replace('|/oauth[/]?.*$|', '/', $this->_scriptUri);
-    	    if ( $this->isAuthorized() ) {
+    	    if ( $mode != 'login' )
+    	    	$mode = 'logout';
+    	    if ( $this->isAuthorized() || $mode == 'logout' ) {
     	        // logout
     	        $this->_oAuth->clear();
         	    header('Location:' . $callbackUrl);
@@ -263,6 +265,16 @@ if ( ! class_exists('PraizedCore') ) {
     	 */
     	function currentUserLogin() {
     	    return ( isset($this->_oAuth->currentUser['login']) ) ? $this->_oAuth->currentUser['login'] : FALSE;
+    	}
+    	
+    	/**
+    	 * Return the display name of the currently auth'ed user if available
+    	 *
+    	 * @return mixed Boolean false or String username
+    	 * @since 0.1
+    	 */
+    	function currentUserName() {
+    	    return ( isset($this->_oAuth->currentUser['name']) ) ? $this->_oAuth->currentUser['name'] : FALSE;
     	}
          
         /**
@@ -324,10 +336,17 @@ if ( ! class_exists('PraizedCore') ) {
     	 * @return mixed Boolean false or String Map image tag
     	 * @since 0.1
     	 */
-    	function googleMap($mapApiKey, $latitude, $longitude, $rawParams = array(), $caption = '') {
+    	function googleMap($mapApiKey, $latitude, $longitude, $rawParams = array(), $caption = '', $translations = false) {
     	    if ( empty($mapApiKey) || ( ( empty($latitude) || empty($longitude) ) && empty($rawParams['markers']) ) )
     	        return false;
     	    
+    	    if ( ! is_array($translations) ) {
+    	    	$translations = array(
+    	    		'img_title' => 'click the map for a dynamic version',
+    	    		'img_alt'   => 'Google Map'
+    	    	);
+    	    }
+    	        
             $markers = ( ! empty($rawParams['markers']) ) ? $rawParams['markers'] : "$latitude,$longitude";
             list($latitude, $longitude) = explode(',', $markers);
 
@@ -388,8 +407,14 @@ __________EOS;
           );
   
           return sprintf(
-              '<a rel="nofollow" href="%s" id="praized-google-map-static" onclick="return Praized.dynamize();"><img title="click the map for a dynamic version" src="%s" alt="Google Map" width="%s" height="%s" border="0" /></a>%s',
-              $mapAccessbileUrl,$url, $width, $height,$gooLibScript
+              '<a rel="nofollow" href="%s" id="praized-google-map-static" onclick="return Praized.dynamize();"><img src="%s" title="%s" alt="%s" width="%s" height="%s" border="0" /></a>%s',
+              $mapAccessbileUrl,
+              $url,
+              $translations['img_title'],
+              $translations['img_alt'],
+              $width,
+              $height,
+              $gooLibScript
           );
     	}
     	
@@ -534,38 +559,42 @@ __________EOS;
         	$minutes = round( $diff / 60 );
         	$seconds = round( $diff );
         	
+        	$return = '';
+        	
         	if ( $minutes >= 0 && $minutes <= 1 ) {
         		if ( $seconds >= 0 && $seconds < 5 )
-        			return sprintf($captions['lt_n_seconds'], 5);
+        			$return = sprintf($captions['lt_n_seconds'], 5);
         		elseif ( $seconds >= 5 && $seconds < 10 )
-        			return sprintf($captions['lt_n_seconds'], 10);
+        			$return = sprintf($captions['lt_n_seconds'], 10);
         		elseif ( $seconds >= 10 && $seconds < 30 )
-        			return sprintf($captions['lt_n_seconds'], 30);
+        			$return = sprintf($captions['lt_n_seconds'], 30);
         		elseif ( $seconds >= 30 && $seconds < 60 )
-        			return $captions['lt_a_minute'];
+        			$return = $captions['lt_a_minute'];
         		else
-        			return $captions['1_minute'];
+        			$return = $captions['1_minute'];
         	}
         	elseif ( $minutes > 1 && $minutes < 45 )
-				return sprintf($captions['n_minutes'], $minutes);
+				$return = sprintf($captions['n_minutes'], $minutes);
         	elseif ( $minutes >= 45 && $minutes < 90 )
-				return $captions['about_1_hour'];
+				$return = $captions['about_1_hour'];
         	elseif ( $minutes >= 90 && $minutes < 1440 )
-				return sprintf($captions['about_n_hours'], round($minutes / 60));
+				$return = sprintf($captions['about_n_hours'], round($minutes / 60));
         	elseif ( $minutes >= 1440 && $minutes < 2880 )
-				return $captions['1_day'];
+				$return = $captions['1_day'];
         	elseif ( $minutes >= 2880 && $minutes < 43200 )
-				return sprintf($captions['n_days'], round($minutes / 1440));
+				$return = sprintf($captions['n_days'], round($minutes / 1440));
         	elseif ( $minutes >= 43200 && $minutes < 86400 )
-				return $captions['about_1_month'];
+				$return = $captions['about_1_month'];
         	elseif ( $minutes >= 86400 && $minutes < 525600 )
-				return sprintf($captions['n_months'], round($minutes / 43200));
+				$return = sprintf($captions['n_months'], round($minutes / 43200));
         	elseif ( $minutes >= 525600 && $minutes < 528000 )
-				return $captions['about_1_year'];
+				$return = $captions['about_1_year'];
         	elseif ( $minutes >= 528000 && $minutes < 1051200 )
-				return $captions['over_1_year'];
+				$return = $captions['over_1_year'];
         	else
-        		return sprintf($captions['over_n_years'], round($minutes / 1051200));
+        		$return = sprintf($captions['over_n_years'], round($minutes / 1051200));
+        	
+        	return '<span class="time_distance">'.$return.'</span>';
         }
     	
     	/**
@@ -624,9 +653,8 @@ __________EOS;
     	 * @since 0.1
     	 */
         function _reroute($str) {
-    		if ( substr($str, 0, 1) != '.' )
-    		    if ( substr($str, 0, 1) != '/' )
-    		        $str = "/$str";
+    		if ( ! preg_match('/^(\.|\/)/', $str) )
+    	        $str = "/$str";
     		return '/' . $this->_community . $str;
     	}
     	
@@ -651,7 +679,7 @@ __________EOS;
     	/**
     	 * Fetches a Praized API resource/endpoint
     	 *
-    	 * @param string $route Praized API route (EG: /merchants.json)
+    	 * @param string $route Praized API route (EG: /merchants.json) or fully wualified URL
     	 * @param array $query Query string key/value pairs (equiv of $_GET)
     	 * @param array $post Post vars key/value pairs (equiv of $_POST)
     	 * @param boolean $protected Requires OAuth handling
@@ -659,9 +687,13 @@ __________EOS;
     	 * @since 0.1
     	 */
     	function _get($route, $query = array(), $post = array(), $protected = false) {
-    		$route = $this->_reroute($route);
+    		if ( ! preg_match('/^http/i', $route) ) {
+	    		$route = $this->_reroute($route);
+	    		$url  = $this->_praizedHosts['api'] . $route . $this->_queryString($query);
+    		} else {
+    			$url = $route;
+    		}
     		
-    		$url  = $this->_praizedHosts['api'] . $route . $this->_queryString($query);
     		$http = $this->newHttp();
 
     		if ( is_object($this->_oAuth) ) { 
@@ -674,13 +706,26 @@ __________EOS;
 			}
     		
     		if ( is_array($post) && count($post) > 0 ) {
-    		    $http->submit($url, $post);
+    		    @$http->submit($url, $post);
     		} else {
-    		    $http->fetch($url);
+    		    @$http->fetch($url);
     		}
+    		
+    		// var_dump($url, $query, $post, $http->status, $http->response_code, $http->error, $http->results, 'done');
 
     		if ( $http->status != '200' ) {
-    			$this->errors[$http->status] = 'HTTP: '.$http->response_code;
+    			if ( ! empty($http->results) && ! ( $this->_parseApi($http->results) ) && ! empty($this->errors) ) {
+    				$errorIdx = $http->status;
+    				$errorMsg = array_shift($this->errors);
+    				unset($this->errors[0]);
+    			} else if ( ! empty($http->response_code) ) {
+    				$errorIdx = $http->status;
+    				$errorMsg = 'HTTP: '.$http->response_code;
+    			} else if ( ! empty($http->error) ) {
+    				$errorIdx = ( ! empty($http->status) ) ? $http->status : 0;
+    				$errorMsg = 'HTTP: '.$http->error;
+    			}
+    			$this->errors[$errorIdx] = $errorMsg;
     			return false;
     		} else {
     			return $http->results;
@@ -724,14 +769,25 @@ __________EOS;
     	function _parseApi($json, $rawJson = false) {
 	        $json = trim($json);
 	        $nsMissingError = 'JSON: Praized namespace missing.';
+	        $error = null;
     	    if ( ! $rawJson ) { 
         	    if ( ! ( $obj = $this->jsonDecode($json) ) ) {
     			    return false;
     	        } elseif ( ! isset($obj->praized) ) {
     			    $this->errors['500'] = $nsMissingError;
     			    return false;
-    	        } elseif ( isset($obj->praized->errors) ) {
-    	            $this->errors = $obj->praized->errors;
+    	        } elseif ( isset($obj->praized->errors) && is_array($obj->praized->errors) ) {
+    	            foreach ( $obj->praized->errors as $error ) {
+    	            	if ( ! empty($error->message) )
+    	            		$this->errors[] = $error->message; 
+    	            }
+    			    return false;
+    	        } elseif ( isset($obj->praized->errors) && ! empty($obj->praized->errors->error) ) {
+                	$error = $obj->praized->errors->error;
+                	if ( is_string($error) )
+                		 $this->errors[] = $error;
+                	else if ( ! empty($error->message) )
+                		$this->errors[$error->code] = $error->message;
     			    return false;
     	        } else {
     	            $obj = $obj->praized;

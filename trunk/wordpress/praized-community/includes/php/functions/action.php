@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: individual merchant action related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.
@@ -133,5 +133,29 @@ function pzdc_action_answer_merchants($echo = TRUE) {
     if ( $echo )
         echo $html;
     return $html;
+}
+
+/**
+ * Template function: Current action community name (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 2.0
+ */
+function pzdc_action_community_name($echo = TRUE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('action', 'community->name', $echo);
+}
+
+/**
+ * Template function: Current action community base url (defaults to echo)
+ *
+ * @param boolean $echo Defines if the output should be echoed or simpy returned, defaults to TRUE
+ * @return string
+ * @since 2.0
+ */
+function pzdc_action_community_base_url($echo = TRUE) {
+    global $PraizedCommunity;
+    return $PraizedCommunity->tpt_attribute_helper('action', 'community->base_url', $echo);
 }
 ?>

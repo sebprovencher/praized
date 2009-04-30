@@ -2,7 +2,7 @@
 /**
  * Plugin configuration screen template, included in PraizedCommunity::wp_options_page()
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage ConfigScreen
  * @author Stephane Daury for Praized Media, Inc.
@@ -15,13 +15,7 @@
     <form id="praized-community" name="praized-community" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
     	<h3 style="margin:20px auto 0 auto;"><?php $this->_e('API Connectivity'); ?></h3>
         <p style="margin:5px auto 0 auto;">
-            <?php
-                printf(
-                    $this->__('The following information (Community, API and OAuth details) is provided to you by <a href="%s">Praized Media</a> when you <a href="%s">request access to our API</a>.'),
-                    $this->Praized->praizedLinks['corporate'],
-                    $this->Praized->praizedLinks['api_request']
-                );
-            ?>
+            <?php $this->_e('The following information (Community, API and OAuth details) is provided to you by <a href="http://praizedmedia.com/">Praized Media</a> when you <a href="http://praizedmedia.com/en/api">request access to our API</a>.'); ?>
         </p>
     	<table class="optiontable form-table">
     		<tr valign="top">
@@ -132,11 +126,30 @@
     		</tr>
     		<tr valign="top">
     			<th scope="row">
-    				<label for="default_query"><?php $this->_e('Default Search'); ?></label>
+    				<label for="dpca_efault_query"><?php $this->_e('Default Search'); ?></label>
     			</th>
     			<td>
-    				Look for: <input id="default_query" name="default_query" value="<?php echo $form['default_query']; ?>" size="20" maxlength="256" />
-    				City: <input id="default_location" name="default_location" value="<?php echo $form['default_location']; ?>" size="20" maxlength="256" />
+    				<?php pzdc_e('Look for'); ?>: <input id="pca_default_query" name="default_query" value="<?php echo $form['default_query']; ?>" size="20" maxlength="256" />
+    				<?php pzdc_e('City'); ?>: <input id="dpca_efault_location" name="default_location" value="<?php echo $form['default_location']; ?>" size="20" maxlength="256" />
+    			</td>
+    		</tr>
+    		<tr valign="top">
+    			<th scope="row">
+    				<label for="pca_overlay_login"><?php $this->_e('Overlay Login'); ?></label>
+    			</th>
+    			<td>
+    				<?php $overlay_login = ($form['overlay_login'])  ? 'checked="checked"' : ''; ?>
+                    <input type="checkbox" id="pca_overlay_login" name="overlay_login" value="1" <?php echo $overlay_login; ?> />
+					<label for="pca_overlay_login"><?php $this->_e('Use overlay login instead of redirecting the entire page.'); ?></label>
+                    <p>
+                    <?php
+                        $this->_e('
+                        	When selected, this option will make the Praized Network login and authorization proceed within
+                        	an overlaid iframe instead of redirecting the entire page, for a less intrusive experience.
+                        ');
+                    ?>
+                    </p>
+					
     			</td>
     		</tr>
     		<tr valign="top">
@@ -145,7 +158,11 @@
     			</th>
     			<td>
                     <?php
-                        $current_theme = ( ! $form['theme'] || ! $this->PraizedXHTML->themes[$form['theme']] )
+			    	    if ( ! defined('WPLANG') || WPLANG == '' || ! isset($this->PraizedXHTML->themes[WPLANG]) )
+			    	    	$theme_lang = 'en';
+			    	    else
+			    	    	$theme_lang = WPLANG;
+                        $current_theme = ( ! $form['theme'] || ! $this->PraizedXHTML->themes[$theme_lang][$form['theme']] )
                                        ? $this->PraizedXHTML->defaultTheme
                                        : $form['theme'];
                         $current_image = $this->_praized_inc_url . '/PraizedXHTML/css/themes/' . $current_theme . '/button.gif';
@@ -160,7 +177,7 @@
     				<span style="display: block; float: left; width: 90px; height: 55px; overflow:hidden;"><img id="pca_preview" src="<?php echo $current_image; ?>" alt="Praized Vote Button Preview" /></span>
     				<select id="pca_theme" name="theme" onchange="przdThemePreview();">
                     <?php
-                        foreach ($this->PraizedXHTML->themes as $theme => $caption) {
+                        foreach ($this->PraizedXHTML->themes[$theme_lang] as $theme => $caption) {
                             $selected = ( $current_theme == $theme ) ? 'selected="selected"' : '';
                             echo '<option value="'.$theme.'" '.$selected.'>'.$caption.'</option>';
                         }

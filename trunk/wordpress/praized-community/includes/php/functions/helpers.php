@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: miscelaneous helpers related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.
@@ -117,7 +117,7 @@ function pzdc_date($date_str, $format = NULL) {
 /**
  * Template function: Time distance helper
  * 
- * <code><?php pzdc_map(45.50493, -73.568163); ?></code>
+ * <code><?php pzdc_time_distance('January, 28th, 1975', FALSE); ?></code>
  *
  * @param mixed int|string $from Either a time in seconds, or a strtotime translatable string
  * @param boolean $echo
@@ -215,6 +215,18 @@ function pzdc_help_content($echo = TRUE) {
     return $out;
 }
 
+/**
+ * Template function: Prints errors found in required fields when dealing with forms such as user profile editing.
+ * Based on state of $PraizedCommunity->tpt_missing_fields.
+ * 
+ * @return void
+ * @since 2.0
+ */
+function pzdc_required_fields() {
+	global $PraizedCommunity;
+	$PraizedCommunity->required_fields();
+}
+
 
 /**
  * Template function: Returns the standard Praized credits.
@@ -225,7 +237,7 @@ function pzdc_help_content($echo = TRUE) {
  */
 function pzdc_credits($echo = TRUE) {
     global $PraizedCommunity;
-    $return = '<br /><p><small>' . $PraizedCommunity->Praized->credits() . '</small></p>';
+    $return = '<br /><p><small>' . pzdc__('Powered by <a href="http://praizedmedia.com/">Praized Media</a>. US data provided by Localeze. Canadian business listings distributed by <a href="http://www.yellowpages.ca">YellowPages.ca™</a>.') . '</small></p>';
     if ( $echo )
         echo $return;
     return $return; 
