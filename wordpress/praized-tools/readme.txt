@@ -22,8 +22,8 @@ install for you to blog about places and tie everything back to your or a 3rd
 party's Praized community. It will also help you create your Praized sidebar
 widget.
 
-The Praized Tools plugin now comes pre-configured with a read-only API key that
-will link back to our [Praized.com Hub](http://praized.com/).
+**NOTE**: The Praized Tools plugin **now comes pre-configured** with a read-only
+API key that will link back to our [Praized.com Hub](http://praized.com/) by default.
 
 If you decide to also install our [Praized Community](http://wordpress.org/extend/plugins/praized-community/)
 plugin, you can optionally set the Praized Tools plugin to use the same [API key](http://praizedmedia.com/en/api/)
@@ -132,13 +132,15 @@ function within the praized-tools.php plugin file.
 * pzdt_merchants_search(): returns a search result, as PHP object
 * pzdt_merchant_get(): returns an individual merchant/place, as PHP object
 * pzdt_user_get(): returns an individual raized user, as PHP object
+* and more
 
 **See also**: generated code documentation in /wp-content/plugins/praized-tools/phpdocs/
 
 
 ###Internationalization###
 
-The Praized Tools plugin is completely translatable out of the box.
+The Praized Tools plugin is completely translatable out of the box and comes
+with English and French bundles by default..
 
 You can find the localization template you can use to translate the plugin in
 /wp-content/plugins/praized-tools/includes/localization.
@@ -153,6 +155,14 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 
 
 == ChangeLog ==
+
+Version 2.0: 2009-04-29
+
+* New sidebar widgets for latest questions, latest answers and latest activity.
+* Plugin now comes bundled with full French translation if running WordPress in French.
+* Updated to praized-php-2.0.
+* Updated to praized-wp-core-2.0.
+
 
 Version 1.7: 2009-01-12
 

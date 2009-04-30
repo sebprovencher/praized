@@ -1,7 +1,8 @@
 
 @import url("./vote_layout.css");
 
-a.praized-badge{color:#fff;border:0;display:block;float:left;position:relative;font-weight:normal;font-size:15px;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;background:transparent url('http://static.praized.com/praized-com/images/badges/two-arrow-green-grey-sprite-badge-113x70.gif') no-repeat scroll;width:115px;height:35px;line-height:15px;cursor:pointer;max-height:35px;}
+a.praized-badge{color:#fff;border:0;display:block;float:left;position:relative;font-weight:normal;font-size:15px;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;background:transparent url('http://static.praized.com/praized-com/images/badges/two-arrow-green-grey-sprite-badge-113x70-en.gif') no-repeat scroll;width:115px;height:35px;line-height:15px;cursor:pointer;max-height:35px;}
+a.praized-badge-fr_FR{background:transparent url('http://static.praized.com/praized-com/images/badges/two-arrow-green-grey-sprite-badge-113x70-fr_FR.gif') no-repeat scroll;}
 
 .praized-badge:hover{border:0;background-position: 0px -35px;text-decoration:none;}
 .praized-badge .praized-badge-score{border:0;display:block;float:left;position:relative;font-weight:normal;font-size:95%;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;width:28px;color:#009900;line-height:15px;padding-top:3px;padding-left:3px;}

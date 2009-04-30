@@ -2,7 +2,7 @@
 /**
  * Praized template functions/helpers/tags: question listing related functions
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage TemplateFunctions
  * @author Stephane Daury for Praized Media, Inc.
@@ -54,9 +54,9 @@ function pzdc_has_next_question() {
  * @since 1.6
  */
 function pzdc_questions_random_qualifier($type, $echo = TRUE) {
-    $adjective = array('good', 'cheap', 'fancy', 'respectable');
-    $what = array('restaurant', 'cafe', 'mechanic');
-    $where = ( $w = pzdc_search_location(FALSE) ) ? array($w) : array('Montreal', 'San Francisco', 'New York');
+    $adjective = array(pzdc__('good'), pzdc__('cheap'), pzdc__('fancy'), pzdc__('respectable'));
+    $what = array(pzdc__('restaurant'), pzdc__('cafe'), pzdc__('mechanic'));
+    $where = ( $w = pzdc_search_location(FALSE) ) ? array($w) : array(pzdc__('Montreal'), pzdc__('San Francisco'), pzdc__('New York'));
     if ( $type != 'what' && $type != 'where' )
         $type = 'adjective';
     $array = $$type;

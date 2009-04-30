@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Individual action entry
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -26,6 +26,11 @@
     	<?php pzdc_action_answer_merchants(); ?>
     <?php endif; ?>
     <br clear="all" />
-    <small><abbr title="<?php pzdc_action_created_at(); ?>"><?php pzdc_time_distance(pzdc_action_created_at(FALSE)); ?></abbr></small>
+    <small>
+    	<abbr title="<?php pzdc_action_created_at(); ?>"><?php pzdc_time_distance(pzdc_action_created_at(FALSE)); ?></abbr>
+    	<?php if ( pzdc_community_is_hub() ) : ?>
+    		<?php pzdc_e('via') ?> <a href="<?php pzdc_action_community_base_url(); ?>"><?php pzdc_action_community_name(); ?></a>
+    	<?php endif; ?>
+    </small>
   </div>
 <?php endif;?>

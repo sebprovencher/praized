@@ -2,7 +2,7 @@
 /**
  * Praized OAuth handling library
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @subpackage OAuth
  * @author Pier-Hugures Pellerin for Praized Media, Inc.
@@ -42,7 +42,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 		var $_encoder;
 
 		var $_net;
-		var $_version = '1.7';
+		var $_version = '2.0';
 		var $errors = array();
 	
 		var $_expirationTime = 1209600; // (14 * 24 * 3600);
@@ -213,6 +213,9 @@ if ( ! class_exists('PraizedOAuth') ) {
 					
 					if($accessToken) {
     					$this->currentUser['login'] = trim(urldecode($_GET['login']));
+    					$this->currentUser['name']  = ( ! empty($_GET['name']) )
+    												? trim(urldecode($_GET['name']))
+    												: $this->currentUser['login'];
     				    $this->_addTokens("accessToken", $accessToken);
     					return TRUE;
     				}
@@ -308,7 +311,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 			$queryString = "/?oauth_token=" . $requestTokenConsumer->key;
 			
 			if($callbackURL != NULL)
-			 	$queryString .= "&oauth_callback=" . OAuthUtil::urlencodeRFC3986($callbackURL);
+			 	$queryString .= "&oauth_callback=" . OAuthUtil::urlencode_RFC3986($callbackURL);
 			
 			$auth_url = $this->_authorizeURL . $queryString;
 			
@@ -330,7 +333,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 		* @since 0.1
 		*/
 		function _make_http_call($request, $method, $parameters = array()) {
-			$this->_net->fetch($request->to_url());
+			@$this->_net->fetch($request->to_url());
 				
 			if(! strstr($this->_net->response_code, "200") ) {
 				return FALSE;

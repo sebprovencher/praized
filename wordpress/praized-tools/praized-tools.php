@@ -2,11 +2,11 @@
 /**
  * Plugin Name:  Praized Tools
  * Plugin URI:   http://wordpress.org/extend/plugins/praized-tools/
- * Version:      1.7
+ * Version:      2.0
  * Description:  The Praized Tools plugin is primarily a companion tool for our <a href="http://wordpress.org/extend/plugins/praized-community/"><strong>Praized Community</strong></a> plugin. It will enable new editorial tools within WordPress for you to blog about places and tie everything back to your own Praized Community. When running the Praized Tools without a Praized Community, the plugin will integrate with our <a href="http://praized.com/">Praized.com</a> hub instead. See also: the <a href="http://wordpress.org/extend/plugins/praized-community/">Praized Community</a> plugin.
  * Author:       <a href="http://www.praizedmedia.com/">Praized Media, Inc.</a>
  * 
- * @version 1.7
+ * @version 2.0
  * @package PraizedTools
  * @subpackage PluginInit
  * @author Stephane Daury for Praized Media, Inc.
@@ -58,10 +58,14 @@ if ( ! class_exists('PraizedTools')) {
     		}
     		
     		if ( function_exists('register_sidebar_widget') ){
-                register_sidebar_widget(array('Praized Widget', $PraizedTools->_plugin_name), 'widget_pzdt_bbcode');
+                register_sidebar_widget(array('Praized: Search Query', $PraizedTools->_plugin_name), 'widget_pzdt_bbcode');
+                register_sidebar_widget(array('Praized: Latest Activity', $PraizedTools->_plugin_name), 'widget_pzdt_latest_activity');
+                register_sidebar_widget(array('Praized: Latest Questions', $PraizedTools->_plugin_name), 'widget_pzdt_latest_questions');
                 
                 if ( is_admin() ) {
-                    register_widget_control(array('Praized Widget', $PraizedTools->_plugin_name), 'widget_pzdt_bbcode_options_form', 550, 270);
+                    register_widget_control(array('Praized: Search Query', $PraizedTools->_plugin_name), 'widget_pzdt_bbcode_options_form', 550, 270);
+                    register_widget_control(array('Praized: Latest Activity', $PraizedTools->_plugin_name), 'widget_pzdt_latest_activity_options_form');
+                    register_widget_control(array('Praized: Latest Questions', $PraizedTools->_plugin_name), 'widget_pzdt_latest_questions_options_form');
                 }
     		}
         }
@@ -90,6 +94,46 @@ if ( ! class_exists('PraizedTools')) {
     function widget_pzdt_bbcode_options_form() {
         global $PraizedTools;
         $PraizedTools->widget_bbcode_options_form();
+    }
+    
+    /**
+     * Widget option form: Praized Tools Activity
+     * 
+     * @since 0.1
+     */
+    function widget_pzdt_latest_activity_options_form() {
+        global $PraizedTools;
+        $PraizedTools->widget_latest_activity_options_form();
+    }
+    
+    /**
+     * Widget: Praized Tools Activity
+     * 
+     * @since 0.1
+     */
+    function widget_pzdt_latest_activity() {
+        global $PraizedTools;
+        $PraizedTools->widget_latest_activity();
+    }
+    
+    /**
+     * Widget option form: Praized Tools Questions
+     * 
+     * @since 0.1
+     */
+    function widget_pzdt_latest_questions_options_form() {
+        global $PraizedTools;
+        $PraizedTools->widget_latest_questions_options_form();
+    }
+    
+    /**
+     * Widget: Praized Tools Questions
+     * 
+     * @since 0.1
+     */
+    function widget_pzdt_latest_questions() {
+        global $PraizedTools;
+        $PraizedTools->widget_latest_questions();
     }
     
     /**
@@ -150,6 +194,32 @@ if ( ! class_exists('PraizedTools')) {
     function pzdt_user_get($username, $query = array()) {
         global $PraizedTools;
         return $PraizedTools->user_get($username, $query);
+    }
+    
+    /**
+     * Praized API integration function: Activity List
+     * Allows you to integrate (read-only) with our API directly within your own plugin and/or theme.
+     *
+     * @param array $query Associative array matching the query string keys supported by the Praized API.
+     * @return array List of merchants objects as returned by the Praize API
+     * @since 2.0
+     */
+    function pzdt_actions_get($query = array()) {
+        global $PraizedTools;
+        return $PraizedTools->actions_get($query);
+    }
+    
+    /**
+     * Praized API integration function: Activity List
+     * Allows you to integrate (read-only) with our API directly within your own plugin and/or theme.
+     *
+     * @param array $query Associative array matching the query string keys supported by the Praized API.
+     * @return array List of merchants objects as returned by the Praize API
+     * @since 2.0
+     */
+    function pzdt_questions_get($query = array()) {
+        global $PraizedTools;
+        return $PraizedTools->questions_get($query);
     }
 }
 

@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Merchant favorite listing, with paging
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -17,17 +17,15 @@
   
   <div id="praized-favorers" class="praized-merchant-section">
     <h3 class="praized-merchant-section-title"><?php pzdc_merchant_favorite_count(); ?> <?php pzdc_e('Favorers'); ?></h3>
-    <ul class="praized-merchant-favorers">
+    <p class="praized-merchant-favorers">
       <?php if ( pzdc_has_favorites(array('per_page' => 50)) ) : ?>
         <?php while ( pzdc_favorites_loop() ) : ?>
-          <li >
-            <a href="<?php pzdc_user_permalink(); ?>"><?php pzdc_user_login(); ?></a>
-          </li>
+          <a href="<?php pzdc_user_permalink(); ?>" title="<?php pzdc_user_display_name(); ?>"><img src="<?php pzdc_user_avatar_small(); ?>" border="none" alt="<?php pzdc_user_display_name(); ?>" style="margin-right: 5px; border: 1px solid;" /></a>
         <?php endwhile; ?>
       <?php else:?>
-        <li><?php pzdc_e('No favorer'); ?></li>
+        <?php pzdc_e('No favorer'); ?>
       <?php endif;?>   
-    </ul>
+    </p>
   </div>
     
   <?php pzdc_paginate(); ?>

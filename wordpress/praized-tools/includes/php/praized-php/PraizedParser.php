@@ -2,7 +2,7 @@
 /**
  * Praized Convenience Parsing Tools
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @subpackage Parser
  * @author Stephane Daury for Praized Media, Inc.

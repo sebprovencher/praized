@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User favorite listing, with paging
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -25,7 +25,11 @@
             <li >
               <span class="praized-inline-merchant">
                 <big>
-                  <a rel="bookmark" href="<?php pzdc_merchant_permalink(); ?>" class="praized-merchant-vote <?php pzdc_merchant_target_rating(); ?>"><b class="praized-value"><span class="praized-nominator"><?php pzdc_merchant_vote_pos_count(); ?></span><span class="praized-separator">/</span><span class="praized-denominator"><?php pzdc_merchant_vote_count(); ?></span></b> <?php pzdc_merchant_name(); ?></a>
+	                <?php if ( pzdc_merchant_permalink(NULL, FALSE) ) : ?>
+	                	<a rel="bookmark" href="<?php pzdc_merchant_permalink(); ?>" class="praized-merchant-vote <?php pzdc_merchant_target_rating(); ?>"><b class="praized-value"><span class="praized-nominator"><?php pzdc_merchant_vote_pos_count(); ?></span><span class="praized-separator">/</span><span class="praized-denominator"><?php pzdc_merchant_vote_count(); ?></span></b> <?php pzdc_merchant_name(); ?></a>
+	                <?php else : ?>
+	                	<span class="praized-merchant-vote <?php pzdc_merchant_target_rating(); ?>"><b class="praized-value"><span class="praized-nominator"><?php pzdc_merchant_vote_pos_count(); ?></span><span class="praized-separator">/</span><span class="praized-denominator"><?php pzdc_merchant_vote_count(); ?></span></b> <?php pzdc_merchant_name(); ?></span>
+	                <?php endif; ?>
                 </big>
                 <br />
                 <span class="praized-merchant-address">
@@ -33,6 +37,7 @@
                   <?php pzdc_merchant_city_name(); ?>
                 </span>
               </span>
+              <br clear="all" />
             </li>
           <?php endwhile; ?>
         <?php else:?>

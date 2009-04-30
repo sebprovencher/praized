@@ -4,7 +4,7 @@
  * 
  * Note: Using the OAuth functionalities will make this library PHP5+ only
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @author Stephane Daury for Praized Media, Inc.
  * @copyright Praized Media, Inc. <http://praizedmedia.com/>
@@ -198,6 +198,203 @@ if ( ! class_exists('PraizedUser') ) {
     	 */
         function actions($username, $query = array(), $rawJson = false) {
     		if ( $json = $this->_get('/users/'.$username.'/actions.json', $query) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+        
+    	/**
+    	 * Returns an individual user's associated communities list, optionally based on the submitted query
+    	 *
+         * @param string $username Username
+    	 * @param array  $query Associative array matching the query string keys supported by the Praized API.
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+        function communities($username, $query = array(), $rawJson = false) {
+    		if ( $json = $this->_get('/users/'.$username.'/communities.json', $query) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Saves the user profile info on behalf of the current authz'ed user
+    	 *
+         * @param string $username Username
+    	 * @param array  $post Post vars key/value pairs (equiv of $_POST)
+    	 * @param array  $query Associative array matching the query string keys supported by the Praized API.
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function profileEdit($username, $post = array('user[email]' => ''), $query = array(), $rawJson = false) {
+    		foreach ( $post as $key => $value ) {
+    			if ( preg_match('/^user_/', $key) ) {
+    				$tmp = stripslashes($post[$key]);
+    				if ( $key == 'user_location_city_name')
+    					$newKey = 'user[location][city][name]';
+    				else
+    					$newKey = preg_replace('/^user_([a-z0-9_]+)$/i', 'user[\1]', $key);
+    				$post[$newKey] = $tmp;
+    				unset($post[$key]);
+    			}
+    		}
+    		
+    		if ( $json = $this->_post('/users/'.$username.'.json', $post, 'post', $query, true) )
+    		    return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Updates the user's password on behalf of the current authz'ed user
+    	 *
+         * @param string $username Username
+    	 * @param array  $post Post vars key/value pairs (equiv of $_POST)
+    	 * @param array  $query Associative array matching the query string keys supported by the Praized API.
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function passwordEdit($username, $post = array('user[password]' => ''), $query = array(), $rawJson = false) {
+    		foreach ( $post as $key => $value ) {
+    			if ( preg_match('/^user_/', $key) ) {
+    				$tmp = stripslashes($post[$key]);
+    				unset($post[$key]);
+    				$post[preg_replace('/^user_([a-z0-9_]+)$/i', 'user[\1]', $key)] = $tmp;
+    			}
+    		}
+    		
+    		if ( $json = $this->_post('/users/change_password.json', $post, 'post', $query, true) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Updates the user's password on behalf of the current authz'ed user
+    	 *
+         * @param string $username Username
+    	 * @param array  $query Associative array matching the query string keys supported by the Praized API.
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function notificationsEdit($username, $post = array('user[password]' => ''), $query = array(), $rawJson = false) {
+    		foreach ( $post as $key => $value ) {
+    			if ( preg_match('/^setting_/', $key) ) {
+    				$tmp = stripslashes($post[$key]);
+    				$post[preg_replace('/^setting_([a-z0-9_]+)$/i', 'setting[\1]', $key)] = $tmp;
+    				unset($post[$key]);
+    			}
+    		}
+    		
+    		if ( $json = $this->_post('/users/'.$username.'/settings.json', $post, 'post', $query, true) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Route accessed to confirm a user's email address. Link is generated in an email sent
+		 * when a user changes his/her email address via the profile editing tools.
+    	 *
+         * @param string $confirmationKey Unique transaction identifier
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function confirmEmail($confirmationKey, $rawJson = false) {
+    		if ( $json = $this->_post('/users/confirm_email/'.$confirmationKey.'.json', array(), 'post') )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Route accessed to resend an email address confirmation message to then trigger $this->confirmEmail().
+    	 *
+         * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function resendEmailConfirmation($rawJson = false) {
+    		if ( $json = $this->_post('/users/resend_email_confirmation.json', array(), 'post', array(), true) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Route accessed by users to reset their password. Step 1, email submission.
+    	 *
+         * @param array  $post Post vars key/value pairs (equiv of $_POST)
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function forgotPassword($post = array('user[email]' => ''), $rawJson = false) {
+    		if ( ! empty($post['user_email']) ) {
+    			$post['user[email]'] = $post['user_email'];
+    			unset($post['user_email']);
+    		}
+    		
+    		if ( $json = $this->_post('/users/forgot_password.json', $post, 'post') )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Route accessed by users to reset their password. Link is generated in an email sent
+		 * when a user requests to reset their password via the profile editing tools or login screen.
+    	 *
+         * @param string $confirmationKey Unique transaction identifier
+    	 * @param array  $post Post vars key/value pairs (equiv of $_POST)
+    	 * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function resetPassword($confirmationKey, $post = array('user[password]' => ''), $rawJson = false) {
+    		foreach ( $post as $key => $value ) {
+    			if ( preg_match('/^user_/', $key) ) {
+    				$tmp = stripslashes($post[$key]);
+    				unset($post[$key]);
+    				$post[preg_replace('/^user_([a-z0-9_]+)$/i', 'user[\1]', $key)] = $tmp;
+    			}
+    		}
+    		
+    		if ( $json = $this->_post('/users/reset_password/'.$confirmationKey.'.json', $post, 'post') )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Route accessed to acquire the avatar upload token and route url
+    	 *
+         * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function avatarUploadToken($rawJson = false) {
+    		if ( $json = $this->_post('/avatar/upload_token.json', array(), 'post', array(), true) )
+    			return $this->_parseApi($json, $rawJson);
+    		else
+    			return false;
+    	}
+    	
+    	/**
+    	 * Route accessed to delete an avatar
+    	 *
+         * @param boolean $rawJson set as true to get the raw Json back, or false (default) to get the data as php object
+         * @return mixed boolean false (with $this->errors set) or object/string based on $rawJson, as returned by the Praized API (praized namespace as obj root)
+    	 * @since 2.0
+    	 */
+    	function avatarDelete($rawJson = false) {
+    		if ( $json = $this->_post('/avatar/delete.json', array(), 'post', array(), true) )
     			return $this->_parseApi($json, $rawJson);
     		else
     			return false;

@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: User comment listing, with paging
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -25,7 +25,11 @@
           <li class="<?php if( ($i % 2) == 0){ echo "alt"; } ?>" id="comment-<?php echo $i; ?>">
             <span class="praized-inline-merchant">
               <big>
-                <a rel="bookmark" href="<?php pzdc_merchant_permalink(); ?>" class="praized-merchant-vote <?php pzdc_merchant_target_rating(); ?>"><b class="praized-value"><span class="praized-nominator"><?php pzdc_merchant_vote_pos_count(); ?></span><span class="praized-separator">/</span><span class="praized-denominator"><?php pzdc_merchant_vote_count(); ?></span></b> <?php pzdc_merchant_name(); ?></a>
+                <?php if ( pzdc_merchant_permalink(NULL, FALSE) ) : ?>
+                	<a rel="bookmark" href="<?php pzdc_merchant_permalink(); ?>" class="praized-merchant-vote <?php pzdc_merchant_target_rating(); ?>"><b class="praized-value"><span class="praized-nominator"><?php pzdc_merchant_vote_pos_count(); ?></span><span class="praized-separator">/</span><span class="praized-denominator"><?php pzdc_merchant_vote_count(); ?></span></b> <?php pzdc_merchant_name(); ?></a>
+                <?php else : ?>
+                	<span class="praized-merchant-vote <?php pzdc_merchant_target_rating(); ?>"><b class="praized-value"><span class="praized-nominator"><?php pzdc_merchant_vote_pos_count(); ?></span><span class="praized-separator">/</span><span class="praized-denominator"><?php pzdc_merchant_vote_count(); ?></span></b> <?php pzdc_merchant_name(); ?></span>
+                <?php endif; ?>
               </big>
               <br />
               <span class="praized-merchant-address">
@@ -33,7 +37,12 @@
                 <?php pzdc_merchant_city_name(); ?>
               </span>
             </span>
-            <small class="commentmetadata"><abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_time_distance(pzdc_comment_created_at(FALSE)); ?></abbr></small>
+            <small class="commentmetadata">
+            	<abbr title="<?php pzdc_comment_created_at(); ?>"><?php pzdc_time_distance(pzdc_comment_created_at(FALSE)); ?></abbr>
+            	<?php if ( pzdc_community_is_hub() ) : ?>
+		    		<?php pzdc_e('via') ?> <a href="<?php pzdc_comment_community_base_url(); ?>"><?php pzdc_comment_community_name(); ?></a>
+		    	<?php endif; ?>
+            </small>
             <p><?php pzdc_comment_body(); ?></p>
           </li>
         <?php ++$i; endwhile; ?>

@@ -2,7 +2,7 @@
 /**
  * Praized template fragment: Question listing, with paging
  *
- * @version 1.7
+ * @version 2.0
  * @package PraizedCommunity
  * @subpackage Templates
  * @author Stephane Daury for Praized Media, Inc.
@@ -34,7 +34,10 @@
         ?>
          <div class="praized-action-item" style="margin-top: 20px;">
         	<a href="<?php pzdc_user_permalink(); ?>"><img src="<?php pzdc_user_avatar_small(); ?>" width="40" height="40" border="0" style="float:left; margin-right: 10px;"/></a>
-        	<a href="<?php pzdc_user_permalink(); ?>"><?php pzdc_user_login(); ?></a> <?php pzdc_e('asked') ?> <?php pzdc_time_distance(pzdc_question_created_at(FALSE)); ?>:
+        	<a href="<?php pzdc_user_permalink(); ?>"><?php pzdc_user_display_name(); ?></a> <?php pzdc_e('asked') ?> <?php pzdc_time_distance(pzdc_question_created_at(FALSE)); ?>
+	    	<?php if ( pzdc_community_is_hub() ) : ?>
+	    		<?php pzdc_e('via') ?> <a href="<?php pzdc_question_community_base_url(); ?>"><?php pzdc_question_community_name(); ?></a>
+	    	<?php endif; ?>:
 			<a href="<?php pzdc_question_permalink(); ?>" class="praized-action" style="float:right; padding:4px;"><?php pzdc_e('Answer') ?></a>
         	<p style="margin-top:5px;"><em><?php pzdc_question_content(); ?></em></p>
 			<small><a href="<?php pzdc_question_permalink(); ?>"><?php echo  "{$answer_count_caption} &raquo;"; ?></a></small>

@@ -2,7 +2,7 @@
 /**
  * Praized Common XHTML output
  *
- * @version 1.7
+ * @version 2.0
  * @package Praized
  * @subpackage XHTML
  * @author Stephane Daury for Praized Media, Inc.
@@ -54,22 +54,42 @@ if ( ! class_exists('PraizedXHTML') ) {
          * @since 1.5
          */
     	var $themes = array(
-    		'009900' => 'Green',
-    		'cc0000' => 'Red',
-    		'660000' => 'Wine',
-    		'ff6633' => 'Orange',
-    		'ff9900' => 'Burnt Orange',
-    		'ffcc00' => 'Yellow',
-    		'666633' => 'Tan Olive',
-    		'0066ff' => 'Light Blue',
-    		'0000cc' => 'Blue',
-    		'336666' => 'Ocean',
-    		'330066' => 'Purple',
-    		'cc33cc' => 'Magenta',
-    		'ff00cc' => 'Pink',
-    		'000000' => 'Black',
-    		'666666' => 'Grey',
-    		'ffffff' => 'White'
+    		'en' => array(
+	    		'009900' => 'Green',
+	    		'cc0000' => 'Red',
+	    		'660000' => 'Wine',
+	    		'ff6633' => 'Orange',
+	    		'ff9900' => 'Burnt Orange',
+	    		'ffcc00' => 'Yellow',
+	    		'666633' => 'Tan Olive',
+	    		'0066ff' => 'Light Blue',
+	    		'0000cc' => 'Blue',
+	    		'336666' => 'Ocean',
+	    		'330066' => 'Purple',
+	    		'cc33cc' => 'Magenta',
+	    		'ff00cc' => 'Pink',
+	    		'000000' => 'Black',
+	    		'666666' => 'Grey',
+	    		'ffffff' => 'White'
+    		),
+    		'fr_FR' => array(
+	    		'009900' => 'Vert',
+	    		'cc0000' => 'Rouge',
+	    		'660000' => 'Rouge Vin',
+	    		'ff6633' => 'Orange',
+	    		'ff9900' => 'Orange Brûlée',
+	    		'ffcc00' => 'Jaune',
+	    		'666633' => 'Vert Olive',
+	    		'0066ff' => 'Bleu Clair',
+	    		'0000cc' => 'Bleu',
+	    		'336666' => 'Océan',
+	    		'330066' => 'Violet',
+	    		'cc33cc' => 'Magenta',
+	    		'ff00cc' => 'Rose',
+	    		'000000' => 'Noir',
+	    		'666666' => 'Gris',
+	    		'ffffff' => 'Blanc'
+    		)
         );
         
         /**
@@ -181,7 +201,7 @@ if ( ! class_exists('PraizedXHTML') ) {
     	function css($path, $theme, $version = null) {
     	    $path = rtrim($path, '/');
     	    
-    	    if ( empty($theme) || ! isset($this->themes[$theme]) )
+    	    if ( empty($theme) || ! isset($this->themes['en'][$theme]) )
     	         $theme = $this->defaultTheme;
     	    
     	    if ( empty($version) )
