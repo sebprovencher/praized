@@ -20,7 +20,7 @@ format : unsigned integer
 
 == Response Format ==
 
-Note that this format is not an RSS or Atom format, you must transform it to get the proper feed format.
+Note: this specific call can also be served in ATOM by using the actions.atom format
 
 === XML ===
 
