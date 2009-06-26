@@ -320,7 +320,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 
 			header("Location: $auth_url", false, 302);
 			echo $auth_url;
-			#exit;
+			exit;
 		}		
 		
 		/**
