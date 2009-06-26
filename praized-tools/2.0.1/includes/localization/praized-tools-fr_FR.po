@@ -1,0 +1,337 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Praized Tools\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-tools\n"
+"POT-Creation-Date: 2009-04-27 11:11-0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Stephane Daury <wordpress @ tekartist . org>\n"
+"Language-Team: Praized Media <help@praizedmedia.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: CANADA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: includes/php/PraizedTools.php:112
+msgid "Sorry, but we were unable to acquire appropriate configurations from the Praized Community plugin. Please enter your community slug and API key manually instead."
+msgstr "Désolé. Nous n'avons pas réussi à obtenir les configurations appropriées du plugiciel Praized Community. Veuillez entrer votre identificateur de communauté et votre clé d'API manuellement."
+
+#: includes/php/PraizedTools.php:119
+#, php-format
+msgid "Please submit a value for the \"%s\" form field."
+msgstr "Veuillez soumettre une valeur pour le champ \"%s\""
+
+#: includes/php/PraizedTools.php:121
+msgid "Community"
+msgstr "Communauté"
+
+#: includes/php/PraizedTools.php:123
+#: includes/php/config.php:54
+msgid "API Key"
+msgstr "Clé d'API"
+
+#: includes/php/PraizedTools.php:164
+#, php-format
+msgid "Thank you for installing the <strong>Praized Tools</strong> plugin. To finalize the installation, please take the time to <a href=\"%s\">configure the last few details</a>."
+msgstr "Merci d'avoir installé le plugiciel <strong>Praized Tools</strong>. Pour finaliser l'installation, veuillez prendre le temps de <a href=\"%s\">configurer les derniers détails</a>."
+
+#: includes/php/PraizedTools.php:263
+msgid "Use the \"Praized Searchlet\" button below to customize your widget."
+msgstr "Utilisez le bouton \"Searchlet Praized\" ci-dessous pour personnaliser votre gadget logiciel."
+
+#: includes/php/PraizedTools.php:266
+#: includes/php/PraizedTools.php:303
+#: includes/php/PraizedTools.php:338
+msgid "Widget Title"
+msgstr "Titre du Gadget Logiciel"
+
+#: includes/php/PraizedTools.php:270
+msgid "Configurations"
+msgstr "Configurations"
+
+#: includes/php/PraizedTools.php:273
+msgid "Praized Searchlet"
+msgstr "Searchlet Praized"
+
+#: includes/php/PraizedTools.php:307
+#: includes/php/PraizedTools.php:342
+msgid "Limit to"
+msgstr "Limité à"
+
+#: includes/php/PraizedTools.php:308
+#: includes/php/PraizedTools.php:343
+msgid "items"
+msgstr "items"
+
+#: includes/php/PraizedTools.php:371
+msgid "Praized Tools"
+msgstr "Praized Tools"
+
+#: includes/php/PraizedTools.php:674
+msgid "Tags"
+msgstr "Balises"
+
+#: includes/php/PraizedTools.php:675
+msgid "favorers"
+msgstr "l'ont préféré"
+
+#: includes/php/PraizedTools.php:676
+msgid "praizers"
+msgstr "praizeurs"
+
+#: includes/php/PraizedTools.php:677
+msgid "comments"
+msgstr "commentaires"
+
+#: includes/php/PraizedTools.php:678
+msgid "You must login before you can vote! - Just click, we'll take you there and back!"
+msgstr "Vous devez ouvrir une session pour voter! - Cliquez pour le faire."
+
+#: includes/php/PraizedTools.php:679
+msgid "Vote Up"
+msgstr "Votez pour"
+
+#: includes/php/PraizedTools.php:680
+msgid "Vote Down"
+msgstr "Votez contre"
+
+#: includes/php/PraizedTools.php:694
+#, php-format
+msgid "Places mentioned in %s"
+msgstr "Lieux mentionnés dans %s"
+
+#: includes/php/PraizedTools.php:695
+msgid "this page"
+msgstr "cette page"
+
+#: includes/php/PraizedTools.php:695
+msgid "this post"
+msgstr "ce billet"
+
+#: includes/php/PraizedTools.php:739
+msgid "Praized"
+msgstr "Praized"
+
+#: includes/php/PraizedTools.php:768
+msgid "Praized: Latest Activity"
+msgstr "Praized: activités récentes"
+
+#: includes/php/PraizedTools.php:814
+msgid "Praized: Latest Questions"
+msgstr "Praized: questions récentes"
+
+#: includes/php/config.php:36
+msgid "Praized Tools Options"
+msgstr "Options pour Praized Tools"
+
+#: includes/php/config.php:38
+msgid "API Connectivity"
+msgstr "Connectivité d'API"
+
+#: includes/php/config.php:40
+msgid "The following information (Community, API and OAuth details) is provided to you by <a href=\"http://praizedmedia.com/\">Praized Media</a> when you <a href=\"http://praizedmedia.com/en/api\">request access to our API</a>."
+msgstr "L'information suivante (communauté, clé d'API) doit vous être fournie par <a href=\"http://praizedmedia.com/fr/\">Praized Média</a> quand vous <a href=\"http://praizedmedia.com/fr/api/\">demandez votre clé d'API</a>."
+
+#: includes/php/config.php:45
+msgid "Community Slug"
+msgstr "Identificateur de communauté"
+
+#: includes/php/config.php:49
+#: includes/php/config.php:58
+msgid "required"
+msgstr "requis"
+
+#: includes/php/config.php:63
+#: includes/php/config.php:150
+#: includes/php/config.php:210
+msgid "Save Config"
+msgstr "Sauvegarder cette configuration"
+
+#: includes/php/config.php:65
+msgid "Use Praized Community API credentials"
+msgstr "Utilisez les détails de l'API de votre communauté Praized"
+
+#: includes/php/config.php:68
+msgid "Behavior and Interface Customization"
+msgstr "Personnalisation de l'interface et des fonctionnalités"
+
+#: includes/php/config.php:78
+msgid "Place Aggregation"
+msgstr "Affichage des lieux"
+
+#: includes/php/config.php:91
+msgid "Show details for the places mentioned in posts/pages"
+msgstr "Montrer les détails pour les lieux mentionnés dans vos billets/pages"
+
+#: includes/php/config.php:94
+msgid "Hide vote button"
+msgstr "Cacher le bouton de vote"
+
+#: includes/php/config.php:97
+msgid "Hide place tags"
+msgstr "Cacher les balises (tags) des lieux"
+
+#: includes/php/config.php:100
+msgid "Hide place statistics"
+msgstr "Cacher les statistiques liées aux places"
+
+#: includes/php/config.php:103
+msgid ""
+"\n"
+"                        \tWhen selected, this option will aggregate all of the places embedded in blog posts or pages\n"
+"                        \tusing the Praized Tools, then list and <a href=\"http://microformats.net/\">microformat</a>\n"
+"                        \tthe locations' details at the end of the content body (only when viewing individual posts/pages).\n"
+"                        "
+msgstr ""
+"\n"
+"                        \tlorsque sélectionnée, cette option va identifier tous les lieux imbriqués dans les billets du blogue\n"
+"                        \tqui utilisent les Praized Tools, puis elle va les <a href=\"http://microformats.net/\">micro-formatter</a>\n"
+"                        \tet afficher en bas du billet dans un badge les détails des lieux mentionnés.\n"
+"                        "
+
+#: includes/php/config.php:114
+msgid "Button Theme"
+msgstr "Thème du bouton"
+
+#: includes/php/config.php:131
+#, php-format
+msgid "Currently using the <a href=\"%s\">Praized Community</a> settings"
+msgstr "Utilise présentement les options de la <a href=\"%s\">communauté Praized</a>"
+
+#: includes/php/config.php:152
+msgid "Data Caching"
+msgstr "Enregistrement en antémémoire (caching) des données"
+
+#: includes/php/config.php:161
+msgid "Enable Caching"
+msgstr "Activer l'antémémoire (caching)"
+
+#: includes/php/config.php:164
+msgid "Yes"
+msgstr "Oui"
+
+#: includes/php/config.php:169
+msgid "Cache for"
+msgstr "Antémémoire (cache) pour"
+
+#: includes/php/config.php:175
+msgid "No cache"
+msgstr "Pas d'antémémoire (cache)"
+
+#: includes/php/config.php:176
+msgid "minute"
+msgstr "minute"
+
+#: includes/php/config.php:177
+#: includes/php/config.php:178
+#: includes/php/config.php:179
+msgid "minutes"
+msgstr "minutes"
+
+#: includes/php/config.php:180
+msgid "hour"
+msgstr "heure"
+
+#: includes/php/config.php:181
+#: includes/php/config.php:182
+#: includes/php/config.php:183
+msgid "hours"
+msgstr "heures"
+
+#: includes/php/config.php:199
+msgid "Caching Notice"
+msgstr "Avis d'antémémoire (caching)"
+
+#: includes/php/praized-wp-core/PraizedWP.php:298
+msgid "Praized Plugin"
+msgstr "Plugiciel Praized"
+
+#: includes/php/praized-wp-core/PraizedWP.php:301
+msgid "Notices"
+msgstr "Notices"
+
+#: includes/php/praized-wp-core/PraizedWP.php:303
+msgid "Errors"
+msgstr "Erreurs"
+
+#: includes/php/praized-wp-core/PraizedWP.php:329
+#, php-format
+msgid ""
+"\n"
+"    \t\t\t\t<strong>WordPress Version Too Old:</strong>\n"
+"    \t\t\t\tThe Praized Plugins are only compatible with WordPress 2.1+ and are designed for use with the latest version of WordPress.\n"
+"    \t\t\t\tPlease <a href=\"%s\">upgrade to the latest version</a>.\n"
+"    \t\t\t"
+msgstr ""
+"\n"
+"    \t\t\t\t<strong>Votre version de WordPress n'est pas assez récente:</strong>\n"
+"    \t\t\t\tLes plugiciels de Praized sont compatibles seulement avec WordPress version 2.1 et plus et sont toujours optimisés pour être utilisés avec la version la plus récente de Wordpress.\n"
+"    \t\t\t\tVeuillez <a href=\"%s\">faire une mise à jour à la version la plus récente</a>.\n"
+"    \t\t\t"
+
+#: includes/php/praized-wp-core/PraizedWP.php:346
+#, php-format
+msgid ""
+"\n"
+"    \t\t\t\t<strong>Praized Plugin Incorrectly Installed:</strong>\n"
+"    \t\t\t\tThe Praized Plugins plugin must be installed to <code>%s</code> and it's directory structure intact.\n"
+"    \t\t\t\tYou will not be able to use the plugin until this is fixed.\n"
+"    \t\t\t"
+msgstr ""
+"\n"
+"    \t\t\t\t<strong>Ce plugiciel Praized n'est pas installé correctement:</strong>\n"
+"    \t\t\t\tCe plugiciel Praized doit être installé dans <code>%s</code> et sa structure de répertoire doit être intacte.\n"
+"    \t\t\t\tVous ne pourrez utiliser ce plugiciel jusqu'à ce que ce soit résolu.\n"
+"    \t\t\t"
+
+#: includes/php/praized-wp-core/PraizedWP.php:426
+msgid "Acknowledged"
+msgstr "Bien reçu"
+
+#: includes/php/praized-wp-core/PraizedWP.php:500
+#, php-format
+msgid "Requested Praized class not found inside %s."
+msgstr "La classe Praized demandée n'a été pas été trouvée dans %s."
+
+#: includes/php/praized-wp-core/PraizedWP.php:504
+#, php-format
+msgid "Requested Praized library not found in %s."
+msgstr "La librairie Praized demandée n'a pas été trouvée dans %s."
+
+#: includes/php/praized-wp-core/PraizedWP.php:555
+#, php-format
+msgid "<a href=\"%s\" target=\"_bank\">Wordpress caching</a> is currently disabled."
+msgstr "<a href=\"%s\" target=\"_bank\">L'antémémoire (caching) de Wordpress</a> n'est pas activée."
+
+#: includes/php/praized-wp-core/PraizedWP.php:561
+#, php-format
+msgid "The <a href=\"%s\" target=\"_bank\">caching functions</a> do not seem to be available in your Wordpress install."
+msgstr "La <a href=\"%s\" target=\"_bank\">fonction d'antémémoire (caching)</a> ne semble pas être disponible dans votre installation Wordpress."
+
+#: includes/php/praized-wp-core/PraizedWP.php:650
+msgid "Please be sure to fill all the required fields."
+msgstr "Veuillez remplir tous les champs requis."
+
+#: includes/php/praized-wp-core/PraizedWP.php:655
+msgid "Your configurations were successfully tested and saved."
+msgstr "Vos configurations ont été testées et sauvegardées avec succès."
+
+#: includes/php/praized-wp-core/PraizedWP.php:660
+msgid "NOTE: Although your credentials are fine, the community URL you provided when requesting your API key does not exactly match how your blog is setup, which might lead to issues with the dynamic vote button."
+msgstr "N.B.: Même si votre information est validée, l'URL de communauté que vous avez fourni lorsque vous avez demandé votre clé d'API n'est pas exactement fonctionnel avec la façon dont votre blogue est installé. Il se pourrait que le bouton de vote dynamique vous pose problème."
+
+#: includes/php/praized-wp-core/PraizedWP.php:662
+#, php-format
+msgid "%s vs. %s"
+msgstr "%s par rapport à %s"
+
+#: includes/php/praized-wp-core/PraizedWP.php:667
+#, php-format
+msgid "<a href=\"%s\">Contact us</a> for help with the above, if you notice problems when voting while logged out."
+msgstr "<a href=\"%s\">Contactez nous</a> pour de l'aide concernant le sujet ci-dessus si vous remarquez des problèmes avec les votes lorsque votre session est fermé."
+
+#: includes/php/praized-wp-core/PraizedWP.php:675
+msgid "Sorry, but we could not activate your access to the Praized API with the submitted information."
+msgstr "Désolé, mais nous n'avons pas pu activer l'accès à votre API de Praized avec l'information soumise."
+

@@ -1,0 +1,38 @@
+#pta_searchlet_ie_hack {
+	/* Note: most styles set in praized-tools-admin.js */
+}
+
+
+#pta_searchlet_screen {
+	/* Note: most styles set in praized-tools-admin.js */
+	background-color: #000;
+	opacity: 0.8;
+	-moz-opacity: 0.8;
+	filter:alpha(opacity=80);
+}
+
+#pta_searchlet_wrap {
+	/* Note: most styles set in praized-tools-admin.js */
+	text-align: left;
+}
+
+#pta_searchlet_iframe {
+	/* Note: most styles set in praized-tools-admin.js */
+	background-color: #fff;
+	border: 1px green solid;
+}
+
+.pta_widget_button {
+	padding: 3px 5px; -moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-top: 6px;
+	margin-right: 8px;
+	float: left;
+	text-decoration: none;
+	border: green 1px solid;
+	background-color: #ffc;
+	color: #903;
+	font-weight: bold;
+}
