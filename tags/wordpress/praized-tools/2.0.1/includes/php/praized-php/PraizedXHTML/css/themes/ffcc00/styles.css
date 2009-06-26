@@ -1,0 +1,11 @@
+html body .praized-vote-button, html body .praized-vote-button button.vote-option {
+	background-image:url(./button.gif);
+}
+
+html body .praized-vote-button-fr_FR, html body .praized-vote-button-fr_FR button.vote-option {
+	background-image:url(./button-fr_FR.gif);
+}
+
+html body .praized-vote-button, html body .praized-vote-button abbr {
+	color:#333;
+}
