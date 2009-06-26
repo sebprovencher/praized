@@ -1,0 +1,22 @@
+
+@import url("./vote_layout.css");
+
+a.praized-badge{color:#fff;border:0;display:block;float:left;position:relative;font-weight:normal;font-size:15px;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;background:transparent url('http://static.praized.com/praized-com/images/badges/two-arrow-green-grey-sprite-badge-113x70-en.gif') no-repeat scroll;width:115px;height:35px;line-height:15px;cursor:pointer;max-height:35px;}
+a.praized-badge-fr_FR{background:transparent url('http://static.praized.com/praized-com/images/badges/two-arrow-green-grey-sprite-badge-113x70-fr_FR.gif') no-repeat scroll;}
+
+.praized-badge:hover{border:0;background-position: 0px -35px;text-decoration:none;}
+.praized-badge .praized-badge-score{border:0;display:block;float:left;position:relative;font-weight:normal;font-size:95%;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;width:28px;color:#009900;line-height:15px;padding-top:3px;padding-left:3px;}
+.praized-badge .praized-nominator{border:0;display:block;float:left;position:relative;font-weight:bold;font-size:100%;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;width:28px;height:13px;line-height:15px;border-bottom:2px solid #999;text-align:center;}
+.praized-badge .praized-denominator{border:0;display:block;float:left;position:relative;font-weight:bold;font-size:75%;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;width:28px;height:13px;line-height:13px;text-align:center;color:#666;}
+.praized-badge .praized-descriptor{border:0;display:block;float:left;position:relative;font-weight:bold;font-size:85%;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;width:65px;line-height:13px;color:#333;text-align:center;padding-top:5px;}
+.praized-badge .praized-brand{border:0;display:block;float:none;font-weight:bold;font-size:100%;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;}
+.praized-badge .praized-this{border:0;display:block;float:none;font-weight:bold;font-size:90%;font-family:Helvetica, Verdana, sans-serif;white-space:normal;padding:0;margin:0;vertical-align:baseline;overflow:hidden;text-decoration:none;color:#666;}
+
+.praized-inline-merchant-container{vertical-align: baseline; line-height: inherit;}
+.praized-inline-merchant-arrow{border: 0pt none; margin: 0pt 0.5em 0pt 2px; padding: 0pt; vertical-align: baseline; display: inline;float:inherit}
+
+.praized-xhtml-merchant-hcard {margin: 5px 0 10px 0}
+.praized-xhtml-merchant-hcard h4{font-weight:bold; font-size: larger; padding: 5px;height:1.5em;margin:0;}
+.praized-xhtml-adr{margin-left:110px;margin-top:-5px;}
+
+html body .praized-xhtml-merchant-hcard {position:relative;} 

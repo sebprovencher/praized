@@ -1,0 +1,1353 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Praized Community\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/praized-community\n"
+"POT-Creation-Date: 2009-04-27 11:11-0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Stephane Daury <wordpress @ tekartist . org>\n"
+"Language-Team: Praized Media <help@praizedmedia.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: CANADA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: includes/php/PraizedCommunity.php:614
+#, php-format
+msgid "Be sure to try the new, less intrusive overlay login functionality (see <em>\"Behavior and Interface Options\"</em> in the <a href=\"%s/options-general.php?page=%s/%s.php\">plugin's admin screen</a>."
+msgstr "Essayez notre nouvelle fonctionalité d'ouverture de session (log-in) en surimpression (voir <em>\"Options de comportement et d'interface\"</em> dans l'écran <a href=\"%s/options-general.php?page=%s/%s.php\">d'administration du plugiciel</a>."
+
+#: includes/php/PraizedCommunity.php:620
+msgid "We have also updated the default layout for place and user profiles with a tabbed interface, which you might want to syncronize with IF you had previously opted to customize the said templates for your own blog."
+msgstr "Nous avons aussi mis à jour la mise en page par défaut pour les profils de lieux et d'utilisateurs. Ils comportent maintenant une interface à onglets que vous voudrez peut-être ajuster SI vous aviez personnalisé ces gabarits pour votre site."
+
+#: includes/php/PraizedCommunity.php:627
+#, php-format
+msgid "Please note that we've added a <a href=\"%s\">new sidebar widget</a>."
+msgstr "Veuillez noter que nous avons ajouté un <a href=\"%s\">nouveau gadget logiciel pour la section encadrée (sidebar)</a>."
+
+#: includes/php/PraizedCommunity.php:631
+msgid "We've removed the main sections links from the existing \"<strong>Praized: Session</strong>\" widget and separated them in their own \"<strong>Praized: Sections</strong>\" widget so you have more control over their placement."
+msgstr "Nous avons retiré les liens de sections principales de la plateforme Praized du gadget logiciel \"<strong>Praized: Session</strong>\" et avons créé un nouveau gadget appelé \"<strong>Praized: Sections</strong>\" pour vous donner plus de contrôle sur leur placement."
+
+#: includes/php/PraizedCommunity.php:658
+#, php-format
+msgid "Please submit a value for the \"%s\" form field."
+msgstr "Veuillez soumettre une valeur pour le champ \"%s\""
+
+#: includes/php/PraizedCommunity.php:661
+msgid "Community"
+msgstr "Communauté"
+
+#: includes/php/PraizedCommunity.php:663
+#: includes/php/config.php:32
+msgid "API Key"
+msgstr "Clé d'API"
+
+#: includes/php/PraizedCommunity.php:665
+#: includes/php/config.php:41
+msgid "OAuth Consumer Key"
+msgstr "Clé de client OAuth"
+
+#: includes/php/PraizedCommunity.php:667
+#: includes/php/config.php:50
+msgid "OAuth Consumer Secret"
+msgstr "Secret client OAuth"
+
+#: includes/php/PraizedCommunity.php:669
+#: includes/php/config.php:65
+msgid "URL Trigger"
+msgstr "Déclencheur URL"
+
+#: includes/php/PraizedCommunity.php:707
+#, php-format
+msgid "Thank you for installing the <strong>Praized Community</strong> plugin. To finalize the installation, please take the time to <a href=\"%s\">configure the last few details</a> and request your <a href=\"%s\">Praized API key</a>."
+msgstr "Merci d'avoir installé le plugiciel <strong>Praized Community</strong>. Pour finaliser son installation, veuillez <a href=\"%s\">configurer les derniers détailss</a> et demander votre <a href=\"%s\">clé d'API Praized API</a>."
+
+#: includes/php/PraizedCommunity.php:742
+#, php-format
+msgid "Please be sure to use mod_rewrite and, by extension, \"nice URLs\" (ie: not \"Default\") in the <a href=\"%s/options-permalink.php\">WordPress permalink structure</a> to setup your Praized Community.</p>"
+msgstr "Pour la mise en place de votre communauté Praized, veuillez vous assurer d'utiliser mod_rewrite et, par extension, \"nice URLs\" (c-a-d: pas \"Default\") dans la <a href=\"%s/options-permalink.php\">structure de permaliens WordPress</a>.</p>"
+
+#: includes/php/PraizedCommunity.php:765
+#: includes/php/PraizedCommunity.php:795
+#: includes/php/PraizedCommunity.php:825
+msgid "Widget Title"
+msgstr "Titre du gadget"
+
+#: includes/php/PraizedCommunity.php:892
+#: includes/php/PraizedCommunity.php:897
+#: includes/php/PraizedCommunity.php:3390
+msgid "everything"
+msgstr "Tous les résultats"
+
+#: includes/php/PraizedCommunity.php:893
+#: includes/php/PraizedCommunity.php:901
+#: includes/php/PraizedCommunity.php:3398
+msgid "everywhere"
+msgstr "partout"
+
+#: includes/php/PraizedCommunity.php:906
+msgid "Tag"
+msgstr "Balise"
+
+#: includes/php/PraizedCommunity.php:937
+#: includes/php/templates/_section_nav.php:16
+msgid "The Local Buzz"
+msgstr "Les Échos Locaux"
+
+#: includes/php/PraizedCommunity.php:939
+msgid "Local Questions &amp; Answers"
+msgstr "Questions et Réponses Locales"
+
+#: includes/php/PraizedCommunity.php:942
+#: includes/php/templates/answer/_details.php:17
+#: includes/php/templates/answer/_details.php:38
+#: includes/php/templates/answer/_details.php:66
+#: includes/php/templates/question/_details.php:32
+msgid "answer"
+msgstr "réponse"
+
+#: includes/php/PraizedCommunity.php:942
+msgid "answers"
+msgstr "réponses"
+
+#: includes/php/PraizedCommunity.php:943
+msgid "Question:"
+msgstr "Question:"
+
+#: includes/php/PraizedCommunity.php:945
+msgid "Answer:"
+msgstr "Réponse:"
+
+#: includes/php/PraizedCommunity.php:1311
+msgid "Validation Errors"
+msgstr "Erreurs de validation"
+
+#: includes/php/PraizedCommunity.php:1315
+msgid "Missing value:"
+msgstr "Valeur manquante:"
+
+#: includes/php/PraizedCommunity.php:1321
+msgid "Error:"
+msgstr "Erreur:"
+
+#: includes/php/PraizedCommunity.php:1326
+msgid "Your information was saved sucessfully"
+msgstr "Votre information a été sauvegardée"
+
+#: includes/php/PraizedCommunity.php:1331
+msgid "Confirmation"
+msgstr "Confirmation"
+
+#: includes/php/PraizedCommunity.php:1334
+msgid "Your information was updated successfully."
+msgstr "Votre information a été mise à jour."
+
+#: includes/php/PraizedCommunity.php:1338
+msgid "Note:"
+msgstr "Note :"
+
+#: includes/php/PraizedCommunity.php:1571
+#, php-format
+msgid "An email with instructions on how to complete your password reset was sent to %s."
+msgstr "Un courriel avec les instructions pour finaliser la remise à jour de votre mot de passe vous a été envoyé à %s."
+
+#: includes/php/PraizedCommunity.php:1576
+msgid "No user with this e-mail was found. Please enter the same e-mail address you provided when you signed up"
+msgstr "Aucun usager avec cette adresse courriel n'a été retrouvé. Veuillez utiliser l'adresse courriel de votre inscription originale."
+
+#: includes/php/PraizedCommunity.php:1582
+msgid "Please enter the same e-mail address you provided when you signed up"
+msgstr "Veuillez utiliser l'adresse courriel de votre inscription originale."
+
+#: includes/php/PraizedCommunity.php:1592
+msgid "Your password was reset successfully."
+msgstr "Votre mot de passe a été remis à jour."
+
+#: includes/php/PraizedCommunity.php:1596
+#, php-format
+msgid "We could not reset your password. Either the confirmation code is not valid or the passwords did not match. For any question, please <a href=\"mailto:%s\">contact us</a>"
+msgstr "Nous n'avons pas pu remettre à jour votre mot de passe. Soit que le code confirmation est non-valide ou que nous n'avons pas réussi l'appariement des mots de passe. Pour toutes questions, veuillez nous <a href=\"mailto:%s\">contacter</a>"
+
+#: includes/php/PraizedCommunity.php:1609
+#, php-format
+msgid "We have resent an email confirmation message to \"%s\""
+msgstr "Nous avons renvoyé un courriel de confirmation à \"%s\""
+
+#: includes/php/PraizedCommunity.php:1615
+#, php-format
+msgid "Sorry, but something went wrong. Please contact <a href=\"mailto:%s\">contact us</a>"
+msgstr "Désolé, mais quelque chose ne tourne pas rond. Veuillez nous <a href=\"mailto:%s\">contacter</a>"
+
+#: includes/php/PraizedCommunity.php:1626
+#, php-format
+msgid "Your email address \"%s\" has been confirmed"
+msgstr "Votre adresse courriel \"%s\" a été confirmée"
+
+#: includes/php/PraizedCommunity.php:1632
+#, php-format
+msgid "We could not confirm your email address. Your email address is either already confirmed or the confirmation code is not valid. For any question, please <a href=\"mailto:%s\">contact us</a>"
+msgstr "Nous n'avons pu confirmer votre adresse courriel. Elle est soit déjà confirmée ou le code de confirmation est invalide. Pour toutes questions, veuillez nous <a href=\"mailto:%s\">contacter</a>"
+
+#: includes/php/PraizedCommunity.php:1698
+msgid "Sorry, but we could not delete your avatar at this time. Please try again later."
+msgstr "Désolé, mais nous n'avons pas pu mettre à jour votre avatar. Veuillez essayer à nouveau."
+
+#: includes/php/PraizedCommunity.php:1703
+msgid "If you do not see any changes in your avatar yet, they will appear within a couple of minutes."
+msgstr "Si vouz ne voyez pas de changements dans votre avatar tout de suite, ils vont apparaître d'ici une à deux minutes."
+
+#: includes/php/PraizedCommunity.php:1717
+msgid "Your password was updated successfully."
+msgstr "Votre mot de passe a été mis à jour."
+
+#: includes/php/PraizedCommunity.php:1771
+msgid "Sorry, but the email address you entered does not match a recognized format."
+msgstr "Désolé, mais l'adresse de courriel que vous avez entré ne se conforme pas à un format reconnu."
+
+#: includes/php/PraizedCommunity.php:3018
+msgid "This answer has been deleted."
+msgstr "Cette réponse a été effacée."
+
+#: includes/php/PraizedCommunity.php:3037
+msgid "Suggested places"
+msgstr "Lieux suggérés"
+
+#: includes/php/PraizedCommunity.php:3060
+msgid "You must login before you can vote! - Just click, we'll take you there and back!"
+msgstr "Vous devez ouvrir une session pour voter! - Cliquez pour le faire."
+
+#: includes/php/PraizedCommunity.php:3061
+msgid "Vote Up"
+msgstr "Votez pour"
+
+#: includes/php/PraizedCommunity.php:3062
+msgid "Vote Down"
+msgstr "Votez contre"
+
+#: includes/php/PraizedCommunity.php:3096
+msgid "Previous"
+msgstr "Précédent"
+
+#: includes/php/PraizedCommunity.php:3099
+msgid "Next"
+msgstr "Suivant"
+
+#: includes/php/PraizedCommunity.php:3134
+msgid "click the map for a dynamic version"
+msgstr "cliquer la carte pour obtenir une version dynamique"
+
+#: includes/php/PraizedCommunity.php:3135
+msgid "Google Map"
+msgstr "Carte Google"
+
+#: includes/php/PraizedCommunity.php:3379
+#, php-format
+msgid "for the tag \"<strong>%s</strong>\""
+msgstr "pour la balise \"<strong>%s</strong>\""
+
+#: includes/php/PraizedCommunity.php:3384
+#, php-format
+msgid "for \"<strong>%s</strong>\""
+msgstr "pour \"<strong>%s</strong>\""
+
+#: includes/php/PraizedCommunity.php:3393
+#, php-format
+msgid "in <strong>%s</strong>"
+msgstr "à <strong>%s</strong>"
+
+#: includes/php/PraizedCommunity.php:3401
+#, php-format
+msgid "We found <strong>%s results</strong> %s %s."
+msgstr "Nous avons trouvé <strong>%s résultats</strong> %s %s."
+
+#: includes/php/PraizedCommunity.php:3432
+msgid "Other related places"
+msgstr "Autres réponses possibles"
+
+#: includes/php/PraizedCommunity.php:3490
+msgid "Praized: Search"
+msgstr "Praized: Recherche"
+
+#: includes/php/PraizedCommunity.php:3517
+msgid "Praized: Session"
+msgstr "Praized: Session"
+
+#: includes/php/PraizedCommunity.php:3544
+msgid "Praized: Sections"
+msgstr "Praized: Sections"
+
+#: includes/php/config.php:14
+msgid "Praized Community Options"
+msgstr "Options de votre communauté Praized"
+
+#: includes/php/config.php:16
+msgid "API Connectivity"
+msgstr "Connectivité avec l'API"
+
+#: includes/php/config.php:18
+msgid "The following information (Community, API and OAuth details) is provided to you by <a href=\"http://praizedmedia.com/\">Praized Media</a> when you <a href=\"http://praizedmedia.com/en/api\">request access to our API</a>."
+msgstr "L'information suivante (Communauté, API et détails OAuth ) vous sera procurée par <a href=\"http://praizedmedia.com/fr/\">Praized Média</a> quand vous <a href=\"http://praizedmedia.com/fr/api/\"> faites la demande d'accès à notre API</a>."
+
+#: includes/php/config.php:23
+msgid "Community Slug"
+msgstr "Identificateur de communauté"
+
+#: includes/php/config.php:27
+#: includes/php/config.php:36
+#: includes/php/config.php:45
+#: includes/php/config.php:54
+#: includes/php/config.php:70
+msgid "required"
+msgstr "requis"
+
+#: includes/php/config.php:59
+#: includes/php/config.php:98
+#: includes/php/config.php:190
+#: includes/php/config.php:238
+msgid "Save Config"
+msgstr "Sauvegarder la configuration"
+
+#: includes/php/config.php:61
+msgid "Permalink Structure"
+msgstr "Structure de permalien"
+
+#: includes/php/config.php:73
+msgid "Define where in your WordPress install the Praized Community plugin should be integrated."
+msgstr "Definissez à quel endroit le plugiciel Praized Community devrait être intégré dans votre installation Wordpress."
+
+#: includes/php/config.php:76
+#, php-format
+msgid "For example, \"/praized\" or \"/local\", or use \"/\" if you want your section at the <a href=\"%s\">root of your Wordpress install</a>."
+msgstr "Par exemple, \"/praized\" ou \"/local\", ou utilisez \"/\" si vous voulez que votre annuaire local apparaisse à la <a href=\"%s\">racine de votre installation Wordpress</a>."
+
+#: includes/php/config.php:80
+msgid "Important: This value must match the information you provided when registering your community with Praized Media."
+msgstr "Important: cette valeur doit être identique à l'information que vous nous avez procuré lorsque vous avez enregistré votre communauté avec Praized Média."
+
+#: includes/php/config.php:84
+#, php-format
+msgid "<p><strong><a href=\"%s%s\">View your Praized community.</a></strong></p>"
+msgstr "<p><strong><a href=\"%s%s\">Visualisez votre communauté Praized.</a></strong></p>"
+
+#: includes/php/config.php:89
+#, php-format
+msgid "<p><strong>Tip</strong>: You can <a href=\"%s\">create a page</a> matching the above URL for your community to appear in your standard WordPress navigation. Simply match the permalink and add the title you want to see in your page navigation list.</p>"
+msgstr "<p><strong>Conseil</strong>: vous pouvez <a href=\"%s\">créer une page</a> assortie à l'adresse URL ci-dessus pour que votre communauté apparaisse dans la navigation sur Wordpress. Vous n'avez qu'à apparier le permalien et ajouter le titre que vous voulez voir dans votre liste de pages.</p>"
+
+#: includes/php/config.php:100
+msgid "Behavior and Interface Customization"
+msgstr "Personnalisation de l'interface et des fonctionnalités"
+
+#: includes/php/config.php:104
+msgid "Default View"
+msgstr "Vue par défaut"
+
+#: includes/php/config.php:121
+#: includes/php/templates/merchant/_actions.php:19
+#: includes/php/templates/merchant/_profile.php:68
+#: includes/php/templates/user/_actions.php:21
+#: includes/php/templates/user/_profile.php:66
+msgid "Activity Stream"
+msgstr "Flux d'activités"
+
+#: includes/php/config.php:122
+#: includes/php/templates/_section_nav.php:17
+msgid "Questions &amp; Answers"
+msgstr "Questions et Réponses"
+
+#: includes/php/config.php:123
+#: includes/php/templates/_section_nav.php:15
+msgid "Top Places"
+msgstr "Meilleurs lieux"
+
+#: includes/php/config.php:129
+msgid "Default Search"
+msgstr "Recherche par défaut"
+
+#: includes/php/config.php:132
+msgid "Look for"
+msgstr "Rechercher"
+
+#: includes/php/config.php:133
+#: includes/php/templates/user/_edit.php:130
+msgid "City"
+msgstr "Ville"
+
+#: includes/php/config.php:138
+msgid "Overlay Login"
+msgstr "fonctionalité d'ouverture de session (log-in) en surimpression"
+
+#: includes/php/config.php:143
+msgid "Use overlay login instead of redirecting the entire page."
+msgstr "Utilisez la fonctionalité d'ouverture de session (log-in) en surimpression au lieu de rediriger la page entière"
+
+#: includes/php/config.php:146
+msgid ""
+"\n"
+"                        \tWhen selected, this option will make the Praized Network login and authorization proceed within\n"
+"                        \tan overlaid iframe instead of redirecting the entire page, for a less intrusive experience.\n"
+"                        "
+msgstr ""
+"\n"
+"                        \tLorsque sélectionnée, cette option active le nouveau système d'ouverture de session en surimpression (overlay) plutôt qu'une re-direction vers Praized.com.\n"
+"                        \tCela offre une bien meilleure expérience à l'utilisateur.\n"
+"                        "
+
+#: includes/php/config.php:157
+msgid "Button Theme"
+msgstr "Thème du bouton"
+
+#: includes/php/config.php:192
+msgid "Google Maps"
+msgstr "Cartes Google"
+
+#: includes/php/config.php:196
+msgid "Maps API Key"
+msgstr "Clé d'API des cartes"
+
+#: includes/php/config.php:203
+#, php-format
+msgid "Request your Google Maps API key by <a href=\"%s\" target=\"_blank\">visiting this link</a> if you would like to display maps alongside your Praized place listings. This integration is optional, but creates a better user experience (and is a simple two-step process)."
+msgstr "Demandez votre clé d'API des cartes Google en <a href=\"%s\" target=\"_blank\">visitant ce lien</a> si vous voulez afficher une carte dans les pages profils de lieux. Cette intégration est optionnelle mais offre une meilleure expérience utilisateur (et est très rapide à obtenir)."
+
+#: includes/php/config.php:213
+msgid "Dimensions"
+msgstr "Dimensions"
+
+#: includes/php/config.php:217
+msgid "Width:"
+msgstr "Largeur:"
+
+#: includes/php/config.php:220
+msgid "Height:"
+msgstr "Hauteur:"
+
+#: includes/php/config.php:222
+msgid "(Default: 470x200. Maximum: 640x640)"
+msgstr "(Par défaut: 470x200. Maximum: 640x640)"
+
+#: includes/php/config.php:228
+msgid "Zoom Level"
+msgstr "Niveau de zoom"
+
+#: includes/php/config.php:233
+msgid "(Default: 15. Definition: 0=far, 19=close)"
+msgstr "(Par défaut: 15. Définition: 0=loin, 19=proche)"
+
+#: includes/php/functions/helpers.php:113
+msgid "%a, %B %e %Y, %H:%M:%S"
+msgstr "%a, %B %e %Y, %H:%M:%S"
+
+#: includes/php/functions/helpers.php:131
+#, php-format
+msgid "less than %d seconds ago"
+msgstr "il y a moins de %d secondes"
+
+#: includes/php/functions/helpers.php:132
+msgid "less than a minute ago"
+msgstr "il y a moins d'une minute"
+
+#: includes/php/functions/helpers.php:133
+msgid "1 minute ago"
+msgstr "il y a 1 minute"
+
+#: includes/php/functions/helpers.php:134
+#, php-format
+msgid "%d minutes ago"
+msgstr "il y a %d minutes"
+
+#: includes/php/functions/helpers.php:135
+msgid "about 1 hour ago"
+msgstr "il y a environ 1 heure"
+
+#: includes/php/functions/helpers.php:136
+#, php-format
+msgid "about %d hours ago"
+msgstr "il y a environ %d heures"
+
+#: includes/php/functions/helpers.php:137
+msgid "1 day ago"
+msgstr "il y a un jour"
+
+#: includes/php/functions/helpers.php:138
+#, php-format
+msgid "%d days ago"
+msgstr "il y a %d jours"
+
+#: includes/php/functions/helpers.php:139
+msgid "about 1 month ago"
+msgstr "il y a 1 mois"
+
+#: includes/php/functions/helpers.php:140
+#, php-format
+msgid "%d months ago"
+msgstr "il y a %d mois"
+
+#: includes/php/functions/helpers.php:141
+msgid "about 1 year ago"
+msgstr "il y a environ 1 an"
+
+#: includes/php/functions/helpers.php:142
+msgid "over 1 year ago"
+msgstr "il y a plus d'un an"
+
+#: includes/php/functions/helpers.php:143
+#, php-format
+msgid "over %d years ago"
+msgstr "il y a plus de %d ans"
+
+#: includes/php/functions/helpers.php:240
+msgid "Powered by <a href=\"http://praizedmedia.com/\">Praized Media</a>. US data provided by Localeze. Canadian business listings distributed by <a href=\"http://www.yellowpages.ca\">YellowPages.ca™</a>."
+msgstr "Propulsé par <a href=\"http://praizedmedia.com/fr/\">Praized Média</a>. Données US fournies par Localeze. Informations sur les entreprises canadiennes distribuées par <a href=\"http://www.pagesjaunes.ca\">PagesJaunes.ca™</a>."
+
+#: includes/php/functions/questions.php:57
+msgid "good"
+msgstr "bon"
+
+#: includes/php/functions/questions.php:57
+msgid "cheap"
+msgstr "bon"
+
+#: includes/php/functions/questions.php:57
+msgid "fancy"
+msgstr "bon"
+
+#: includes/php/functions/questions.php:57
+msgid "respectable"
+msgstr "bon"
+
+#: includes/php/functions/questions.php:58
+msgid "restaurant"
+msgstr "restaurant"
+
+#: includes/php/functions/questions.php:58
+msgid "cafe"
+msgstr "café"
+
+#: includes/php/functions/questions.php:58
+msgid "mechanic"
+msgstr "mécanicien"
+
+#: includes/php/functions/questions.php:59
+msgid "Montreal"
+msgstr "Montréal"
+
+#: includes/php/functions/questions.php:59
+msgid "San Francisco"
+msgstr "San Francisco"
+
+#: includes/php/functions/questions.php:59
+msgid "New York"
+msgstr "New York"
+
+#: includes/php/praized-wp-core/PraizedWP.php:298
+msgid "Praized Plugin"
+msgstr "Plugiciel Praized"
+
+#: includes/php/praized-wp-core/PraizedWP.php:301
+msgid "Notices"
+msgstr "Avertissements"
+
+#: includes/php/praized-wp-core/PraizedWP.php:303
+msgid "Errors"
+msgstr "Erreurs"
+
+#: includes/php/praized-wp-core/PraizedWP.php:329
+#, php-format
+msgid ""
+"\n"
+"    \t\t\t\t<strong>WordPress Version Too Old:</strong>\n"
+"    \t\t\t\tThe Praized Plugins are only compatible with WordPress 2.1+ and are designed for use with the latest version of WordPress.\n"
+"    \t\t\t\tPlease <a href=\"%s\">upgrade to the latest version</a>.\n"
+"    \t\t\t"
+msgstr ""
+"\n"
+"    \t\t\t\t<strong>Votre version de WordPress n'est pas assez récente:</strong>\n"
+"    \t\t\t\tLes plugiciels Praized sont seulement compatibles avec WordPress 2.1+ et sont optimisés pour la dernière version de WordPress.\n"
+"    \t\t\t\tVeuillez <a href=\"%s\">effectuer une mise à jour vers la version actuelle</a>.\n"
+"    \t\t\t"
+
+#: includes/php/praized-wp-core/PraizedWP.php:346
+#, php-format
+msgid ""
+"\n"
+"    \t\t\t\t<strong>Praized Plugin Incorrectly Installed:</strong>\n"
+"    \t\t\t\tThe Praized Plugins plugin must be installed to <code>%s</code> and it's directory structure intact.\n"
+"    \t\t\t\tYou will not be able to use the plugin until this is fixed.\n"
+"    \t\t\t"
+msgstr ""
+"\n"
+"    \t\t\t\t<strong>Le plugiciel Praized est mal installé:</strong>\n"
+"    \t\t\t\tLe plugiciel Praized doit être installé dans <code>%s</code> et doit conserver sa structure de répertoire intacte.\n"
+"    \t\t\t\tVous ne pourrez utiliser ce plugiciel jusqu'à ce que ce problème soit résolu.\n"
+"    \t\t\t"
+
+#: includes/php/praized-wp-core/PraizedWP.php:426
+msgid "Acknowledged"
+msgstr "Bien reçu"
+
+#: includes/php/praized-wp-core/PraizedWP.php:500
+#, php-format
+msgid "Requested Praized class not found inside %s."
+msgstr "La classe Praized demandée n'a été pas été trouvée dans %s."
+
+#: includes/php/praized-wp-core/PraizedWP.php:504
+#, php-format
+msgid "Requested Praized library not found in %s."
+msgstr "La librairie Praized demandée n'a pas été trouvée dans %s."
+
+#: includes/php/praized-wp-core/PraizedWP.php:555
+#, php-format
+msgid "<a href=\"%s\" target=\"_bank\">Wordpress caching</a> is currently disabled."
+msgstr "<a href=\"%s\" target=\"_bank\">L'antémémoire (caching) de Wordpress</a> n'est pas activée."
+
+#: includes/php/praized-wp-core/PraizedWP.php:561
+#, php-format
+msgid "The <a href=\"%s\" target=\"_bank\">caching functions</a> do not seem to be available in your Wordpress install."
+msgstr "La <a href=\"%s\" target=\"_bank\">fonction d'antémémoire (caching)</a> ne semble pas être disponible dans votre installation Wordpress."
+
+#: includes/php/praized-wp-core/PraizedWP.php:650
+msgid "Please be sure to fill all the required fields."
+msgstr "Veuillez remplir tous les champs requis."
+
+#: includes/php/praized-wp-core/PraizedWP.php:655
+msgid "Your configurations were successfully tested and saved."
+msgstr "Vos configurations ont été testées et sauvegardées avec succès."
+
+#: includes/php/praized-wp-core/PraizedWP.php:660
+msgid "NOTE: Although your credentials are fine, the community URL you provided when requesting your API key does not exactly match how your blog is setup, which might lead to issues with the dynamic vote button."
+msgstr "N.B.: Même si votre information est validée, l'URL de communauté que vous avez fourni lorsque vous avez demandé votre clé d'API n'est pas exactement fonctionnel avec la façon dont votre blogue est installé. Il se pourrait que le bouton de vote dynamique vous pose problème."
+
+#: includes/php/praized-wp-core/PraizedWP.php:662
+#, php-format
+msgid "%s vs. %s"
+msgstr "%s par rapport à %s"
+
+#: includes/php/praized-wp-core/PraizedWP.php:667
+#, php-format
+msgid "<a href=\"%s\">Contact us</a> for help with the above, if you notice problems when voting while logged out."
+msgstr "<a href=\"%s\">Contactez nous</a> pour de l'aide concernant le sujet ci-dessus si vous remarquez des problèmes avec les votes lorsque votre session est fermé."
+
+#: includes/php/praized-wp-core/PraizedWP.php:675
+msgid "Sorry, but we could not activate your access to the Praized API with the submitted information."
+msgstr "Désolé, mais nous n'avons pas pu activer l'accès à votre API de Praized avec l'information soumise."
+
+#: includes/php/templates/_auth_nav.php:16
+msgid "Hi"
+msgstr "Bonjour"
+
+#: includes/php/templates/_auth_nav.php:17
+#: includes/php/templates/_auth_nav.php:24
+msgid "Add a place"
+msgstr "Ajouter un endroit"
+
+#: includes/php/templates/_auth_nav.php:18
+msgid "Manage Profile"
+msgstr "Gérer votre profil utilisateur"
+
+#: includes/php/templates/_auth_nav.php:19
+#: includes/php/templates/_auth_nav.php:25
+msgid "Help"
+msgstr "Aide"
+
+#: includes/php/templates/_auth_nav.php:20
+msgid "Praized Logout"
+msgstr "Fermer votre session Praized"
+
+#: includes/php/templates/_auth_nav.php:22
+msgid "Praized Login"
+msgstr "Ouvrir votre session Praized"
+
+#: includes/php/templates/_auth_nav.php:23
+msgid "Join"
+msgstr "Créer un compte"
+
+#: includes/php/templates/_search_form.php:17
+msgid "Look for:"
+msgstr "Rechercher:"
+
+#: includes/php/templates/_search_form.php:21
+msgid "City:"
+msgstr "Ville:"
+
+#: includes/php/templates/_search_form.php:24
+msgid "Find"
+msgstr "Trouver"
+
+#: includes/php/templates/_section_nav.php:19
+#: includes/php/templates/merchant/_communities.php:19
+#: includes/php/templates/merchant/_profile.php:60
+#: includes/php/templates/merchant/_profile.php:188
+#: includes/php/templates/user/_communities.php:19
+#: includes/php/templates/user/_profile.php:58
+#: includes/php/templates/user/_profile.php:233
+msgid "Communities"
+msgstr "Communautés"
+
+#: includes/php/templates/action/_entry.php:32
+#: includes/php/templates/answer/_details.php:25
+#: includes/php/templates/answer/_details.php:40
+#: includes/php/templates/answer/_details.php:68
+#: includes/php/templates/merchant/_comments.php:29
+#: includes/php/templates/merchant/_profile.php:78
+#: includes/php/templates/merchant/_profile.php:139
+#: includes/php/templates/merchant/_profile.php:168
+#: includes/php/templates/merchant/_votes.php:35
+#: includes/php/templates/question/_details.php:22
+#: includes/php/templates/question/_details.php:34
+#: includes/php/templates/question/_list.php:39
+#: includes/php/templates/user/_comments.php:43
+#: includes/php/templates/user/_profile.php:76
+#: includes/php/templates/user/_profile.php:173
+#: includes/php/templates/user/_profile.php:214
+#: includes/php/templates/user/_votes.php:43
+msgid "via"
+msgstr "via"
+
+#: includes/php/templates/action/_no_results.php:15
+msgid "There is no activity in this community yet."
+msgstr "Il n'y a pas encore d'activités dans cette communauté."
+
+#: includes/php/templates/action/_no_results.php:16
+#: includes/php/templates/merchant/_no_results.php:26
+msgid "Search for your favorite places and start <em>praizing</em>!"
+msgstr "Recherchez vos endroit favoris et commencer à <em>voter pour eux</em>!"
+
+#: includes/php/templates/answer/_details.php:17
+#: includes/php/templates/question/_details.php:16
+#, php-format
+msgid "<a href=\"%s\">%s</a>'s"
+msgstr "<a href=\"%s\">%s</a>'s"
+
+#: includes/php/templates/answer/_details.php:23
+#: includes/php/templates/question/_details.php:20
+#: includes/php/templates/question/_list.php:37
+msgid "asked"
+msgstr "a demandé"
+
+#: includes/php/templates/answer/_details.php:31
+#: includes/php/templates/question/_details.php:60
+msgid "The requested question cannot be found."
+msgstr "La question recherchée n'a pu être trouvée"
+
+#: includes/php/templates/answer/_details.php:38
+#: includes/php/templates/answer/_details.php:66
+#: includes/php/templates/question/_details.php:32
+#, php-format
+msgid "gave an <a href=\"%s\">%s</a>"
+msgstr "a donné une <a href=\"%s\">%s</a>"
+
+#: includes/php/templates/answer/_details.php:45
+#: includes/php/templates/answer/_details.php:73
+#: includes/php/templates/question/_details.php:39
+#: includes/php/templates/user/_edit.php:196
+msgid "Delete"
+msgstr "Effacer"
+
+#: includes/php/templates/answer/_details.php:58
+msgid "You can provide your own answer to this question by clicking here"
+msgstr "Donnez votre réponse à cette question en cliquant ici"
+
+#: includes/php/templates/answer/_details.php:61
+msgid "Other answers"
+msgstr "Autres réponses"
+
+#: includes/php/templates/answer/_details.php:89
+msgid "The requested answer cannot be found."
+msgstr "La réponse recherchée n'a pu être trouvée"
+
+#: includes/php/templates/answer/_form.php:48
+msgid "I want to suggest a place"
+msgstr "Je veux suggérer un endroit"
+
+#: includes/php/templates/answer/_form.php:49
+msgid "OR"
+msgstr "OU"
+
+#: includes/php/templates/answer/_form.php:50
+msgid "Give me a blank box"
+msgstr "Un champ de réponse libre"
+
+#: includes/php/templates/answer/_form.php:91
+#: includes/php/templates/question/_details.php:16
+#: includes/php/templates/question/_list.php:41
+msgid "Answer"
+msgstr "Réponse"
+
+#: includes/php/templates/answer/_form.php:95
+msgid "Post answer"
+msgstr "Afficher votre réponse"
+
+#: includes/php/templates/answer/_no_results.php:15
+msgid "No answers have been provided for this question yet."
+msgstr "Aucune réponse n'a été fournie jusqu'à maintenant."
+
+#: includes/php/templates/community/_list.php:14
+msgid ": All Communities"
+msgstr " : Toute les communautés"
+
+#: includes/php/templates/community/_no_results.php:14
+msgid "The community you are browsing does not have any sub-communities."
+msgstr "La communauté que vous naviguez n'a aucune sous-communauté."
+
+#: includes/php/templates/merchant/_actions.php:25
+#: includes/php/templates/merchant/_profile.php:85
+#: includes/php/templates/user/_actions.php:27
+#: includes/php/templates/user/_profile.php:83
+msgid "No activity"
+msgstr "Aucune activité"
+
+#: includes/php/templates/merchant/_actions.php:32
+#: includes/php/templates/merchant/_comment_form.php:48
+#: includes/php/templates/merchant/_comments.php:45
+#: includes/php/templates/merchant/_communities.php:34
+#: includes/php/templates/merchant/_favorites.php:34
+#: includes/php/templates/merchant/_profile.php:223
+#: includes/php/templates/merchant/_taggings.php:23
+#: includes/php/templates/merchant/_taggings_form.php:24
+#: includes/php/templates/merchant/_votes.php:50
+msgid "The requested merchant cannot be found."
+msgstr "Le marchand que vous cherchez n'a pu être trouvé."
+
+#: includes/php/templates/merchant/_comment_form.php:18
+msgid "Leave a comment"
+msgstr "Laissez un commentaire"
+
+#: includes/php/templates/merchant/_comment_form.php:26
+#, php-format
+msgid "You will be prompted to <a href=\"%s\">login</a> before your comment is saved."
+msgstr "On vous demandera <a href=\"%s\">d'ouvrir une session</a> avant d'afficher votre réponse."
+
+#: includes/php/templates/merchant/_comment_form.php:31
+#, php-format
+msgid "Authorized as <a href=\"%s\">%s</a>."
+msgstr "Identifié sous le nom <a href=\"%s\">%s</a>."
+
+#: includes/php/templates/merchant/_comment_form.php:42
+msgid "Add my comment"
+msgstr "Ajouter un commentaire"
+
+#: includes/php/templates/merchant/_comments.php:19
+#: includes/php/templates/merchant/_profile.php:58
+#: includes/php/templates/merchant/_profile.php:158
+#: includes/php/templates/user/_comments.php:21
+#: includes/php/templates/user/_profile.php:56
+#: includes/php/templates/user/_profile.php:192
+msgid "Comments"
+msgstr "Commentaires"
+
+#: includes/php/templates/merchant/_comments.php:25
+#: includes/php/templates/merchant/_profile.php:164
+msgid "says"
+msgstr "dit"
+
+#: includes/php/templates/merchant/_comments.php:36
+#: includes/php/templates/merchant/_profile.php:178
+#: includes/php/templates/user/_comments.php:50
+#: includes/php/templates/user/_profile.php:224
+msgid "No comment"
+msgstr "Aucun commentaire"
+
+#: includes/php/templates/merchant/_communities.php:27
+#: includes/php/templates/merchant/_profile.php:196
+#: includes/php/templates/user/_communities.php:27
+#: includes/php/templates/user/_profile.php:241
+msgid "No communities"
+msgstr "Aucune communauté"
+
+#: includes/php/templates/merchant/_favorites.php:19
+#: includes/php/templates/merchant/_profile.php:93
+msgid "Favorers"
+msgstr "l'ont préféré"
+
+#: includes/php/templates/merchant/_favorites.php:26
+#: includes/php/templates/merchant/_profile.php:114
+msgid "No favorer"
+msgstr "Personne ne préfère"
+
+#: includes/php/templates/merchant/_hcard.php:79
+msgid "favorers"
+msgstr "l'ont préféré"
+
+#: includes/php/templates/merchant/_hcard.php:81
+msgid "praizers"
+msgstr "praizeurs"
+
+#: includes/php/templates/merchant/_hcard.php:83
+msgid "comments"
+msgstr "commentaires"
+
+#: includes/php/templates/merchant/_hcard.php:93
+msgid "Remove from my favorites"
+msgstr "Enlever de mes favoris"
+
+#: includes/php/templates/merchant/_hcard.php:96
+msgid "Add to my favorites"
+msgstr "Ajouter à mes favoris"
+
+#: includes/php/templates/merchant/_no_results.php:19
+#, php-format
+msgid "We did not find this place in Praized. Our place database currently includes the US and Canada. If you’re searching in that region, you can try a new search or <a href=\"%s\">add a place</a> in the Praized database."
+msgstr "Nous n'avons pas trouvé cette place dans notre base de données. Celle-ci contient uniquement des places aux États-Unis et au Canada. Vous pouvez toutefois <a href=\"%s\">ajouter vous-même </a>  un lieu manquant et ce, n'importe où dans le monde."
+
+#: includes/php/templates/merchant/_no_results.php:25
+msgid "No places have been <em>praized</em> in this community yet."
+msgstr "Aucune interaction dans cette communauté jusqu'à maintenant."
+
+#: includes/php/templates/merchant/_profile.php:55
+#: includes/php/templates/user/_profile.php:52
+msgid "Activity"
+msgstr "Activité"
+
+#: includes/php/templates/merchant/_profile.php:56
+#: includes/php/templates/user/_favorites.php:21
+#: includes/php/templates/user/_profile.php:54
+#: includes/php/templates/user/_profile.php:117
+msgid "Favorites"
+msgstr "Favoris"
+
+#: includes/php/templates/merchant/_profile.php:57
+#: includes/php/templates/merchant/_profile.php:122
+#: includes/php/templates/merchant/_votes.php:19
+msgid "Praizers"
+msgstr "Praizeurs"
+
+#: includes/php/templates/merchant/_profile.php:83
+#: includes/php/templates/user/_profile.php:81
+msgid "See all activity"
+msgstr "Voir toute l'activité"
+
+#: includes/php/templates/merchant/_profile.php:111
+msgid "See all favorers"
+msgstr "Voir tout ceux qui l'ont préféré"
+
+#: includes/php/templates/merchant/_profile.php:147
+msgid "See all praizers"
+msgstr "Voir tous les praizeurs"
+
+#: includes/php/templates/merchant/_profile.php:150
+msgid "No praizer"
+msgstr "Aucun praizeur"
+
+#: includes/php/templates/merchant/_profile.php:175
+#: includes/php/templates/user/_profile.php:221
+msgid "See all comments"
+msgstr "Voir tous les commentaires"
+
+#: includes/php/templates/merchant/_profile.php:194
+#: includes/php/templates/user/_profile.php:239
+msgid "See all communities"
+msgstr "Voir toutes les communautés"
+
+#: includes/php/templates/merchant/_share.php:18
+msgid "twitter this"
+msgstr "Envoyez sur Twitter"
+
+#: includes/php/templates/merchant/_splinks.php:21
+msgid "Sponsored links"
+msgstr "Liens commandités"
+
+#: includes/php/templates/merchant/_taggings_form.php:16
+msgid "Add Tag (space-separated)"
+msgstr "Ajouter une balise (laissez un espace entre chacune)"
+
+#: includes/php/templates/merchant/_taggings_form.php:20
+msgid "Add my tag"
+msgstr "ajouter ma balise"
+
+#: includes/php/templates/merchant/_tags.php:17
+msgid "Tags:"
+msgstr "Balises:"
+
+#: includes/php/templates/merchant/_tags.php:23
+msgid "No tags."
+msgstr "Aucune balise."
+
+#: includes/php/templates/merchant/_tags.php:26
+msgid "add tags"
+msgstr "Ajouter une balise"
+
+#: includes/php/templates/merchant/_votes.php:43
+msgid "No praizers"
+msgstr "Aucun praizer"
+
+#: includes/php/templates/question/_details.php:16
+msgid "question"
+msgstr "question"
+
+#: includes/php/templates/question/_form.php:19
+msgid "Give me a guided box for my question"
+msgstr "Donnez-moi des champs structurés pour ma question"
+
+#: includes/php/templates/question/_form.php:20
+msgid "Give me a blank box for my question"
+msgstr "Donnez-moi un champ non-structuré pour ma question"
+
+#: includes/php/templates/question/_form.php:71
+msgid "Does anyone know a"
+msgstr "Me recommanderiez-vous un"
+
+#: includes/php/templates/question/_form.php:74
+msgid "in"
+msgstr "à"
+
+#: includes/php/templates/question/_form.php:93
+msgid "Add more networks"
+msgstr "Ajouter d'autres réseaux"
+
+#: includes/php/templates/question/_form.php:95
+msgid "Send via:"
+msgstr "Partager avec :"
+
+#: includes/php/templates/question/_form.php:99
+msgid "Ask"
+msgstr "Demandez"
+
+#: includes/php/templates/question/_list.php:16
+msgid "Looking for a particular place?"
+msgstr "Vous cherchez une place en particulier?"
+
+#: includes/php/templates/question/_list.php:16
+msgid "Ask your friends!"
+msgstr "Demandez à vos ami(e)s!"
+
+#: includes/php/templates/question/_list.php:22
+msgid "Got Answers?"
+msgstr "Vous avez des réponses?"
+
+#: includes/php/templates/question/_list.php:22
+msgid "Tackle a question."
+msgstr "Attaquez-vous à une question."
+
+#: includes/php/templates/question/_list.php:30
+msgid "No answers so far"
+msgstr "Aucune réponse jusqu'à maintenant"
+
+#: includes/php/templates/question/_list.php:32
+msgid "answer so far"
+msgstr "réponse jusqu'à maintenant"
+
+#: includes/php/templates/question/_list.php:33
+msgid "answers so far"
+msgstr "réponses jusqu'à maintenant"
+
+#: includes/php/templates/question/_no_results.php:15
+msgid "No questions have been asked in this community yet."
+msgstr "Aucune question n'a encore été demandée dans cette communauté"
+
+#: includes/php/templates/user/_actions.php:34
+#: includes/php/templates/user/_comments.php:58
+#: includes/php/templates/user/_communities.php:34
+#: includes/php/templates/user/_edit.php:464
+#: includes/php/templates/user/_favorites.php:52
+#: includes/php/templates/user/_friends.php:42
+#: includes/php/templates/user/_hcard.php:66
+#: includes/php/templates/user/_profile.php:267
+#: includes/php/templates/user/_votes.php:59
+msgid "The requested user cannot be found."
+msgstr "L'usager demandé n'a pu être trouvé"
+
+#: includes/php/templates/user/_confirm_email.php:15
+msgid "Email Confirmation"
+msgstr "Confirmation par courriel"
+
+#: includes/php/templates/user/_confirm_email.php:23
+#: includes/php/templates/user/_resend_email_confirmation.php:23
+#: includes/php/templates/user/_reset_password.php:64
+#, php-format
+msgid "<a href=\"%s\">Click here</a> to go back to your profile."
+msgstr "<a href=\"%s\">Cliquez ici</a> pour retourner à votre profil."
+
+#: includes/php/templates/user/_confirm_email.php:28
+#: includes/php/templates/user/_resend_email_confirmation.php:28
+#: includes/php/templates/user/_reset_password.php:69
+#, php-format
+msgid "<a href=\"%s\">Click here</a> to go back to our community's home page."
+msgstr "<a href=\"%s\">Cliquez ici</a> pour retourner à la page d'accueil de la communauté."
+
+#: includes/php/templates/user/_edit.php:18
+msgid "Profile Management"
+msgstr "Gestion du profil usager"
+
+#: includes/php/templates/user/_edit.php:20
+#: includes/php/templates/user/_forgot_password.php:22
+#: includes/php/templates/user/_reset_password.php:22
+msgid "Indicates required fields"
+msgstr "Dénote des champs obligatoires"
+
+#: includes/php/templates/user/_edit.php:49
+msgid "Profile"
+msgstr "Profil usager"
+
+#: includes/php/templates/user/_edit.php:50
+#: includes/php/templates/user/_edit.php:165
+msgid "Avatar"
+msgstr "Avatar"
+
+#: includes/php/templates/user/_edit.php:51
+#: includes/php/templates/user/_edit.php:325
+#: includes/php/templates/user/_edit.php:360
+msgid "Password"
+msgstr "Mot de passe"
+
+#: includes/php/templates/user/_edit.php:52
+msgid "Broadcast Settings"
+msgstr "Options de diffusion"
+
+#: includes/php/templates/user/_edit.php:78
+msgid "Personal Information"
+msgstr "Information personnelle"
+
+#: includes/php/templates/user/_edit.php:82
+msgid "First name"
+msgstr "Prénom"
+
+#: includes/php/templates/user/_edit.php:90
+msgid "Last name"
+msgstr "Nom"
+
+#: includes/php/templates/user/_edit.php:98
+#: includes/php/templates/user/_edit.php:287
+#: includes/php/templates/user/_forgot_password.php:29
+msgid "Email"
+msgstr "Courriel"
+
+#: includes/php/templates/user/_edit.php:112
+msgid "You will be sent an email to confirm your email address if it is changed."
+msgstr "Si vous changez votre adresse courriel, vous recevrez un courriel pour la confirmer de nouveau."
+
+#: includes/php/templates/user/_edit.php:115
+#, php-format
+msgid "New email address validation pending. Please check your email. You can also <a href=\"%s\">resend the address validation email</a> if needed."
+msgstr "En attente de validation d'une nouvelle adresse courriel. Vérifiez votre boîte de réception. Vous pouvez aussi <a href=\"%s\">envoyer de nouveau le courriel de validation</a> si nécessaire."
+
+#: includes/php/templates/user/_edit.php:126
+msgid "Other Information"
+msgstr "Autre information"
+
+#: includes/php/templates/user/_edit.php:138
+#: includes/php/templates/user/_hcard.php:35
+msgid "About"
+msgstr "À propos"
+
+#: includes/php/templates/user/_edit.php:146
+#: includes/php/templates/user/_hcard.php:41
+msgid "Claim to fame"
+msgstr "Ce qui vous démarque"
+
+#: includes/php/templates/user/_edit.php:154
+#: includes/php/templates/user/_edit.php:189
+#: includes/php/templates/user/_edit.php:212
+#: includes/php/templates/user/_edit.php:256
+#: includes/php/templates/user/_edit.php:418
+msgid "Submit"
+msgstr "Soumettre"
+
+#: includes/php/templates/user/_edit.php:161
+msgid "Manage Avatar"
+msgstr "Gestionnaire d'avatar"
+
+#: includes/php/templates/user/_edit.php:176
+msgid "Maximum size of 500 kb (Gif, Jpg, Png)"
+msgstr "Taille maximale: 500 kb (Gif, Jpg, Png)"
+
+#: includes/php/templates/user/_edit.php:181
+msgid "Current avatar"
+msgstr "Avatar actuel"
+
+#: includes/php/templates/user/_edit.php:192
+msgid "Remove Avatar"
+msgstr "Enlever l'avatar"
+
+#: includes/php/templates/user/_edit.php:209
+msgid "Check the checkbox to delete your avatar."
+msgstr "Cochez la case à cocher pour effacer votre avatar."
+
+#: includes/php/templates/user/_edit.php:219
+msgid "Change Password"
+msgstr "Changer votre mot de passe"
+
+#: includes/php/templates/user/_edit.php:223
+msgid "Old password"
+msgstr "Mot de passe actuel"
+
+#: includes/php/templates/user/_edit.php:231
+#: includes/php/templates/user/_reset_password.php:29
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: includes/php/templates/user/_edit.php:242
+msgid "between 6 and 40 characters"
+msgstr "entre 6 et 40 caractères"
+
+#: includes/php/templates/user/_edit.php:247
+#: includes/php/templates/user/_reset_password.php:45
+msgid "Confirm password"
+msgstr "Confirmer le mot de passe"
+
+#: includes/php/templates/user/_edit.php:255
+msgid "I Forgot my Password"
+msgstr "J'ai oublié mon mot de passe"
+
+#: includes/php/templates/user/_edit.php:283
+msgid "Notification Settings"
+msgstr "Options de notification"
+
+#: includes/php/templates/user/_edit.php:284
+msgid "Select how you would like to be notified for all new answers to your questions."
+msgstr "Sélectionnez vos options de notifications lorsque vous recevez une nouvelle réponse."
+
+#: includes/php/templates/user/_edit.php:289
+msgid "Twitter (check box and follow @<a href=\"http://twitter.com/praizedanswers\" target=\"_blank\">praizedanswers</a>)"
+msgstr "Twitter (cochez la boîte et suivez @<a href=\"http://twitter.com/praizedanswers\" target=\"_blank\">praizedanswers</a>)"
+
+#: includes/php/templates/user/_edit.php:294
+msgid "Microblogging Settings"
+msgstr "Options d'outils de microblogging"
+
+#: includes/php/templates/user/_edit.php:300
+msgid "FACEBOOK"
+msgstr "FACEBOOK"
+
+#: includes/php/templates/user/_edit.php:302
+msgid "To broadcast your questions via Facebook, please log-in to this site using Facebook Connect."
+msgstr "Pour diffuser vos questions sur Facebook, veuillez ouvrir une session en utilisant Facebook Connect."
+
+#: includes/php/templates/user/_edit.php:311
+msgid "TWITTER"
+msgstr "TWITTER"
+
+#: includes/php/templates/user/_edit.php:317
+#: includes/php/templates/user/_edit.php:352
+#: includes/php/templates/user/_edit.php:379
+msgid "Username"
+msgstr "Nom d'usager"
+
+#: includes/php/templates/user/_edit.php:338
+msgid "LACONICA / IDENTICA"
+msgstr "LACONICA / IDENTICA"
+
+#: includes/php/templates/user/_edit.php:344
+msgid "Laconica API URL"
+msgstr "URL d'API Laconica"
+
+#: includes/php/templates/user/_edit.php:373
+msgid "FRIENDFEED"
+msgstr "FRIENDFEED"
+
+#: includes/php/templates/user/_edit.php:388
+msgid "Remote Key"
+msgstr "Clé externe (remote key)"
+
+#: includes/php/templates/user/_edit.php:401
+msgid "PING.FM"
+msgstr "PING.FM"
+
+#: includes/php/templates/user/_edit.php:408
+msgid "Application key"
+msgstr "Clé d'application"
+
+#: includes/php/templates/user/_edit.php:457
+#, php-format
+msgid "Nice try, but you can only edit <a href=\"%s\">your own account</a>."
+msgstr "Bel essai, mais vous ne pouvez éditer que <a href=\"%s\">votre propre compte</a>."
+
+#: includes/php/templates/user/_favorites.php:44
+#: includes/php/templates/user/_profile.php:143
+msgid "No favorite"
+msgstr "Aucun favori"
+
+#: includes/php/templates/user/_forgot_password.php:14
+msgid "Reset Your Password: Step 1"
+msgstr "Remise à jour de votre mot de passe: étape 1"
+
+#: includes/php/templates/user/_forgot_password.php:37
+#: includes/php/templates/user/_reset_password.php:53
+msgid "Reset Password"
+msgstr "Remise à jour du mot de passe"
+
+#: includes/php/templates/user/_friends.php:21
+#: includes/php/templates/user/_profile.php:53
+#: includes/php/templates/user/_profile.php:91
+msgid "Friends"
+msgstr "Ami(e)s"
+
+#: includes/php/templates/user/_friends.php:35
+#: includes/php/templates/user/_profile.php:109
+msgid "No friend yet"
+msgstr "Aucun ami(e) encore"
+
+#: includes/php/templates/user/_hcard.php:24
+msgid "User since"
+msgstr "Usager depuis"
+
+#: includes/php/templates/user/_hcard.php:25
+msgid "%a, %B %e %Y at %H:%M:%S"
+msgstr "%a, %B %e %Y at %H:%M:%S"
+
+#: includes/php/templates/user/_hcard.php:29
+msgid "Location"
+msgstr "Endroit"
+
+#: includes/php/templates/user/_hcard.php:52
+msgid "Remove from my friends"
+msgstr "Enlever de ma liste d'ami(e)s"
+
+#: includes/php/templates/user/_hcard.php:55
+msgid "Add to my friends"
+msgstr "Ajouter à ma liste d'ami(e)s"
+
+#: includes/php/templates/user/_hcard.php:61
+msgid "Manage your profile"
+msgstr "Gérer votre profil usager"
+
+#: includes/php/templates/user/_profile.php:55
+#: includes/php/templates/user/_profile.php:151
+#: includes/php/templates/user/_votes.php:21
+msgid "Votes"
+msgstr "Votes"
+
+#: includes/php/templates/user/_profile.php:106
+msgid "See all friends"
+msgstr "Voir tous les ami(e)s"
+
+#: includes/php/templates/user/_profile.php:140
+msgid "See all favorites"
+msgstr "Voir tous les favoris"
+
+#: includes/php/templates/user/_profile.php:181
+msgid "See all votes"
+msgstr "Voir tous les votes"
+
+#: includes/php/templates/user/_resend_email_confirmation.php:15
+msgid "Resend Email Confirmation"
+msgstr "Reconfirmer l'adresse courriel"
+
+#: includes/php/templates/user/_reset_password.php:14
+msgid "Reset Your Password: Step 2"
+msgstr "Remise à jour de votre mot de passe: étape 2"
+
+#: includes/php/templates/user/_votes.php:51
+msgid "No vote"
+msgstr "Aucun vote"
+
+#: praized-community.php:42
+msgid "Sorry, this plugin requires the standard PHP5 hash functions to be available (md5(), sha1()). Our simpler <a href=\"http://wordpress.org/extend/plugins/praized-tools/\">Praized Tools</a> plugin has less requirements."
+msgstr "Désolé, ce plugiciel requiert la fonction standard PHP5 hash (md5(), sha1()). Notre autre plugiciel, plus simple, du nom de <a href=\"http://wordpress.org/extend/plugins/praized-tools/\">Praized Tools</a> ne le nécessite pas."
+
+#: praized-community.php:45
+msgid "Sorry, this plugin requires PHP5 or above, but our <a href=\"http://wordpress.org/extend/plugins/praized-tools/\">Praized Tools</a> plugin is PHP4 compatible."
+msgstr "Désolé, ce plugiciel requiert PHP5 ou plus mais notre plugiciel <a href=\"http://wordpress.org/extend/plugins/praized-tools/\">Praized Tools</a> est compatible avec PHP4."
+
+#: praized-community.php:49
+msgid "<strong>PRAIZED COMMUNITY WARNING</strong>:"
+msgstr "<strong>AVERTISSEMENT COMMUNAUTÉ PRAIZED</strong>:"
+
+#~ msgid "About:"
+#~ msgstr "À propos:"
+#~ msgid "Claim to fame:"
+#~ msgstr "Ce qui vous démarque du commun des mortels:"
+
