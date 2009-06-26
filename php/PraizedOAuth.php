@@ -2,7 +2,7 @@
 /**
  * Praized OAuth handling library
  *
- * @version 2.0
+ * @version 2.0.1
  * @package Praized
  * @subpackage OAuth
  * @author Pier-Hugures Pellerin for Praized Media, Inc.
@@ -42,7 +42,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 		var $_encoder;
 
 		var $_net;
-		var $_version = '2.0';
+		var $_version = '2.0.1';
 		var $errors = array();
 	
 		var $_expirationTime = 1209600; // (14 * 24 * 3600);
@@ -320,7 +320,7 @@ if ( ! class_exists('PraizedOAuth') ) {
 
 			header("Location: $auth_url", false, 302);
 			echo $auth_url;
-			#exit;
+			exit;
 		}		
 		
 		/**
