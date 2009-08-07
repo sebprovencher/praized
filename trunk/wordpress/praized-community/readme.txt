@@ -169,6 +169,11 @@ our source in future releases. http://new.praizedmedia.com/en/contact
 == ChangeLog ==
 
 
+Version 2.0.1: 2009-06-26
+
+* Updated to praized-php-2.0.1.
+
+
 Version 2.0: 2009-04-29
 
 * Implemented a less intrusive (lightbox-based, optional) authorization process so that users do not
