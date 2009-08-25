@@ -1,0 +1,45 @@
+= Creating a new question =
+
+== Request Format ==
+
+This is a POST request
+{{{
+http://api.praized.com/{community_slug}/questions.{format}?api_key={your api key}
+}}}
+
+== POST XML Format ==
+
+{{{
+
+<?xml version="1.0" encoding="UTF-8"?>
+<question>
+  <content>Where are my keys ?? Seriously I looked everywhere</content>
+  <switch_toggle_status>simple</switch_toggle_status>
+</question>
+
+}}}
+
+== Response Format ==
+
+=== XML ===
+
+{{{
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+}}}
+=== JSON ===
+
+{{{
+
+
+}}}
+
+
+------
+
+Continue to
+
+Back to 
+
+Up to [API Our Index] 
