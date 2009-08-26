@@ -80,4 +80,7 @@ http://api.praized.com/{community_slug}/{resource_name}?api_key={your_api_key}
 
  * [Application_Ex1 Our next meeting place chooser - PHP Edition]
 
+=== Testing the api ===
+ * [Testing_cli How to work with OAuth for testing api calls from the command line]
+
 Copyright Praized Media 2008 Some rights reserved
