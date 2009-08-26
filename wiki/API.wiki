@@ -70,6 +70,14 @@ http://api.praized.com/{community_slug}/{resource_name}?api_key={your_api_key}
  * [GET_Buzz_Feed Getting a Praized Buzz Feed NEW!]
  * [GET_User_Feed Getting a User feed NEW!]
 
+=== Questions Endpoints ===
+
+ * [GET_Top_Questions Getting the top questions for a community]
+ * [GET_Question_Info Getting a question page]
+ * [GET_Answers_FOR_Question Getting the answers for the question]
+ * [POST_Question Adding a question]
+ * [POST_Answer Adding an answer to a question]
+
 == Complete examples ==
 
 === Steps to build a Praized community ===
