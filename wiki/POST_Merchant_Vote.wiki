@@ -1,6 +1,6 @@
 = Voting for a merchant =
 
-== Request Format ==
+== Request Format / require OAuth session ==
 
 This is a http POST Request
 

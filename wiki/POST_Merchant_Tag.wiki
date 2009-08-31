@@ -1,6 +1,6 @@
 = Adding a tag to a merchant =
 
-== Request Format ==
+== Request Format / require OAuth session ==
 
 This is a POST request (PUT is also supported)
 
