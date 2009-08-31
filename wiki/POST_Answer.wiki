@@ -1,5 +1,12 @@
 = Adding an answer to a specific question =
 
+== Request Format ==
+
+{{{
+	http://api.praized.com/{community_slug}/questions/{question_pid}/answers.{format}?page={page number}&per_page={number}&api_key={your api key}	
+}}}
+
+
 == POST Body ==
 
 === POST Text Format ===
