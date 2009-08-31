@@ -1,6 +1,6 @@
 = OAuth HTTP Headers =
 
-For authenticated API requests, OAuth HTTP Authorization headers must be sent. These headers are usually by your OAuth client library.
+For authenticated API requests, OAuth HTTP Authorization headers must be sent. *These headers are usually created by your OAuth client library*.
 
 For testing purposes, it is possible to setup a simple OAuth proxy to allow authenticated requests using tools like curl, see [Testing_cli Testing authenticated API calls from the command line using a OAuth proxy]
 
