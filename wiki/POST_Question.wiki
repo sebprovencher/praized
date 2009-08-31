@@ -3,7 +3,7 @@
 == Request Format ==
 
 {{{
-	http://api.praized.com/{community_slug}/questions.{format}?page={page number}&per_page={number}&api_key={your api key}	
+	http://api.praized.com/{community_slug}/questions.{format}?api_key={your api key}	
 }}}
 
 == POST Body ==
