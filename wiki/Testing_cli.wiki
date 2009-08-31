@@ -1,4 +1,4 @@
-= Testing OAuth authenticated API calls for the command line using a OAuth proxy. =
+= Testing authenticated API calls from the command line using a OAuth proxy. =
 
 Most of the instructions are from that site with small changes to make them work on praized.com
 
