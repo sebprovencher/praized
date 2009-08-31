@@ -1,6 +1,6 @@
 = Commenting on a merchant =
 
-== Request Format / [OAuth_Headers OAuth HTTP Authorization Headers] ==
+== Request Format / requires [OAuth_Headers OAuth HTTP Authorization Headers] ==
 
 This is a POST request (PUT is also supported) 
 {{{
