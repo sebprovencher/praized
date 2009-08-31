@@ -1,4 +1,4 @@
-= OAuth HTTP Headers =
+= OAuth HTTP Authorization Headers =
 
 For authenticated API requests, OAuth HTTP Authorization headers must be sent. *These headers are usually created by your OAuth client library*.
 
