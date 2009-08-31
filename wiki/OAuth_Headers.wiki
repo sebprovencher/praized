@@ -4,7 +4,7 @@ For authenticated API requests, OAuth HTTP Authorization headers must be sent. *
 
 For testing purposes, it is possible to setup a simple OAuth proxy to allow authenticated requests using tools like curl, see [Testing_cli Testing authenticated API calls from the command line using a OAuth proxy]
 
-Authorization is not necessary for read requests, but in some cases, if they are sent with the read request, more information specific to the currently logged user will be available. All HTTP verbs require authorization excep GET. OAuth authentication is explained in here (TODO link to relevant section).
+Authorization is not required for read requests, but in some cases, if they are sent with the read request, more information specific to the currently logged in user will be available.
 
 Here is an exemple of correctly sent HTTP Headers for a POST request : 
 {{{
