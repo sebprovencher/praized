@@ -1,6 +1,6 @@
 = Adding / Removing a user as a friend of the currently logged user =
 
-== Request Format / require OAuth session ==
+== Request Format / [OAuth_Headers OAuth HTTP Authorization Headers] ==
 
 This is a POST request. (PUT and DELETE are also supported) 
 {{{

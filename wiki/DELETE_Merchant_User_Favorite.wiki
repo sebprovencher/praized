@@ -1,6 +1,6 @@
 = Removing a merchant to the currently logged user's favorites =
 
-== Request Format / require OAuth session ==
+== Request Format / [OAuth_Headers OAuth HTTP Authorization Headers] ==
 
 This is a POST request (PUT and DELETE are also supported) 
 {{{

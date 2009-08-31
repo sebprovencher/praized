@@ -1,6 +1,6 @@
 = Adding a question =
 
-== Request Format / require OAuth session ==
+== Request Format / [OAuth_Headers OAuth HTTP Authorization Headers] ==
 
 {{{
 	http://api.praized.com/{community_slug}/questions.{format}?api_key={your api key}	

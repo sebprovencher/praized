@@ -1,6 +1,6 @@
 = Adding an answer to a specific question =
 
-== Request Format / require OAuth session ==
+== Request Format / [OAuth_Headers OAuth HTTP Authorization Headers] ==
 
 {{{
 	http://api.praized.com/{community_slug}/questions/{question_pid}/answers.{format}?&api_key={your api key}	
