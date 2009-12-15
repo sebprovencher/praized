@@ -1,7 +1,7 @@
 #labels Featured,Phase-Implementation,Phase-Deploy
 = Praized API Documentation =
 
-This is an draft version for the Praized API 1.0
+This is documentation is for the Praized API version 1.0
 
 Information in this document is valid but some specific calls are not documented (yet). 
 
